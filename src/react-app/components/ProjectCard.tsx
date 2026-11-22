@@ -64,7 +64,7 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
 
     return (
         <div
-            className="glass p-6 rounded-2xl hover:border-red-500/30 transition-all group cursor-pointer animate-fade-in relative"
+            className="glass p-6 rounded-2xl hover:border-[var(--accent-primary)]/30 transition-all group cursor-pointer animate-fade-in relative"
             onClick={() => onView(project)}
         >
             {/* Header */}
@@ -85,8 +85,8 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
                             setShowActions((prev) => !prev);
                         }}
                         className={`transition-all p-2 rounded-xl flex items-center justify-center ${showActions
-                            ? 'bg-red-600 text-white shadow-lg shadow-red-600/20'
-                            : 'text-[#8a8a8a] hover:text-[#222222] hover:bg-[#222222]/8'
+                            ? 'bg-[var(--accent-primary)] text-white shadow-lg shadow-[var(--accent-primary)]/20'
+                            : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)]'
                             }`}
                         aria-label="Project actions"
                         aria-expanded={showActions}
@@ -108,7 +108,7 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
                                 <div
                                     role="menu"
                                     aria-label="Project actions"
-                                    className="fixed w-44 bg-[#FFFFFF] border border-[#222222]/10 rounded-2xl shadow-2xl z-[9999] overflow-hidden animate-fade-in ring-1 ring-white/10"
+                                    className="fixed w-44 bg-[#FFFFFF] border border-[var(--border)] rounded-2xl shadow-2xl z-[9999] overflow-hidden animate-fade-in ring-1 ring-white/10"
                                     style={{
                                         top: `${dropdownPosition.top}px`,
                                         right: `${dropdownPosition.right}px`
@@ -124,14 +124,14 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
                                                 onEdit(project);
                                                 setShowActions(false);
                                             }}
-                                            className="w-full text-left px-3 py-2.5 text-sm text-[#444444] hover:bg-[#222222]/5 hover:text-[#222222] rounded-xl flex items-center gap-3 transition-all group"
+                                            className="w-full text-left px-3 py-2.5 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] rounded-xl flex items-center gap-3 transition-all group"
                                         >
-                                            <div className="w-8 h-8 rounded-lg bg-[#222222]/5 flex items-center justify-center group-hover:bg-red-600/10 group-hover:text-red-500">
+                                            <div className="w-8 h-8 rounded-lg bg-[var(--bg-tertiary)] flex items-center justify-center group-hover:bg-[var(--accent-primary)]/10 group-hover:text-[var(--accent-primary)]">
                                                 <Edit size={16} />
                                             </div>
                                             <span className="font-medium">Edit Project</span>
                                         </button>
-                                        <div className="h-px bg-[#222222]/5 mx-2" />
+                                        <div className="h-px bg-[var(--bg-tertiary)] mx-2" />
                                         <button
                                             type="button"
                                             role="menuitem"
@@ -141,9 +141,9 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
                                                 onDelete(project.id);
                                                 setShowActions(false);
                                             }}
-                                            className="w-full text-left px-3 py-2.5 text-sm text-red-500 hover:bg-red-500/10 rounded-xl flex items-center gap-3 transition-all group"
+                                            className="w-full text-left px-3 py-2.5 text-sm text-[var(--accent-primary)] hover:bg-red-500/10 rounded-xl flex items-center gap-3 transition-all group"
                                         >
-                                            <div className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center group-hover:bg-red-500 group-hover:text-[#222222]">
+                                            <div className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center group-hover:bg-red-500 group-hover:text-[var(--text-primary)]">
                                                 <Trash2 size={16} />
                                             </div>
                                             <span className="font-medium">Delete Project</span>
@@ -157,17 +157,17 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
             </div>
 
             {/* Project Title */}
-            <h3 className="text-xl font-display font-bold mb-2 group-hover:text-red-500 transition-colors line-clamp-2">
+            <h3 className="text-xl font-display font-bold mb-2 group-hover:text-[var(--accent-primary)] transition-colors line-clamp-2">
                 {project.title}
             </h3>
 
             {/* Client & Location */}
             <div className="space-y-2 mb-6">
-                <div className="flex items-center gap-2 text-sm text-[#5a5a5a]">
+                <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
                     <User size={14} />
                     <span className="line-clamp-1">{project.clientName}</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-[#5a5a5a]">
+                <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
                     <MapPin size={14} />
                     <span className="line-clamp-1">{project.location}</span>
                 </div>
@@ -185,24 +185,24 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
             </div>
 
             {/* Submissions Summary */}
-            <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-[#222222]/5 rounded-xl">
+            <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-[var(--bg-tertiary)] rounded-xl">
                 <div>
-                    <p className="text-xs text-[#8a8a8a] mb-1">Pending</p>
+                    <p className="text-xs text-[var(--text-muted)] mb-1">Pending</p>
                     <p className="text-lg font-bold text-amber-500">{pendingSubmissions}</p>
                 </div>
                 <div>
-                    <p className="text-xs text-[#8a8a8a] mb-1">Approved</p>
+                    <p className="text-xs text-[var(--text-muted)] mb-1">Approved</p>
                     <p className="text-lg font-bold text-green-500">{approvedSubmissions}</p>
                 </div>
             </div>
 
             {/* Footer */}
-            <div className="pt-6 border-t border-[#222222]/8 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2 text-[#8a8a8a]">
+            <div className="pt-6 border-t border-[var(--border)] flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2 text-[var(--text-muted)]">
                     <Calendar size={14} />
                     <span>Due {new Date(project.targetCompletionDate || project.startDate).toLocaleDateString('en-MY', { month: 'short', year: 'numeric' })}</span>
                 </div>
-                <div className="flex items-center gap-1 text-[#444444] font-semibold">
+                <div className="flex items-center gap-1 text-[var(--text-secondary)] font-semibold">
                     <DollarSign size={14} />
                     <span>RM {(totalFees / 1000).toFixed(1)}K</span>
                 </div>

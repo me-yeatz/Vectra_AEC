@@ -66,7 +66,7 @@ const submissionTypeLabels: Record<string, string> = {
 function SubmissionCard({ sub, index }: { sub: Submission; index: number }) {
     const sc = submissionStatusConfig[sub.status] ?? { label: sub.status, color: '#94a3b8' };
     return (
-        <div className="bg-[#222222]/5 border border-[#222222]/8 rounded-2xl p-6 hover:border-[#222222]/10 transition-all">
+        <div className="bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-2xl p-6 hover:border-[var(--border)] transition-all">
             <div className="flex items-start justify-between mb-4 gap-3 flex-wrap">
                 <div className="flex items-center gap-3">
                     <div
@@ -76,10 +76,10 @@ function SubmissionCard({ sub, index }: { sub: Submission; index: number }) {
                         {index + 1}
                     </div>
                     <div>
-                        <h4 className="font-semibold text-[#222222]">
+                        <h4 className="font-semibold text-[var(--text-primary)]">
                             {submissionTypeLabels[sub.type] ?? sub.type}
                         </h4>
-                        <p className="text-sm text-[#5a5a5a]">{sub.authority}</p>
+                        <p className="text-sm text-[var(--text-secondary)]">{sub.authority}</p>
                     </div>
                 </div>
                 <span
@@ -92,28 +92,28 @@ function SubmissionCard({ sub, index }: { sub: Submission; index: number }) {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                 <div>
-                    <p className="text-xs text-[#8a8a8a] mb-1">Consultant Fee</p>
+                    <p className="text-xs text-[var(--text-muted)] mb-1">Consultant Fee</p>
                     <p className="text-base font-bold text-green-400">RM {sub.consultantFee.toLocaleString()}</p>
                 </div>
                 {sub.submittedDate && (
                     <div>
-                        <p className="text-xs text-[#8a8a8a] mb-1">Submitted</p>
-                        <p className="text-sm text-[#333333]">
+                        <p className="text-xs text-[var(--text-muted)] mb-1">Submitted</p>
+                        <p className="text-sm text-[var(--text-primary)]">
                             {new Date(sub.submittedDate).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' })}
                         </p>
                     </div>
                 )}
                 {sub.expectedApprovalDate && (
                     <div>
-                        <p className="text-xs text-[#8a8a8a] mb-1">Expected Approval</p>
-                        <p className="text-sm text-[#333333]">
+                        <p className="text-xs text-[var(--text-muted)] mb-1">Expected Approval</p>
+                        <p className="text-sm text-[var(--text-primary)]">
                             {new Date(sub.expectedApprovalDate).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' })}
                         </p>
                     </div>
                 )}
                 {sub.approvalDate && (
                     <div>
-                        <p className="text-xs text-[#8a8a8a] mb-1">Approved On</p>
+                        <p className="text-xs text-[var(--text-muted)] mb-1">Approved On</p>
                         <p className="text-sm text-green-400 font-medium">
                             {new Date(sub.approvalDate).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' })}
                         </p>
@@ -124,7 +124,7 @@ function SubmissionCard({ sub, index }: { sub: Submission; index: number }) {
             {sub.notes && (
                 <div className="mt-2 p-3 bg-amber-500/5 border border-amber-500/15 rounded-xl">
                     <p className="text-xs text-amber-400 font-medium mb-1">Notes</p>
-                    <p className="text-sm text-[#444444]">{sub.notes}</p>
+                    <p className="text-sm text-[var(--text-secondary)]">{sub.notes}</p>
                 </div>
             )}
         </div>
@@ -265,10 +265,10 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
         <div className="animate-fade-in max-w-6xl mx-auto px-4 sm:px-6">
 
             {/* ── Sticky top bar ── */}
-            <div className="sticky top-0 z-30 px-2 py-4 mb-8 bg-[#F6F4F1]/90 backdrop-blur-xl border-b border-[#222222]/8 flex items-center justify-between gap-4">
+            <div className="sticky top-0 z-30 px-2 py-4 mb-8 bg-[var(--bg-primary)]/90 backdrop-blur-xl border-b border-[var(--border)] flex items-center justify-between gap-4">
                 <button
                     onClick={onBack}
-                    className="flex items-center gap-2 text-[#5a5a5a] hover:text-[#222222] transition-colors text-sm font-medium"
+                    className="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-sm font-medium"
                 >
                     <ArrowLeft size={18} />
                     Back to Projects
@@ -276,14 +276,14 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                 <div className="flex items-center gap-3">
                     <button
                         onClick={handleDelete}
-                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-all"
+                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-[var(--accent-primary)] hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-all"
                     >
                         <Trash2 size={15} />
                         Delete
                     </button>
                     <button
                         onClick={() => onEdit(project)}
-                        className="flex items-center gap-2 px-5 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-xl transition-all active:scale-95 shadow-lg shadow-red-600/20"
+                        className="flex items-center gap-2 px-5 py-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white text-sm font-medium rounded-xl transition-all active:scale-95 shadow-lg shadow-[var(--accent-primary)]/20"
                     >
                         <Edit size={15} />
                         Edit Project
@@ -312,11 +312,11 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                                 <StatusIcon size={14} />
                                 {cfg.label}
                             </span>
-                            <span className="flex items-center gap-1.5 text-sm text-[#5a5a5a]">
+                            <span className="flex items-center gap-1.5 text-sm text-[var(--text-secondary)]">
                                 <MapPin size={14} />
                                 {project.location}
                             </span>
-                            <span className="flex items-center gap-1.5 text-sm text-[#5a5a5a]">
+                            <span className="flex items-center gap-1.5 text-sm text-[var(--text-secondary)]">
                                 <Hash size={14} />
                                 {project.id}
                             </span>
@@ -368,8 +368,8 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                         >
                             {stat.icon}
                         </div>
-                        <p className="text-xs text-[#8a8a8a] mb-1">{stat.label}</p>
-                        <p className="text-2xl font-display font-bold text-[#222222]">{stat.value}</p>
+                        <p className="text-xs text-[var(--text-muted)] mb-1">{stat.label}</p>
+                        <p className="text-2xl font-display font-bold text-[var(--text-primary)]">{stat.value}</p>
                     </div>
                 ))}
             </div>
@@ -382,30 +382,30 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
 
                     {/* Client Contact */}
                     <section className="glass rounded-2xl p-6">
-                        <h2 className="text-base font-semibold text-[#222222] mb-5 flex items-center gap-2">
-                            <div className="w-7 h-7 rounded-lg bg-red-600/15 flex items-center justify-center">
-                                <User size={14} className="text-red-400" />
+                        <h2 className="text-base font-semibold text-[var(--text-primary)] mb-5 flex items-center gap-2">
+                            <div className="w-7 h-7 rounded-lg bg-[var(--accent-primary)]/15 flex items-center justify-center">
+                                <User size={14} className="text-[var(--accent-primary)]" />
                             </div>
                             Client Contact
                         </h2>
                         <div className="space-y-4">
                             <div>
-                                <p className="text-xs text-[#8a8a8a] uppercase tracking-wide mb-1">Full Name</p>
-                                <p className="text-sm font-semibold text-[#222222]">{project.clientName}</p>
+                                <p className="text-xs text-[var(--text-muted)] uppercase tracking-wide mb-1">Full Name</p>
+                                <p className="text-sm font-semibold text-[var(--text-primary)]">{project.clientName}</p>
                             </div>
 
                             {project.clientCompany && (
                                 <div>
-                                    <p className="text-xs text-[#8a8a8a] uppercase tracking-wide mb-1">Company</p>
-                                    <p className="text-sm text-[#333333] flex items-center gap-2">
-                                        <Building2 size={13} className="text-[#5a5a5a] shrink-0" />
+                                    <p className="text-xs text-[var(--text-muted)] uppercase tracking-wide mb-1">Company</p>
+                                    <p className="text-sm text-[var(--text-primary)] flex items-center gap-2">
+                                        <Building2 size={13} className="text-[var(--text-secondary)] shrink-0" />
                                         {project.clientCompany}
                                     </p>
                                 </div>
                             )}
 
                             <div>
-                                <p className="text-xs text-[#8a8a8a] uppercase tracking-wide mb-2">Phone</p>
+                                <p className="text-xs text-[var(--text-muted)] uppercase tracking-wide mb-2">Phone</p>
                                 {project.clientPhone ? (
                                     <a
                                         href={`tel:${project.clientPhone}`}
@@ -417,12 +417,12 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                                         {project.clientPhone}
                                     </a>
                                 ) : (
-                                    <p className="text-sm text-[#8a8a8a] italic">Not provided</p>
+                                    <p className="text-sm text-[var(--text-muted)] italic">Not provided</p>
                                 )}
                             </div>
 
                             <div>
-                                <p className="text-xs text-[#8a8a8a] uppercase tracking-wide mb-2">Email</p>
+                                <p className="text-xs text-[var(--text-muted)] uppercase tracking-wide mb-2">Email</p>
                                 {project.clientEmail ? (
                                     <a
                                         href={`mailto:${project.clientEmail}`}
@@ -434,7 +434,7 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                                         {project.clientEmail}
                                     </a>
                                 ) : (
-                                    <p className="text-sm text-[#8a8a8a] italic">Not provided</p>
+                                    <p className="text-sm text-[var(--text-muted)] italic">Not provided</p>
                                 )}
                             </div>
                         </div>
@@ -442,17 +442,17 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
 
                     {/* Project Dates */}
                     <section className="glass rounded-2xl p-6">
-                        <h2 className="text-base font-semibold text-[#222222] mb-5 flex items-center gap-2">
-                            <div className="w-7 h-7 rounded-lg bg-red-600/15 flex items-center justify-center">
-                                <Calendar size={14} className="text-red-400" />
+                        <h2 className="text-base font-semibold text-[var(--text-primary)] mb-5 flex items-center gap-2">
+                            <div className="w-7 h-7 rounded-lg bg-[var(--accent-primary)]/15 flex items-center justify-center">
+                                <Calendar size={14} className="text-[var(--accent-primary)]" />
                             </div>
                             Timeline
                         </h2>
                         <div className="space-y-4">
                             <div>
-                                <p className="text-xs text-[#8a8a8a] uppercase tracking-wide mb-1">Start Date</p>
-                                <p className="text-sm text-[#333333] flex items-center gap-2">
-                                    <Calendar size={13} className="text-[#5a5a5a] shrink-0" />
+                                <p className="text-xs text-[var(--text-muted)] uppercase tracking-wide mb-1">Start Date</p>
+                                <p className="text-sm text-[var(--text-primary)] flex items-center gap-2">
+                                    <Calendar size={13} className="text-[var(--text-secondary)] shrink-0" />
                                     {new Date(project.startDate).toLocaleDateString('en-MY', {
                                         day: 'numeric', month: 'long', year: 'numeric'
                                     })}
@@ -460,8 +460,8 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                             </div>
                             {project.targetCompletionDate && (
                                 <div>
-                                    <p className="text-xs text-[#8a8a8a] uppercase tracking-wide mb-1">Target Completion</p>
-                                    <p className="text-sm text-[#333333] flex items-center gap-2">
+                                    <p className="text-xs text-[var(--text-muted)] uppercase tracking-wide mb-1">Target Completion</p>
+                                    <p className="text-sm text-[var(--text-primary)] flex items-center gap-2">
                                         <CalendarCheck size={13} className="text-amber-400 shrink-0" />
                                         {new Date(project.targetCompletionDate).toLocaleDateString('en-MY', {
                                             day: 'numeric', month: 'long', year: 'numeric'
@@ -471,7 +471,7 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                             )}
                             {project.actualCompletionDate && (
                                 <div>
-                                    <p className="text-xs text-[#8a8a8a] uppercase tracking-wide mb-1">Actual Completion</p>
+                                    <p className="text-xs text-[var(--text-muted)] uppercase tracking-wide mb-1">Actual Completion</p>
                                     <p className="text-sm text-green-400 flex items-center gap-2 font-medium">
                                         <CheckCircle2 size={13} className="shrink-0" />
                                         {new Date(project.actualCompletionDate).toLocaleDateString('en-MY', {
@@ -485,31 +485,31 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
 
                     {/* Financial summary */}
                     <section className="glass rounded-2xl p-6">
-                        <h2 className="text-base font-semibold text-[#222222] mb-5 flex items-center gap-2">
-                            <div className="w-7 h-7 rounded-lg bg-red-600/15 flex items-center justify-center">
-                                <DollarSign size={14} className="text-red-400" />
+                        <h2 className="text-base font-semibold text-[var(--text-primary)] mb-5 flex items-center gap-2">
+                            <div className="w-7 h-7 rounded-lg bg-[var(--accent-primary)]/15 flex items-center justify-center">
+                                <DollarSign size={14} className="text-[var(--accent-primary)]" />
                             </div>
                             Financials
                         </h2>
                         <div className="space-y-3">
                             {project.totalBudget && (
-                                <div className="flex justify-between items-center py-2 border-b border-[#222222]/8">
-                                    <span className="text-sm text-[#5a5a5a]">Total Budget</span>
-                                    <span className="text-sm font-semibold text-[#222222]">
+                                <div className="flex justify-between items-center py-2 border-b border-[var(--border)]">
+                                    <span className="text-sm text-[var(--text-secondary)]">Total Budget</span>
+                                    <span className="text-sm font-semibold text-[var(--text-primary)]">
                                         RM {project.totalBudget.toLocaleString()}
                                     </span>
                                 </div>
                             )}
-                            <div className="flex justify-between items-center py-2 border-b border-[#222222]/8">
-                                <span className="text-sm text-[#5a5a5a]">Consultant Fees</span>
+                            <div className="flex justify-between items-center py-2 border-b border-[var(--border)]">
+                                <span className="text-sm text-[var(--text-secondary)]">Consultant Fees</span>
                                 <span className="text-sm font-semibold text-green-400">
                                     RM {totalFees.toLocaleString()}
                                 </span>
                             </div>
                             {project.totalBudget && (
                                 <div className="flex justify-between items-center py-2">
-                                    <span className="text-sm text-[#5a5a5a]">Fee / Budget ratio</span>
-                                    <span className="text-sm font-semibold text-[#333333]">
+                                    <span className="text-sm text-[var(--text-secondary)]">Fee / Budget ratio</span>
+                                    <span className="text-sm font-semibold text-[var(--text-primary)]">
                                         {((totalFees / project.totalBudget) * 100).toFixed(1)}%
                                     </span>
                                 </div>
@@ -523,13 +523,13 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
 
                     {/* Description */}
                     <section className="glass rounded-2xl p-6">
-                        <h2 className="text-base font-semibold text-[#222222] mb-4 flex items-center gap-2">
-                            <div className="w-7 h-7 rounded-lg bg-red-600/15 flex items-center justify-center">
-                                <FileText size={14} className="text-red-400" />
+                        <h2 className="text-base font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+                            <div className="w-7 h-7 rounded-lg bg-[var(--accent-primary)]/15 flex items-center justify-center">
+                                <FileText size={14} className="text-[var(--accent-primary)]" />
                             </div>
                             Project Description
                         </h2>
-                        <p className="text-[#444444] text-sm leading-relaxed">{project.description}</p>
+                        <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{project.description}</p>
                     </section>
 
                     {/* Internal Notes */}
@@ -541,25 +541,25 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                                 </div>
                                 Internal Notes
                             </h2>
-                            <p className="text-[#444444] text-sm leading-relaxed">{project.notes}</p>
+                            <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{project.notes}</p>
                         </section>
                     )}
 
                     {/* Site Photos */}
                     <section className="glass rounded-2xl p-6">
                         <div className="flex items-center justify-between mb-4">
-                            <h2 className="text-base font-semibold text-[#222222] flex items-center gap-2">
-                                <div className="w-7 h-7 rounded-lg bg-red-600/15 flex items-center justify-center">
-                                    <ImageIcon size={14} className="text-red-400" />
+                            <h2 className="text-base font-semibold text-[var(--text-primary)] flex items-center gap-2">
+                                <div className="w-7 h-7 rounded-lg bg-[var(--accent-primary)]/15 flex items-center justify-center">
+                                    <ImageIcon size={14} className="text-[var(--accent-primary)]" />
                                 </div>
                                 Site Photos
-                                <span className="text-xs font-normal text-[#8a8a8a] ml-1">
+                                <span className="text-xs font-normal text-[var(--text-muted)] ml-1">
                                     ({(project.sitePhotos || []).length})
                                 </span>
                             </h2>
                             <button
                                 onClick={() => fileInputRef.current?.click()}
-                                className="flex items-center gap-2 px-3 py-1.5 bg-[#222222]/5 hover:bg-[#222222]/8 border border-[#222222]/10 rounded-xl text-sm font-medium transition-all"
+                                className="flex items-center gap-2 px-3 py-1.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl text-sm font-medium transition-all"
                             >
                                 <Upload size={14} />
                                 Upload
@@ -574,17 +574,17 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                             />
                         </div>
                         {(project.sitePhotos || []).length === 0 ? (
-                            <div className="p-8 text-center text-[#8a8a8a] text-sm border border-dashed border-[#222222]/10 rounded-xl">
+                            <div className="p-8 text-center text-[var(--text-muted)] text-sm border border-dashed border-[var(--border)] rounded-xl">
                                 No site photos uploaded yet
                             </div>
                         ) : (
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                 {(project.sitePhotos || []).map((photo, idx) => (
-                                    <div key={idx} className="relative group rounded-xl overflow-hidden border border-[#222222]/10 aspect-square bg-[#222222]/5">
+                                    <div key={idx} className="relative group rounded-xl overflow-hidden border border-[var(--border)] aspect-square bg-[var(--bg-tertiary)]">
                                         <img src={photo} alt={`Site photo ${idx + 1}`} className="w-full h-full object-cover" />
                                         <button
                                             onClick={() => removePhoto(idx)}
-                                            className="absolute top-2 right-2 p-1.5 bg-black/60 hover:bg-red-600 text-[#222222] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                                            className="absolute top-2 right-2 p-1.5 bg-black/60 hover:bg-[var(--accent-primary)] text-[var(--text-primary)] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
                                             title="Remove photo"
                                         >
                                             <Trash2 size={14} />
@@ -598,18 +598,18 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                     {/* Invoices */}
                     <section className="glass rounded-2xl p-6">
                         <div className="flex items-center justify-between mb-4">
-                            <h2 className="text-base font-semibold text-[#222222] flex items-center gap-2">
-                                <div className="w-7 h-7 rounded-lg bg-red-600/15 flex items-center justify-center">
-                                    <Receipt size={14} className="text-red-400" />
+                            <h2 className="text-base font-semibold text-[var(--text-primary)] flex items-center gap-2">
+                                <div className="w-7 h-7 rounded-lg bg-[var(--accent-primary)]/15 flex items-center justify-center">
+                                    <Receipt size={14} className="text-[var(--accent-primary)]" />
                                 </div>
                                 Invoices
-                                <span className="text-xs font-normal text-[#8a8a8a] ml-1">
+                                <span className="text-xs font-normal text-[var(--text-muted)] ml-1">
                                     ({(project.invoices || []).length})
                                 </span>
                             </h2>
                             <button
                                 onClick={() => setShowInvoiceForm(v => !v)}
-                                className="flex items-center gap-2 px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-medium transition-all"
+                                className="flex items-center gap-2 px-3 py-1.5 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-xl text-sm font-medium transition-all"
                             >
                                 <PlusCircle size={14} />
                                 New Invoice
@@ -617,25 +617,25 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                         </div>
 
                         {showInvoiceForm && (
-                            <div className="mb-5 p-4 bg-[#222222]/5 rounded-xl border border-[#222222]/10 space-y-3">
+                            <div className="mb-5 p-4 bg-[var(--bg-tertiary)] rounded-xl border border-[var(--border)] space-y-3">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     <div>
-                                        <label className="text-xs text-[#5a5a5a] mb-1 block">Amount (RM) *</label>
+                                        <label className="text-xs text-[var(--text-secondary)] mb-1 block">Amount (RM) *</label>
                                         <input
                                             type="number"
                                             min="0"
                                             step="0.01"
                                             value={invoiceForm.amount}
                                             onChange={e => setInvoiceForm(f => ({ ...f, amount: e.target.value }))}
-                                            className="w-full px-3 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                                            className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                                         />
                                     </div>
                                     <div>
-                                        <label className="text-xs text-[#5a5a5a] mb-1 block">Status</label>
+                                        <label className="text-xs text-[var(--text-secondary)] mb-1 block">Status</label>
                                         <select
                                             value={invoiceForm.status}
                                             onChange={e => setInvoiceForm(f => ({ ...f, status: e.target.value as 'draft' | 'sent' | 'paid' }))}
-                                            className="w-full px-3 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg text-sm text-[#222222] focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                                            className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-lg text-sm text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                                             style={{ colorScheme: 'dark' }}
                                         >
                                             <option value="draft" className="bg-[#FFFFFF]">Draft</option>
@@ -644,53 +644,53 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="text-xs text-[#5a5a5a] mb-1 block">Issued Date</label>
+                                        <label className="text-xs text-[var(--text-secondary)] mb-1 block">Issued Date</label>
                                         <input
                                             type="date"
                                             value={invoiceForm.issuedDate}
                                             onChange={e => setInvoiceForm(f => ({ ...f, issuedDate: e.target.value }))}
-                                            className="w-full px-3 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                                            className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                                         />
                                     </div>
                                     <div>
-                                        <label className="text-xs text-[#5a5a5a] mb-1 block">Due Date</label>
+                                        <label className="text-xs text-[var(--text-secondary)] mb-1 block">Due Date</label>
                                         <input
                                             type="date"
                                             value={invoiceForm.dueDate}
                                             onChange={e => setInvoiceForm(f => ({ ...f, dueDate: e.target.value }))}
-                                            className="w-full px-3 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                                            className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                                         />
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="text-xs text-[#5a5a5a] mb-1 block">Description *</label>
+                                    <label className="text-xs text-[var(--text-secondary)] mb-1 block">Description *</label>
                                     <textarea
                                         rows={2}
                                         value={invoiceForm.description}
                                         onChange={e => setInvoiceForm(f => ({ ...f, description: e.target.value }))}
                                         placeholder="e.g., Consultant fee for planning permission submission"
-                                        className="w-full px-3 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                                        className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-xs text-[#5a5a5a] mb-1 block">Notes</label>
+                                    <label className="text-xs text-[var(--text-secondary)] mb-1 block">Notes</label>
                                     <textarea
                                         rows={2}
                                         value={invoiceForm.notes}
                                         onChange={e => setInvoiceForm(f => ({ ...f, notes: e.target.value }))}
-                                        className="w-full px-3 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                                        className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                                     />
                                 </div>
                                 <div className="flex gap-2 justify-end">
                                     <button
                                         onClick={() => { setShowInvoiceForm(false); resetInvoiceForm(); }}
-                                        className="px-3 py-1.5 bg-[#222222]/5 hover:bg-[#222222]/8 rounded-lg text-sm"
+                                        className="px-3 py-1.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-lg text-sm"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         onClick={saveInvoice}
-                                        className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium"
+                                        className="px-3 py-1.5 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-lg text-sm font-medium"
                                     >
                                         Save Invoice
                                     </button>
@@ -699,25 +699,25 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                         )}
 
                         {(project.invoices || []).length === 0 ? (
-                            <div className="p-6 text-center text-[#8a8a8a] text-sm border border-dashed border-[#222222]/10 rounded-xl">
+                            <div className="p-6 text-center text-[var(--text-muted)] text-sm border border-dashed border-[var(--border)] rounded-xl">
                                 No invoices yet
                             </div>
                         ) : (
                             <div className="space-y-3">
                                 {(project.invoices || []).map(inv => (
-                                    <div key={inv.id} className="p-4 bg-[#222222]/5 rounded-xl border border-[#222222]/8">
+                                    <div key={inv.id} className="p-4 bg-[var(--bg-tertiary)] rounded-xl border border-[var(--border)]">
                                         <div className="flex items-start justify-between gap-3 flex-wrap">
                                             <div>
                                                 <div className="flex items-center gap-2 mb-1">
-                                                    <span className="font-semibold text-[#222222] text-sm">{inv.number}</span>
+                                                    <span className="font-semibold text-[var(--text-primary)] text-sm">{inv.number}</span>
                                                     <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
                                                         inv.status === 'paid' ? 'bg-green-500/20 text-green-400' :
                                                         inv.status === 'sent' ? 'bg-blue-500/20 text-blue-400' :
-                                                        'bg-slate-500/20 text-[#444444]'
+                                                        'bg-slate-500/20 text-[var(--text-secondary)]'
                                                     }`}>{inv.status.toUpperCase()}</span>
                                                 </div>
-                                                <p className="text-xs text-[#5a5a5a] mb-1">{inv.description}</p>
-                                                <p className="text-xs text-[#8a8a8a]">
+                                                <p className="text-xs text-[var(--text-secondary)] mb-1">{inv.description}</p>
+                                                <p className="text-xs text-[var(--text-muted)]">
                                                     Issued {new Date(inv.issuedDate).toLocaleDateString('en-MY')}
                                                     {inv.dueDate ? ` · Due ${new Date(inv.dueDate).toLocaleDateString('en-MY')}` : ''}
                                                 </p>
@@ -727,21 +727,21 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                                                 <div className="flex gap-2 mt-2 justify-end">
                                                     <button
                                                         onClick={() => exportInvoice(inv)}
-                                                        className="flex items-center gap-1 px-2.5 py-1.5 bg-[#222222]/5 hover:bg-[#222222]/8 rounded-lg text-xs font-medium transition-all"
+                                                        className="flex items-center gap-1 px-2.5 py-1.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-lg text-xs font-medium transition-all"
                                                         title="Export / Print"
                                                     >
                                                         <Printer size={12} /> Export
                                                     </button>
                                                     <button
                                                         onClick={() => emailInvoice(inv)}
-                                                        className="flex items-center gap-1 px-2.5 py-1.5 bg-[#222222]/5 hover:bg-[#222222]/8 rounded-lg text-xs font-medium transition-all"
+                                                        className="flex items-center gap-1 px-2.5 py-1.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-lg text-xs font-medium transition-all"
                                                         title="Email to client"
                                                     >
                                                         <Send size={12} /> Email
                                                     </button>
                                                     <button
                                                         onClick={() => deleteInvoice(inv.id)}
-                                                        className="flex items-center gap-1 px-2.5 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg text-xs font-medium transition-all"
+                                                        className="flex items-center gap-1 px-2.5 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-[var(--accent-primary)] rounded-lg text-xs font-medium transition-all"
                                                         title="Delete"
                                                     >
                                                         <Trash2 size={12} />
@@ -750,7 +750,7 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                                             </div>
                                         </div>
                                         {inv.notes && (
-                                            <p className="mt-2 text-xs text-[#5a5a5a] italic">{inv.notes}</p>
+                                            <p className="mt-2 text-xs text-[var(--text-secondary)] italic">{inv.notes}</p>
                                         )}
                                     </div>
                                 ))}
@@ -761,17 +761,17 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                     {/* Submissions */}
                     <section>
                         <div className="flex items-center justify-between mb-5">
-                            <h2 className="text-base font-semibold text-[#222222] flex items-center gap-2">
-                                <div className="w-7 h-7 rounded-lg bg-red-600/15 flex items-center justify-center">
-                                    <Layers size={14} className="text-red-400" />
+                            <h2 className="text-base font-semibold text-[var(--text-primary)] flex items-center gap-2">
+                                <div className="w-7 h-7 rounded-lg bg-[var(--accent-primary)]/15 flex items-center justify-center">
+                                    <Layers size={14} className="text-[var(--accent-primary)]" />
                                 </div>
                                 Regulatory Submissions
-                                <span className="text-xs font-normal text-[#8a8a8a] ml-1">
+                                <span className="text-xs font-normal text-[var(--text-muted)] ml-1">
                                     ({project.submissions.length})
                                 </span>
                             </h2>
                             {/* Submission mini legend */}
-                            <div className="hidden sm:flex items-center gap-3 text-xs text-[#8a8a8a]">
+                            <div className="hidden sm:flex items-center gap-3 text-xs text-[var(--text-muted)]">
                                 {[
                                     { color: '#f59e0b', label: 'Pending' },
                                     { color: '#059669', label: 'Approved' },
@@ -789,7 +789,7 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                         {project.submissions.length === 0 ? (
                             <div className="glass rounded-2xl p-12 text-center">
                                 <Layers size={32} className="mx-auto mb-3 text-[#9a9a9a]" />
-                                <p className="text-[#5a5a5a] font-medium">No submissions yet</p>
+                                <p className="text-[var(--text-secondary)] font-medium">No submissions yet</p>
                                 <p className="text-[#9a9a9a] text-sm mt-1">Submissions will appear here once added</p>
                             </div>
                         ) : (
@@ -804,10 +804,10 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
             </div>
 
             {/* ── Bottom action bar ── */}
-            <div className="sticky bottom-0 px-2 py-4 bg-[#F6F4F1]/90 backdrop-blur-xl border-t border-[#222222]/8 flex items-center justify-between gap-4">
+            <div className="sticky bottom-0 px-2 py-4 bg-[var(--bg-primary)]/90 backdrop-blur-xl border-t border-[var(--border)] flex items-center justify-between gap-4">
                 <button
                     onClick={onBack}
-                    className="flex items-center gap-2 text-[#5a5a5a] hover:text-[#222222] transition-colors text-sm font-medium"
+                    className="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-sm font-medium"
                 >
                     <ArrowLeft size={18} />
                     Back to Projects
@@ -815,14 +815,14 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                 <div className="flex items-center gap-3">
                     <button
                         onClick={handleDelete}
-                        className="text-sm text-red-400 hover:text-red-300 transition-colors flex items-center gap-1.5"
+                        className="text-sm text-[var(--accent-primary)] hover:text-red-300 transition-colors flex items-center gap-1.5"
                     >
                         <Trash2 size={14} />
                         Delete project
                     </button>
                     <button
                         onClick={() => onEdit(project)}
-                        className="flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-xl transition-all active:scale-95 shadow-lg shadow-red-600/20"
+                        className="flex items-center gap-2 px-5 py-2.5 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white text-sm font-medium rounded-xl transition-all active:scale-95 shadow-lg shadow-[var(--accent-primary)]/20"
                     >
                         <Edit size={15} />
                         Edit Project

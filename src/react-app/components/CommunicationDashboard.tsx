@@ -66,18 +66,18 @@ export default function CommunicationDashboard({
             case 'ai-responded': return 'text-green-400 bg-green-500/10';
             case 'escalated': return 'text-amber-400 bg-amber-500/10';
             case 'resolved': return 'text-emerald-400 bg-emerald-500/10';
-            case 'archived': return 'text-[#5a5a5a] bg-slate-500/10';
-            default: return 'text-[#5a5a5a] bg-slate-500/10';
+            case 'archived': return 'text-[var(--text-secondary)] bg-slate-500/10';
+            default: return 'text-[var(--text-secondary)] bg-slate-500/10';
         }
     };
 
     const getPriorityColor = (priority: MessagePriority) => {
         switch (priority) {
-            case 'urgent': return 'text-red-400 bg-red-500/20';
+            case 'urgent': return 'text-[var(--accent-primary)] bg-red-500/20';
             case 'high': return 'text-orange-400 bg-orange-500/20';
             case 'medium': return 'text-yellow-400 bg-yellow-500/20';
-            case 'low': return 'text-[#5a5a5a] bg-slate-500/20';
-            default: return 'text-[#5a5a5a] bg-slate-500/20';
+            case 'low': return 'text-[var(--text-secondary)] bg-slate-500/20';
+            default: return 'text-[var(--text-secondary)] bg-slate-500/20';
         }
     };
 
@@ -118,11 +118,11 @@ export default function CommunicationDashboard({
             {/* Controls */}
             <div className="flex items-center justify-between gap-4 flex-wrap">
                 <div className="relative group flex-1 max-w-md">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8a8a8a] group-focus-within:text-red-500 transition-colors" size={18} />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] group-focus-within:text-[var(--accent-primary)] transition-colors" size={18} />
                     <input
                         type="text"
                         placeholder="Search messages, clients, phone numbers..."
-                        className="pl-12 pr-6 py-3 bg-[#222222]/5 border border-[#222222]/8 rounded-2xl w-full focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all focus:bg-[#222222]/8"
+                        className="pl-12 pr-6 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-2xl w-full focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all focus:bg-[var(--bg-tertiary)]"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
@@ -132,7 +132,7 @@ export default function CommunicationDashboard({
                     {onMarkAllAsRead && messages.some(m => !m.isRead && (m.status === 'new' || m.requiresHumanReview)) && (
                         <button
                             onClick={onMarkAllAsRead}
-                            className="flex items-center gap-2 px-4 py-3 bg-[#222222]/5 border border-[#222222]/8 hover:bg-[#222222]/8 text-[#444444] hover:text-[#222222] rounded-xl text-sm font-medium transition-all"
+                            className="flex items-center gap-2 px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-xl text-sm font-medium transition-all"
                             title="Mark all messages as read"
                         >
                             <CheckCheck size={16} className="text-green-400" />
@@ -143,7 +143,7 @@ export default function CommunicationDashboard({
                     <select
                         value={filterStatus}
                         onChange={(e) => setFilterStatus(e.target.value as MessageStatus | 'all')}
-                        className="px-4 py-3 bg-[#222222]/5 border border-[#222222]/8 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                        className="px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                     >
                         <option value="all">All Status</option>
                         <option value="new">New</option>
@@ -156,7 +156,7 @@ export default function CommunicationDashboard({
                     <select
                         value={filterPriority}
                         onChange={(e) => setFilterPriority(e.target.value as MessagePriority | 'all')}
-                        className="px-4 py-3 bg-[#222222]/5 border border-[#222222]/8 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                        className="px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                     >
                         <option value="all">All Priority</option>
                         <option value="urgent">Urgent</option>
@@ -167,10 +167,10 @@ export default function CommunicationDashboard({
 
                     <button
                         onClick={onOpenSettings}
-                        className="p-3 bg-[#222222]/5 border border-[#222222]/8 rounded-xl hover:bg-[#222222]/8 transition-colors"
+                        className="p-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl hover:bg-[var(--bg-tertiary)] transition-colors"
                         title="Settings"
                     >
-                        <Settings size={20} className="text-[#5a5a5a]" />
+                        <Settings size={20} className="text-[var(--text-secondary)]" />
                     </button>
                 </div>
             </div>
@@ -179,21 +179,21 @@ export default function CommunicationDashboard({
             <div className="glass rounded-2xl overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full">
-                        <thead className="bg-[#222222]/5 border-b border-[#222222]/8">
+                        <thead className="bg-[var(--bg-tertiary)] border-b border-[var(--border)]">
                             <tr>
-                                <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Client</th>
-                                <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Message</th>
-                                <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Source</th>
-                                <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Priority</th>
-                                <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Status</th>
-                                <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Time</th>
-                                <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Actions</th>
+                                <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Client</th>
+                                <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Message</th>
+                                <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Source</th>
+                                <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Priority</th>
+                                <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Status</th>
+                                <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Time</th>
+                                <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
                             {filteredMessages.length === 0 ? (
                                 <tr>
-                                    <td colSpan={7} className="px-6 py-12 text-center text-[#5a5a5a]">
+                                    <td colSpan={7} className="px-6 py-12 text-center text-[var(--text-secondary)]">
                                         No messages found
                                     </td>
                                 </tr>
@@ -201,7 +201,7 @@ export default function CommunicationDashboard({
                                 filteredMessages.map((message) => (
                                     <tr
                                         key={message.id}
-                                        className={`hover:bg-[#222222]/5 transition-colors cursor-pointer ${
+                                        className={`hover:bg-[var(--bg-tertiary)] transition-colors cursor-pointer ${
                                             !message.isRead && (message.status === 'new' || message.requiresHumanReview)
                                                 ? 'bg-[#222222]/[0.03]'
                                                 : ''
@@ -219,22 +219,22 @@ export default function CommunicationDashboard({
                                                     <span className="w-2 h-2 rounded-full bg-red-500 shrink-0" title="Unread notification"></span>
                                                 )}
                                                 <div>
-                                                    <p className={`font-medium ${!message.isRead && message.status === 'new' ? 'text-[#222222] font-semibold' : 'text-[#333333]'}`}>
+                                                    <p className={`font-medium ${!message.isRead && message.status === 'new' ? 'text-[var(--text-primary)] font-semibold' : 'text-[var(--text-primary)]'}`}>
                                                         {message.clientName}
                                                     </p>
                                                     {message.clientPhone && (
-                                                        <p className="text-sm text-[#5a5a5a]">{message.clientPhone}</p>
+                                                        <p className="text-sm text-[var(--text-secondary)]">{message.clientPhone}</p>
                                                     )}
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <p className="text-sm text-[#444444] line-clamp-2 max-w-md">
+                                            <p className="text-sm text-[var(--text-secondary)] line-clamp-2 max-w-md">
                                                 {message.content}
                                             </p>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <div className="flex items-center gap-2 text-[#5a5a5a]">
+                                            <div className="flex items-center gap-2 text-[var(--text-secondary)]">
                                                 {getSourceIcon(message.source)}
                                                 <span className="text-sm capitalize">{message.source}</span>
                                             </div>
@@ -250,7 +250,7 @@ export default function CommunicationDashboard({
                                             </span>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <p className="text-sm text-[#5a5a5a]">
+                                            <p className="text-sm text-[var(--text-secondary)]">
                                                 {new Date(message.timestamp).toLocaleString()}
                                             </p>
                                         </td>
@@ -262,7 +262,7 @@ export default function CommunicationDashboard({
                                                             e.stopPropagation();
                                                             onMarkAsRead(message.id, true);
                                                         }}
-                                                        className="p-2 hover:bg-[#222222]/8 rounded-lg transition-colors text-[#5a5a5a] hover:text-green-400"
+                                                        className="p-2 hover:bg-[var(--bg-tertiary)] rounded-lg transition-colors text-[var(--text-secondary)] hover:text-green-400"
                                                         title="Mark as read"
                                                     >
                                                         <Check size={16} />
@@ -326,16 +326,16 @@ interface StatCardProps {
 
 function StatCard({ title, value, sub, color, icon }: StatCardProps) {
     return (
-        <div className="glass p-6 rounded-2xl relative overflow-hidden group hover:border-[#222222]/10 transition-all">
+        <div className="glass p-6 rounded-2xl relative overflow-hidden group hover:border-[var(--border)] transition-all">
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-white/10 to-transparent rounded-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-110"></div>
             <div className="flex items-start justify-between mb-4">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${color}20`, color }}>
                     {icon}
                 </div>
             </div>
-            <p className="text-[#5a5a5a] text-sm font-medium mb-2">{title}</p>
+            <p className="text-[var(--text-secondary)] text-sm font-medium mb-2">{title}</p>
             <h3 className="text-3xl font-display font-bold mb-2">{value}</h3>
-            <p className="text-xs text-[#8a8a8a]">{sub}</p>
+            <p className="text-xs text-[var(--text-muted)]">{sub}</p>
         </div>
     );
 }
@@ -355,38 +355,38 @@ function MessageDetailModal({ message, onClose, onStatusChange, onToggleRead }: 
                     <div>
                         <div className="flex items-center gap-3 mb-2">
                             <h2 className="text-2xl font-display font-bold">{message.clientName}</h2>
-                            <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${message.isRead ? 'bg-[#222222]/8 text-[#5a5a5a]' : 'bg-red-500/20 text-red-400 border border-red-500/30'}`}>
+                            <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${message.isRead ? 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)]' : 'bg-red-500/20 text-[var(--accent-primary)] border border-[var(--accent-primary)]/30'}`}>
                                 {message.isRead ? 'Read' : 'New / Unread'}
                             </span>
                         </div>
-                        <div className="flex items-center gap-4 text-sm text-[#5a5a5a]">
+                        <div className="flex items-center gap-4 text-sm text-[var(--text-secondary)]">
                             {message.clientPhone && <span>📱 {message.clientPhone}</span>}
                             {message.clientEmail && <span>✉️ {message.clientEmail}</span>}
                             <span className="capitalize">via {message.source}</span>
                         </div>
                     </div>
-                    <button onClick={onClose} className="text-[#5a5a5a] hover:text-[#222222] transition-colors">
+                    <button onClick={onClose} className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
                         ✕
                     </button>
                 </div>
 
                 <div className="space-y-6">
                     <div>
-                        <h3 className="text-sm font-medium text-[#5a5a5a] mb-2">Original Message</h3>
-                        <div className="bg-[#222222]/5 rounded-xl p-4 border border-[#222222]/8">
-                            <p className="text-[#222222]">{message.content}</p>
-                            <p className="text-xs text-[#8a8a8a] mt-2">{new Date(message.timestamp).toLocaleString()}</p>
+                        <h3 className="text-sm font-medium text-[var(--text-secondary)] mb-2">Original Message</h3>
+                        <div className="bg-[var(--bg-tertiary)] rounded-xl p-4 border border-[var(--border)]">
+                            <p className="text-[var(--text-primary)]">{message.content}</p>
+                            <p className="text-xs text-[var(--text-muted)] mt-2">{new Date(message.timestamp).toLocaleString()}</p>
                         </div>
                     </div>
 
                     {message.aiResponse && (
                         <div>
-                            <h3 className="text-sm font-medium text-[#5a5a5a] mb-2 flex items-center gap-2">
+                            <h3 className="text-sm font-medium text-[var(--text-secondary)] mb-2 flex items-center gap-2">
                                 <Bot size={16} className="text-green-400" />
                                 AI Response
                             </h3>
                             <div className="bg-green-500/10 rounded-xl p-4 border border-green-500/20">
-                                <p className="text-[#222222]">{message.aiResponse}</p>
+                                <p className="text-[var(--text-primary)]">{message.aiResponse}</p>
                                 {message.aiRespondedAt && (
                                     <p className="text-xs text-green-400 mt-2">Sent: {new Date(message.aiRespondedAt).toLocaleString()}</p>
                                 )}
@@ -395,7 +395,7 @@ function MessageDetailModal({ message, onClose, onStatusChange, onToggleRead }: 
                     )}
 
                     <div className="flex items-center gap-3">
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${message.priority === 'urgent' ? 'bg-red-500/20 text-red-400' : message.priority === 'high' ? 'bg-orange-500/20 text-orange-400' : 'bg-yellow-500/20 text-yellow-400'}`}>
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${message.priority === 'urgent' ? 'bg-red-500/20 text-[var(--accent-primary)]' : message.priority === 'high' ? 'bg-orange-500/20 text-orange-400' : 'bg-yellow-500/20 text-yellow-400'}`}>
                             {message.priority} priority
                         </span>
                         {message.requiresHumanReview && (
@@ -410,11 +410,11 @@ function MessageDetailModal({ message, onClose, onStatusChange, onToggleRead }: 
                         ))}
                     </div>
 
-                    <div className="flex items-center gap-3 pt-4 border-t border-[#222222]/8 flex-wrap">
+                    <div className="flex items-center gap-3 pt-4 border-t border-[var(--border)] flex-wrap">
                         {onToggleRead && (
                             <button
                                 onClick={() => onToggleRead(!message.isRead)}
-                                className="px-4 py-3 bg-[#222222]/5 hover:bg-[#222222]/8 text-[#444444] hover:text-[#222222] rounded-xl font-medium transition-all text-sm flex items-center justify-center gap-1.5"
+                                className="px-4 py-3 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-xl font-medium transition-all text-sm flex items-center justify-center gap-1.5"
                             >
                                 <Check size={16} />
                                 {message.isRead ? 'Mark as Unread' : 'Mark as Read'}
@@ -422,19 +422,19 @@ function MessageDetailModal({ message, onClose, onStatusChange, onToggleRead }: 
                         )}
                         <button
                             onClick={() => onStatusChange('resolved')}
-                            className="flex-1 bg-green-600 hover:bg-green-700 text-[#222222] px-6 py-3 rounded-xl font-medium transition-all"
+                            className="flex-1 bg-green-600 hover:bg-green-700 text-[var(--text-primary)] px-6 py-3 rounded-xl font-medium transition-all"
                         >
                             Mark as Resolved
                         </button>
                         <button
                             onClick={() => onStatusChange('escalated')}
-                            className="flex-1 bg-amber-600 hover:bg-amber-700 text-[#222222] px-6 py-3 rounded-xl font-medium transition-all"
+                            className="flex-1 bg-amber-600 hover:bg-amber-700 text-[var(--text-primary)] px-6 py-3 rounded-xl font-medium transition-all"
                         >
                             Escalate
                         </button>
                         <button
                             onClick={() => onStatusChange('archived')}
-                            className="px-6 py-3 bg-[#222222]/5 hover:bg-[#222222]/8 rounded-xl font-medium transition-all"
+                            className="px-6 py-3 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-xl font-medium transition-all"
                         >
                             Archive
                         </button>

@@ -22,7 +22,9 @@ import {
     X,
     Upload,
     Cloud,
-    UserPlus
+    UserPlus,
+    Sun,
+    Moon
 } from 'lucide-react';
 import { Project, FinancialSummary, ClientMessage, CommunicationStats, AutoResponseSettings, MessageStatus, AppNotification, UserProfile } from './types';
 import * as cloud from './services/cloudStorageService';
@@ -89,6 +91,19 @@ export default function App() {
         }
     }, [projects]);
     const [viewMode, setViewMode] = useState<ViewMode>('dashboard');
+
+    const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+        try {
+            return (localStorage.getItem('ytz_theme') as 'dark' | 'light') || 'light';
+        } catch {
+            return 'light';
+        }
+    });
+
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+        try { localStorage.setItem('ytz_theme', theme); } catch {}
+    }, [theme]);
     const [searchQuery, setSearchQuery] = useState('');
     const [showNewProjectModal, setShowNewProjectModal] = useState(false);
     const [editingProject, setEditingProject] = useState<Project | null>(null);
@@ -415,7 +430,7 @@ export default function App() {
         const currentProject = projects.find(p => p.id === viewingProject.id) || viewingProject;
     
     return (
-            <div className="min-h-screen bg-[#F6F4F1] text-[#222222]">
+            <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
                 <ProjectDetailView
                     project={currentProject}
                     onBack={() => setViewingProject(null)}
@@ -451,7 +466,7 @@ export default function App() {
     const isNewProject = new URLSearchParams(window.location.search).get('newProject') === '1';
     if (isNewProject) {
         return (
-            <div className="min-h-screen bg-[#F6F4F1] text-[#222222]">
+            <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
                 <NewProjectModal
                     fullPage
                     onClose={() => { window.location.href = `${window.location.origin}${window.location.pathname}`; }}
@@ -465,10 +480,10 @@ export default function App() {
     }
 
     return (
-        <div className="flex min-h-screen bg-[#F6F4F1] text-[#222222]">
+        <div className="flex min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
             {/* Mobile menu button */}
             <button
-                className={`fixed top-4 left-4 z-50 p-2 rounded-lg bg-[#222222]/8 lg:hidden ${sidebarOpen ? 'hidden' : 'block'
+                className={`fixed top-4 left-4 z-50 p-2 rounded-lg bg-[var(--bg-tertiary)] lg:hidden ${sidebarOpen ? 'hidden' : 'block'
                     }`}
                 onClick={() => setSidebarOpen(true)}
             >
@@ -477,16 +492,16 @@ export default function App() {
 
             {/* Sidebar */}
             <aside
-                className={`fixed left-0 top-0 h-full w-80 lg:w-64 shrink-0 glass border-r border-[#222222]/8 flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed left-0 top-0 h-full w-80 lg:w-64 shrink-0 glass border-r border-[var(--border)] flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     } lg:translate-x-0`}
             >
                 <div className="p-6 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-red-600/20">
+                    <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-[var(--accent-primary)]/20">
                         <img src="/vectra-logo.svg" alt="VECTRA Logo" className="w-full h-full object-cover" />
                     </div>
                     <div>
                         <span className="font-display font-bold text-xl tracking-tight block">VECTRA</span>
-                        <span className="text-xs text-[#5a5a5a]">Built for Project Excellence</span>
+                        <span className="text-xs text-[var(--text-secondary)]">Built for Project Excellence</span>
                     </div>
                 </div>
 
@@ -588,7 +603,7 @@ export default function App() {
                     />
                 </nav>
 
-                <div className="p-4 border-t border-[#222222]/8">
+                <div className="p-4 border-t border-[var(--border)]">
                     <NavItem
                         icon={<Settings size={20} />}
                         label="Settings"
@@ -597,7 +612,7 @@ export default function App() {
                             if (isMobile) setSidebarOpen(false);
                         }}
                     />
-                    <div className="mt-4 p-4 rounded-xl bg-[#222222]/5 flex items-center gap-3 cursor-pointer" onClick={() => { setViewMode('profile'); if (isMobile) setSidebarOpen(false); }}>
+                    <div className="mt-4 p-4 rounded-xl bg-[var(--bg-tertiary)] flex items-center gap-3 cursor-pointer" onClick={() => { setViewMode('profile'); if (isMobile) setSidebarOpen(false); }}>
                         <div className="w-10 h-10 rounded-full overflow-hidden bg-gradient-to-tr from-red-600 to-orange-400 flex items-center justify-center shrink-0">
                             {activeProfile.photo ? (
                                 <img src={activeProfile.photo} alt="Profile" className="w-full h-full object-cover" />
@@ -607,14 +622,14 @@ export default function App() {
                         </div>
                         <div className="min-w-0">
                             <p className="text-sm font-medium truncate">{activeProfile.fullName || activeProfile.username}</p>
-                            <p className="text-xs text-[#5a5a5a] truncate">{activeProfile.role || 'User'}</p>
+                            <p className="text-xs text-[var(--text-secondary)] truncate">{activeProfile.role || 'User'}</p>
                         </div>
                     </div>
                 </div>
 
                 {/* Close button for mobile */}
                 <button
-                    className="absolute top-4 right-4 p-1 rounded-lg bg-[#222222]/8 lg:hidden"
+                    className="absolute top-4 right-4 p-1 rounded-lg bg-[var(--bg-tertiary)] lg:hidden"
                     onClick={() => setSidebarOpen(false)}
                 >
                     <X size={20} />
@@ -634,40 +649,53 @@ export default function App() {
                 {/* Header */}
                 <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
                     <div className="relative group w-full md:w-auto">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8a8a8a] group-focus-within:text-red-500 transition-colors" size={18} />
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] group-focus-within:text-[var(--accent-primary)] transition-colors" size={18} />
                         <input
                             type="text"
                             placeholder="Search projects..."
-                            className="pl-12 pr-6 py-3 bg-[#222222]/5 border border-[#222222]/8 rounded-2xl w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all focus:bg-[#222222]/8"
+                            className="pl-12 pr-6 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-2xl w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all focus:bg-[var(--bg-tertiary)]"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                     </div>
 
                     <div className="flex items-center justify-between md:justify-end gap-4">
+                        {/* Theme toggle dongle */}
+                        <button
+                            onClick={() => setTheme(t => (t === 'dark' ? 'light' : 'dark'))}
+                            className="relative w-12 h-7 rounded-full bg-[var(--bg-tertiary)] border border-[var(--border)] transition-colors flex items-center px-1"
+                            title="Toggle theme"
+                            aria-label="Toggle theme"
+                        >
+                            <span
+                                className={`w-5 h-5 rounded-full bg-[var(--accent-primary)] text-white flex items-center justify-center transition-transform ${theme === 'dark' ? 'translate-x-5' : 'translate-x-0'}`}
+                            >
+                                {theme === 'dark' ? <Moon size={12} /> : <Sun size={12} />}
+                            </span>
+                        </button>
                         <div className="relative" ref={notificationsRef}>
                             <button
                                 onClick={() => setShowNotificationsDropdown(prev => !prev)}
-                                className={`p-3 bg-[#222222]/5 border rounded-xl hover:bg-[#222222]/8 transition-colors relative ${
-                                    showNotificationsDropdown ? 'border-red-500/50 text-[#222222]' : 'border-[#222222]/8 text-[#5a5a5a]'
+                                className={`p-3 bg-[var(--bg-tertiary)] border rounded-xl hover:bg-[var(--bg-tertiary)] transition-colors relative ${
+                                    showNotificationsDropdown ? 'border-[var(--accent-primary)]/50 text-[var(--text-primary)]' : 'border-[var(--border)] text-[var(--text-secondary)]'
                                 }`}
                                 title="Notifications"
                                 aria-label="Notifications"
                             >
-                                <Bell size={20} className={unreadNotificationsCount > 0 ? "text-[#333333]" : "text-[#5a5a5a]"} />
+                                <Bell size={20} className={unreadNotificationsCount > 0 ? "text-[var(--text-primary)]" : "text-[var(--text-secondary)]"} />
                                 {unreadNotificationsCount > 0 && (
-                                    <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-[#F6F4F1]"></span>
+                                    <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-[#FFFFFF]"></span>
                                 )}
                             </button>
 
                             {/* Notifications Dropdown */}
                             {showNotificationsDropdown && (
-                                <div className="absolute right-0 mt-3 w-80 sm:w-96 glass bg-[#E4DED2]/95 backdrop-blur-xl border border-[#222222]/10 rounded-2xl shadow-2xl z-50 overflow-hidden animate-fade-in">
-                                    <div className="p-4 border-b border-[#222222]/8 flex items-center justify-between">
+                                <div className="absolute right-0 mt-3 w-80 sm:w-96 glass bg-[var(--bg-secondary)]/95 backdrop-blur-xl border border-[var(--border)] rounded-2xl shadow-2xl z-50 overflow-hidden animate-fade-in">
+                                    <div className="p-4 border-b border-[var(--border)] flex items-center justify-between">
                                         <div className="flex items-center gap-2">
-                                            <span className="font-semibold text-[#222222]">Notifications</span>
+                                            <span className="font-semibold text-[var(--text-primary)]">Notifications</span>
                                             {unreadNotificationsCount > 0 ? (
-                                                <span className="px-2 py-0.5 text-xs font-semibold bg-red-500/20 text-red-400 rounded-full border border-red-500/30">
+                                                <span className="px-2 py-0.5 text-xs font-semibold bg-red-500/20 text-[var(--accent-primary)] rounded-full border border-[var(--accent-primary)]/30">
                                                     {unreadNotificationsCount} new
                                                 </span>
                                             ) : (
@@ -679,7 +707,7 @@ export default function App() {
                                         {unreadNotificationsCount > 0 ? (
                                             <button
                                                 onClick={handleMarkAllNotificationsAsRead}
-                                                className="text-xs text-red-400 hover:text-red-300 font-medium transition-colors flex items-center gap-1"
+                                                className="text-xs text-[var(--accent-primary)] hover:text-red-300 font-medium transition-colors flex items-center gap-1"
                                                 title="Mark all notifications as read"
                                             >
                                                 <CheckCheck size={14} />
@@ -688,7 +716,7 @@ export default function App() {
                                         ) : (
                                             <button
                                                 onClick={() => setReadNotificationIds([])}
-                                                className="text-[11px] text-[#8a8a8a] hover:text-[#5a5a5a] transition-colors"
+                                                className="text-[11px] text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
                                                 title="Reset notifications demo"
                                             >
                                                 Reset
@@ -698,7 +726,7 @@ export default function App() {
 
                                     <div className="max-h-80 overflow-y-auto divide-y divide-white/5 custom-scrollbar">
                                         {notifications.length === 0 ? (
-                                            <div className="p-8 text-center text-[#5a5a5a]">
+                                            <div className="p-8 text-center text-[var(--text-secondary)]">
                                                 <BellOff size={28} className="mx-auto mb-2 opacity-40" />
                                                 <p className="text-sm">No notifications</p>
                                             </div>
@@ -707,7 +735,7 @@ export default function App() {
                                                 <div
                                                     key={notif.id}
                                                     onClick={() => handleNotificationClick(notif)}
-                                                    className={`p-3.5 hover:bg-[#222222]/5 transition-colors cursor-pointer flex items-start gap-3 relative ${
+                                                    className={`p-3.5 hover:bg-[var(--bg-tertiary)] transition-colors cursor-pointer flex items-start gap-3 relative ${
                                                         notif.isRead ? 'opacity-60' : 'bg-[#222222]/[0.03]'
                                                     }`}
                                                 >
@@ -716,21 +744,21 @@ export default function App() {
                                                     )}
                                                     <div className="flex-1 min-w-0">
                                                         <div className="flex items-center justify-between gap-2 mb-1">
-                                                            <h4 className={`text-xs font-semibold truncate ${notif.isRead ? 'text-[#444444]' : 'text-[#222222]'}`}>
+                                                            <h4 className={`text-xs font-semibold truncate ${notif.isRead ? 'text-[var(--text-secondary)]' : 'text-[var(--text-primary)]'}`}>
                                                                 {notif.title}
                                                             </h4>
-                                                            <span className="text-[10px] text-[#8a8a8a] shrink-0">
+                                                            <span className="text-[10px] text-[var(--text-muted)] shrink-0">
                                                                 {formatNotificationTime(notif.timestamp)}
                                                             </span>
                                                         </div>
-                                                        <p className="text-xs text-[#5a5a5a] line-clamp-2 leading-relaxed">
+                                                        <p className="text-xs text-[var(--text-secondary)] line-clamp-2 leading-relaxed">
                                                             {notif.description}
                                                         </p>
                                                     </div>
                                                     {!notif.isRead && (
                                                         <button
                                                             onClick={(e) => handleMarkNotificationAsRead(notif.id, e)}
-                                                            className="p-1 hover:bg-[#222222]/8 rounded text-[#5a5a5a] hover:text-green-400 transition-colors shrink-0"
+                                                            className="p-1 hover:bg-[var(--bg-tertiary)] rounded text-[var(--text-secondary)] hover:text-green-400 transition-colors shrink-0"
                                                             title="Mark as read"
                                                         >
                                                             <Check size={14} />
@@ -742,10 +770,10 @@ export default function App() {
                                     </div>
 
                                     {notifications.length > 0 && (
-                                        <div className="p-2.5 bg-[#222222]/[0.03] border-t border-[#222222]/8 flex items-center justify-between gap-2">
+                                        <div className="p-2.5 bg-[#222222]/[0.03] border-t border-[var(--border)] flex items-center justify-between gap-2">
                                             <button
                                                 onClick={handleClearAllNotifications}
-                                                className="text-xs text-[#5a5a5a] hover:text-[#222222] transition-colors py-1 px-2 font-medium"
+                                                className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2 font-medium"
                                                 title="Mark all read and clear the red notification sign"
                                             >
                                                 Remove notification sign
@@ -755,7 +783,7 @@ export default function App() {
                                                     setViewMode('submissions');
                                                     setShowNotificationsDropdown(false);
                                                 }}
-                                                className="text-xs text-red-400 hover:text-red-300 transition-colors py-1 px-2 font-medium"
+                                                className="text-xs text-[var(--accent-primary)] hover:text-red-300 transition-colors py-1 px-2 font-medium"
                                             >
                                                 View submissions →
                                             </button>
@@ -770,7 +798,7 @@ export default function App() {
                                 const url = `${window.location.origin}${window.location.pathname}?newProject=1`;
                                 window.open(url, '_blank');
                             }}
-                            className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-medium transition-all shadow-lg shadow-red-600/20 active:scale-95 whitespace-nowrap"
+                            className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-6 py-3 rounded-xl font-medium transition-all shadow-lg shadow-[var(--accent-primary)]/20 active:scale-95 whitespace-nowrap"
                         >
                             <Plus size={20} />
                             <span>New Project</span>
@@ -784,8 +812,8 @@ export default function App() {
                         {/* Hero Section */}
                         <section className="mb-12 animate-fade-in">
                             <h1 className="text-4xl font-display font-bold mb-4">Good morning, Yeatz!</h1>
-                            <p className="text-[#5a5a5a] max-w-2xl">
-                                You have <span className="text-red-500 font-semibold">{financialSummary.activeProjects} active projects</span> and{' '}
+                            <p className="text-[var(--text-secondary)] max-w-2xl">
+                                You have <span className="text-[var(--accent-primary)] font-semibold">{financialSummary.activeProjects} active projects</span> and{' '}
                                 <span className="text-amber-500 font-semibold">{financialSummary.pendingSubmissions} pending submissions</span> requiring attention.
                             </p>
                         </section>
@@ -826,7 +854,7 @@ export default function App() {
                         <section className="mb-12 overflow-x-auto custom-scrollbar">
                             <div className="flex items-center justify-between mb-8 min-w-[600px] md:min-w-0">
                                 <h2 className="text-2xl font-display font-bold">Project Timeline</h2>
-                                <p className="text-sm text-[#5a5a5a]">Visual overview of all project schedules</p>
+                                <p className="text-sm text-[var(--text-secondary)]">Visual overview of all project schedules</p>
                             </div>
                             <div className="min-w-[800px] lg:min-w-0">
                                 <GanttChart projects={projects} />
@@ -839,7 +867,7 @@ export default function App() {
                                 <h2 className="text-2xl font-display font-bold">Active Projects</h2>
                                 <button
                                     onClick={() => setViewMode('projects')}
-                                    className="text-[#5a5a5a] hover:text-[#222222] flex items-center gap-2 text-sm font-medium transition-colors"
+                                    className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center gap-2 text-sm font-medium transition-colors"
                                 >
                                     View All <TrendingUp size={16} />
                                 </button>
@@ -868,7 +896,7 @@ export default function App() {
                     <>
                         <section className="mb-8 animate-fade-in">
                             <h1 className="text-4xl font-display font-bold mb-4">All Projects</h1>
-                            <p className="text-[#5a5a5a]">Manage your architecture projects and track their progress</p>
+                            <p className="text-[var(--text-secondary)]">Manage your architecture projects and track their progress</p>
                         </section>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -890,7 +918,7 @@ export default function App() {
                     <>
                         <section className="mb-8 animate-fade-in">
                             <h1 className="text-4xl font-display font-bold mb-4">Submission Tracking</h1>
-                            <p className="text-[#5a5a5a]">Monitor all submissions to local authorities</p>
+                            <p className="text-[var(--text-secondary)]">Monitor all submissions to local authorities</p>
                         </section>
 
                         <SubmissionTimeline projects={projects} />
@@ -902,7 +930,7 @@ export default function App() {
                     <>
                         <section className="mb-8 animate-fade-in">
                             <h1 className="text-4xl font-display font-bold mb-4">Financial Overview</h1>
-                            <p className="text-[#5a5a5a]">Track consultant fees and project budgets</p>
+                            <p className="text-[var(--text-secondary)]">Track consultant fees and project budgets</p>
                         </section>
 
                         <FinancialOverview projects={projects} detailed />
@@ -914,7 +942,7 @@ export default function App() {
                     <>
                         <section className="mb-8 animate-fade-in">
                             <h1 className="text-4xl font-display font-bold mb-4">AI Communication Manager</h1>
-                            <p className="text-[#5a5a5a]">Intelligent client message handling with Claude AI auto-response</p>
+                            <p className="text-[var(--text-secondary)]">Intelligent client message handling with Claude AI auto-response</p>
                         </section>
 
                         <CommunicationDashboard
@@ -933,7 +961,7 @@ export default function App() {
                     <>
                         <section className="mb-8 animate-fade-in">
                             <h1 className="text-4xl font-display font-bold mb-4">AI Assistant</h1>
-                            <p className="text-[#5a5a5a]">Chat with our AI assistant powered by Hugging Face models</p>
+                            <p className="text-[var(--text-secondary)]">Chat with our AI assistant powered by Hugging Face models</p>
                         </section>
 
                         <div className="h-[calc(100vh-250px)]">
@@ -947,7 +975,7 @@ export default function App() {
                     <>
                         <section className="mb-8 animate-fade-in">
                             <h1 className="text-4xl font-display font-bold mb-4">Database Manager</h1>
-                            <p className="text-[#5a5a5a]">Manage your projects, tasks, clients and documents</p>
+                            <p className="text-[var(--text-secondary)]">Manage your projects, tasks, clients and documents</p>
                         </section>
 
                         <div className="h-[calc(100vh-250px)]">
@@ -960,21 +988,21 @@ export default function App() {
                 {viewMode === 'profile' && (
                     <section className="max-w-3xl animate-fade-in">
                         <h1 className="text-4xl font-display font-bold mb-4">Profile</h1>
-                        <p className="text-[#5a5a5a] mb-8">Manage your personal and company details</p>
+                        <p className="text-[var(--text-secondary)] mb-8">Manage your personal and company details</p>
 
                         <div className="glass rounded-2xl p-6 md:p-8 space-y-6">
                             <div className="flex items-center gap-6">
-                                <div className="w-24 h-24 rounded-full overflow-hidden bg-[#222222]/10 border border-[#222222]/10 flex items-center justify-center shrink-0">
+                                <div className="w-24 h-24 rounded-full overflow-hidden bg-[var(--bg-tertiary)] border border-[var(--border)] flex items-center justify-center shrink-0">
                                     {activeProfile.photo ? (
                                         <img src={activeProfile.photo} alt="Profile" className="w-full h-full object-cover" />
                                     ) : (
-                                        <User size={40} className="text-[#8a8a8a]" />
+                                        <User size={40} className="text-[var(--text-muted)]" />
                                     )}
                                 </div>
                                 <div className="space-y-2">
                                     {isEditingProfile && (
                                         <>
-                                            <label className="flex items-center gap-2 px-4 py-2.5 bg-[#222222]/5 hover:bg-[#222222]/10 border border-[#222222]/10 rounded-xl cursor-pointer transition-all text-sm font-medium">
+                                            <label className="flex items-center gap-2 px-4 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl cursor-pointer transition-all text-sm font-medium">
                                                 <Upload size={16} />
                                                 Upload photo
                                                 <input
@@ -994,7 +1022,7 @@ export default function App() {
                                             {activeProfile.photo && (
                                                 <button
                                                     onClick={() => setActiveProfile(p => ({ ...p, photo: undefined }))}
-                                                    className="text-xs text-red-500 hover:text-red-600"
+                                                    className="text-xs text-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
                                                 >
                                                     Remove photo
                                                 </button>
@@ -1006,75 +1034,75 @@ export default function App() {
 
                             <fieldset disabled={!isEditingProfile} className="grid grid-cols-1 md:grid-cols-2 gap-6 border-0 p-0 m-0 min-w-0">
                                 <div>
-                                    <label className="text-sm font-medium text-[#5a5a5a] mb-2 block">Username</label>
+                                    <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Username</label>
                                     <input
                                         type="text"
                                         value={activeProfile.username}
                                         onChange={e => setActiveProfile(p => ({ ...p, username: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-white/60 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F95C4B]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-sm font-medium text-[#5a5a5a] mb-2 block">Full Name</label>
+                                    <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Full Name</label>
                                     <input
                                         type="text"
                                         value={activeProfile.fullName}
                                         onChange={e => setActiveProfile(p => ({ ...p, fullName: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-white/60 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F95C4B]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-sm font-medium text-[#5a5a5a] mb-2 block">Email</label>
+                                    <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Email</label>
                                     <input
                                         type="email"
                                         value={activeProfile.email || ''}
                                         onChange={e => setActiveProfile(p => ({ ...p, email: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-white/60 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F95C4B]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-sm font-medium text-[#5a5a5a] mb-2 block">Phone</label>
+                                    <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Phone</label>
                                     <input
                                         type="tel"
                                         value={activeProfile.phone || ''}
                                         onChange={e => setActiveProfile(p => ({ ...p, phone: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-white/60 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F95C4B]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-sm font-medium text-[#5a5a5a] mb-2 block">Company</label>
+                                    <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Company</label>
                                     <input
                                         type="text"
                                         value={activeProfile.company || ''}
                                         onChange={e => setActiveProfile(p => ({ ...p, company: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-white/60 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F95C4B]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-sm font-medium text-[#5a5a5a] mb-2 block">Role / Title</label>
+                                    <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Role / Title</label>
                                     <input
                                         type="text"
                                         value={activeProfile.role || ''}
                                         onChange={e => setActiveProfile(p => ({ ...p, role: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-white/60 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F95C4B]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                             </fieldset>
                             <div>
-                                <label className="text-sm font-medium text-[#5a5a5a] mb-2 block">Bio</label>
+                                <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Bio</label>
                                 <textarea
                                     rows={3}
                                     disabled={!isEditingProfile}
                                     value={activeProfile.bio || ''}
                                     onChange={e => setActiveProfile(p => ({ ...p, bio: e.target.value }))}
-                                    className="w-full px-4 py-3 bg-white/60 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F95C4B]/50 transition-all resize-none disabled:opacity-60 disabled:cursor-not-allowed"
+                                    className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none disabled:opacity-60 disabled:cursor-not-allowed"
                                 />
                             </div>
                             <div className="flex items-center gap-3 pt-2">
                                 {!isEditingProfile ? (
                                     <button
                                         onClick={startEditProfile}
-                                        className="px-5 py-2.5 bg-[#F95C4B] hover:bg-[#e04a3a] text-white rounded-xl text-sm font-medium transition-all"
+                                        className="px-5 py-2.5 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-xl text-sm font-medium transition-all"
                                     >
                                         Edit Profile
                                     </button>
@@ -1082,13 +1110,13 @@ export default function App() {
                                     <>
                                         <button
                                             onClick={saveProfile}
-                                            className="px-5 py-2.5 bg-[#F95C4B] hover:bg-[#e04a3a] text-white rounded-xl text-sm font-medium transition-all"
+                                            className="px-5 py-2.5 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-xl text-sm font-medium transition-all"
                                         >
                                             Save Changes
                                         </button>
                                         <button
                                             onClick={cancelEditProfile}
-                                            className="px-5 py-2.5 bg-[#222222]/5 hover:bg-[#222222]/10 rounded-xl text-sm font-medium transition-all"
+                                            className="px-5 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-xl text-sm font-medium transition-all"
                                         >
                                             Cancel
                                         </button>
@@ -1103,17 +1131,17 @@ export default function App() {
                 {viewMode === 'cloud' && (
                     <section className="max-w-3xl animate-fade-in">
                         <h1 className="text-4xl font-display font-bold mb-4">Cloud Sync</h1>
-                        <p className="text-[#5a5a5a] mb-8">Back up and restore your data to Google Drive or OneDrive</p>
+                        <p className="text-[var(--text-secondary)] mb-8">Back up and restore your data to Google Drive or OneDrive</p>
 
                         <div className="glass rounded-2xl p-6 md:p-8 space-y-6">
-                            <p className="text-sm text-[#5a5a5a]">
+                            <p className="text-sm text-[var(--text-secondary)]">
                                 Configure client IDs via Vite env: <code>VITE_GOOGLE_CLIENT_ID</code>, <code>VITE_MS_CLIENT_ID</code>.
                             </p>
 
                             <div className="space-y-4">
-                                <div className="p-4 rounded-xl bg-[#222222]/5 border border-[#222222]/10">
+                                <div className="p-4 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border)]">
                                     <h3 className="font-semibold mb-2">Google Drive</h3>
-                                    <p className="text-xs text-[#8a8a8a] mb-3">{cloud.isGoogleConfigured() ? 'Configured' : 'Not configured'}</p>
+                                    <p className="text-xs text-[var(--text-muted)] mb-3">{cloud.isGoogleConfigured() ? 'Configured' : 'Not configured'}</p>
                                     <div className="flex gap-2 flex-wrap">
                                         <button
                                             onClick={async () => {
@@ -1123,7 +1151,7 @@ export default function App() {
                                                 setCloudBusy(false);
                                             }}
                                             disabled={cloudBusy || !cloud.isGoogleConfigured()}
-                                            className="px-4 py-2 bg-[#F95C4B] text-white rounded-xl text-sm font-medium disabled:opacity-50"
+                                            className="px-4 py-2 bg-[var(--accent-primary)] text-white rounded-xl text-sm font-medium disabled:opacity-50"
                                         >Connect</button>
                                         <button
                                             onClick={async () => {
@@ -1136,7 +1164,7 @@ export default function App() {
                                                 setCloudBusy(false);
                                             }}
                                             disabled={cloudBusy}
-                                            className="px-4 py-2 bg-[#222222]/5 rounded-xl text-sm font-medium disabled:opacity-50"
+                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-xl text-sm font-medium disabled:opacity-50"
                                         >Backup</button>
                                         <button
                                             onClick={async () => {
@@ -1152,14 +1180,14 @@ export default function App() {
                                                 setCloudBusy(false);
                                             }}
                                             disabled={cloudBusy}
-                                            className="px-4 py-2 bg-[#222222]/5 rounded-xl text-sm font-medium disabled:opacity-50"
+                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-xl text-sm font-medium disabled:opacity-50"
                                         >Restore</button>
                                     </div>
                                 </div>
 
-                                <div className="p-4 rounded-xl bg-[#222222]/5 border border-[#222222]/10">
+                                <div className="p-4 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border)]">
                                     <h3 className="font-semibold mb-2">OneDrive</h3>
-                                    <p className="text-xs text-[#8a8a8a] mb-3">{cloud.isOneDriveConfigured() ? 'Configured' : 'Not configured'}</p>
+                                    <p className="text-xs text-[var(--text-muted)] mb-3">{cloud.isOneDriveConfigured() ? 'Configured' : 'Not configured'}</p>
                                     <div className="flex gap-2 flex-wrap">
                                         <button
                                             onClick={async () => {
@@ -1169,7 +1197,7 @@ export default function App() {
                                                 setCloudBusy(false);
                                             }}
                                             disabled={cloudBusy || !cloud.isOneDriveConfigured()}
-                                            className="px-4 py-2 bg-[#F95C4B] text-white rounded-xl text-sm font-medium disabled:opacity-50"
+                                            className="px-4 py-2 bg-[var(--accent-primary)] text-white rounded-xl text-sm font-medium disabled:opacity-50"
                                         >Connect</button>
                                         <button
                                             onClick={async () => {
@@ -1182,7 +1210,7 @@ export default function App() {
                                                 setCloudBusy(false);
                                             }}
                                             disabled={cloudBusy}
-                                            className="px-4 py-2 bg-[#222222]/5 rounded-xl text-sm font-medium disabled:opacity-50"
+                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-xl text-sm font-medium disabled:opacity-50"
                                         >Backup</button>
                                         <button
                                             onClick={async () => {
@@ -1198,14 +1226,14 @@ export default function App() {
                                                 setCloudBusy(false);
                                             }}
                                             disabled={cloudBusy}
-                                            className="px-4 py-2 bg-[#222222]/5 rounded-xl text-sm font-medium disabled:opacity-50"
+                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-xl text-sm font-medium disabled:opacity-50"
                                         >Restore</button>
                                     </div>
                                 </div>
                             </div>
 
                             {cloudStatus && (
-                                <p className="text-sm text-[#5a5a5a]">{cloudStatus}</p>
+                                <p className="text-sm text-[var(--text-secondary)]">{cloudStatus}</p>
                             )}
                         </div>
                     </section>
@@ -1215,7 +1243,7 @@ export default function App() {
                 {viewMode === 'register' && (
                     <section className="max-w-3xl animate-fade-in">
                         <h1 className="text-4xl font-display font-bold mb-4">Register Storage</h1>
-                        <p className="text-[#5a5a5a] mb-8">Choose where your app data is stored</p>
+                        <p className="text-[var(--text-secondary)] mb-8">Choose where your app data is stored</p>
 
                         <div className="glass rounded-2xl p-6 md:p-8 space-y-6">
                             <div className="space-y-3">
@@ -1224,7 +1252,7 @@ export default function App() {
                                     { value: 'google', label: 'Google Drive', desc: 'Sync data to your Google Drive.' },
                                     { value: 'onedrive', label: 'OneDrive', desc: 'Sync data to your OneDrive.' }
                                 ].map(opt => (
-                                    <label key={opt.value} className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all ${regStorage === opt.value ? 'border-[#F95C4B] bg-[#F95C4B]/5' : 'border-[#222222]/10 bg-[#222222]/5'}`}>
+                                    <label key={opt.value} className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all ${regStorage === opt.value ? 'border-[#8b0000] bg-[var(--accent-primary)]/5' : 'border-[var(--border)] bg-[var(--bg-tertiary)]'}`}>
                                         <input
                                             type="radio"
                                             name="storage"
@@ -1234,8 +1262,8 @@ export default function App() {
                                             className="mt-1"
                                         />
                                         <div>
-                                            <p className="font-medium text-[#222222]">{opt.label}</p>
-                                            <p className="text-xs text-[#5a5a5a]">{opt.desc}</p>
+                                            <p className="font-medium text-[var(--text-primary)]">{opt.label}</p>
+                                            <p className="text-xs text-[var(--text-secondary)]">{opt.desc}</p>
                                         </div>
                                     </label>
                                 ))}
@@ -1255,11 +1283,11 @@ export default function App() {
                                         setRegStatus('Using local storage');
                                     }
                                 }}
-                                className="px-5 py-2.5 bg-[#F95C4B] text-white rounded-xl text-sm font-medium"
+                                className="px-5 py-2.5 bg-[var(--accent-primary)] text-white rounded-xl text-sm font-medium"
                             >
                                 Save & Connect
                             </button>
-                            {regStatus && <p className="text-sm text-[#5a5a5a]">{regStatus}</p>}
+                            {regStatus && <p className="text-sm text-[var(--text-secondary)]">{regStatus}</p>}
                         </div>
                     </section>
                 )}
@@ -1307,14 +1335,14 @@ function NavItem({ icon, label, active = false, onClick, badge }: NavItemProps) 
             type="button"
             onClick={onClick}
             className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 relative ${active
-                ? 'bg-red-600/10 text-red-500 border border-red-500/20'
-                : 'text-[#5a5a5a] hover:bg-[#222222]/5 hover:text-[#222222]'
+                ? 'bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] border border-[var(--accent-primary)]/20'
+                : 'text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]'
                 }`}
         >
             {icon}
             <span className="font-medium">{label}</span>
             {badge !== undefined && badge > 0 && (
-                <span className="ml-auto bg-red-600 text-white text-xs px-2 py-0.5 rounded-full font-semibold">
+                <span className="ml-auto bg-[var(--accent-primary)] text-white text-xs px-2 py-0.5 rounded-full font-semibold">
                     {badge}
                 </span>
             )}
@@ -1333,16 +1361,16 @@ interface StatCardProps {
 function StatCard({ title, value, sub, color, icon }: StatCardProps) {
 
     return (
-        <div className="glass p-6 rounded-2xl relative overflow-hidden group hover:border-[#222222]/10 transition-all">
+        <div className="glass p-6 rounded-2xl relative overflow-hidden group hover:border-[var(--border)] transition-all">
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-white/10 to-transparent rounded-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-110"></div>
             <div className="flex items-start justify-between mb-4">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${color}20`, color }}>
                     {icon}
                 </div>
             </div>
-            <p className="text-[#5a5a5a] text-sm font-medium mb-2">{title}</p>
+            <p className="text-[var(--text-secondary)] text-sm font-medium mb-2">{title}</p>
             <h3 className="text-3xl font-display font-bold mb-2">{value}</h3>
-            <p className="text-xs text-[#8a8a8a]">{sub}</p>
+            <p className="text-xs text-[var(--text-muted)]">{sub}</p>
         </div>
     );
 }

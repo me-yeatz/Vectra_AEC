@@ -97,8 +97,8 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
         <button
           className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all ${
             selectedImportType === 'projects'
-              ? 'bg-red-600/20 border border-red-500/30'
-              : 'bg-[#222222]/5 border border-[#222222]/10 hover:bg-[#222222]/8'
+              ? 'bg-[var(--accent-primary)]/20 border border-[var(--accent-primary)]/30'
+              : 'bg-[var(--bg-tertiary)] border border-[var(--border)] hover:bg-[var(--bg-tertiary)]'
           }`}
           onClick={() => setSelectedImportType('projects')}
         >
@@ -108,8 +108,8 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
         <button
           className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all ${
             selectedImportType === 'tasks'
-              ? 'bg-red-600/20 border border-red-500/30'
-              : 'bg-[#222222]/5 border border-[#222222]/10 hover:bg-[#222222]/8'
+              ? 'bg-[var(--accent-primary)]/20 border border-[var(--accent-primary)]/30'
+              : 'bg-[var(--bg-tertiary)] border border-[var(--border)] hover:bg-[var(--bg-tertiary)]'
           }`}
           onClick={() => setSelectedImportType('tasks')}
         >
@@ -119,8 +119,8 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
         <button
           className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all ${
             selectedImportType === 'clients'
-              ? 'bg-red-600/20 border border-red-500/30'
-              : 'bg-[#222222]/5 border border-[#222222]/10 hover:bg-[#222222]/8'
+              ? 'bg-[var(--accent-primary)]/20 border border-[var(--accent-primary)]/30'
+              : 'bg-[var(--bg-tertiary)] border border-[var(--border)] hover:bg-[var(--bg-tertiary)]'
           }`}
           onClick={() => setSelectedImportType('clients')}
         >
@@ -131,7 +131,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
 
       <div
         className={`relative rounded-2xl border-2 border-dashed p-8 text-center transition-all ${
-          dragActive ? 'border-red-500 bg-red-500/10' : 'border-[#222222]/10'
+          dragActive ? 'border-[var(--accent-primary)] bg-red-500/10' : 'border-[var(--border)]'
         }`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
@@ -147,22 +147,22 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
         />
         
         <div className="flex flex-col items-center justify-center gap-4">
-          <Upload size={48} className="text-[#8a8a8a]" />
+          <Upload size={48} className="text-[var(--text-muted)]" />
           <div>
-            <p className="font-medium text-[#222222]">
+            <p className="font-medium text-[var(--text-primary)]">
               Drag & drop your {selectedImportType}.csv file here
             </p>
-            <p className="text-sm text-[#5a5a5a] mt-1">
+            <p className="text-sm text-[var(--text-secondary)] mt-1">
               or <button 
                 type="button" 
-                className="text-red-400 hover:underline"
+                className="text-[var(--accent-primary)] hover:underline"
                 onClick={onButtonClick}
               >
                 browse files
               </button>
             </p>
           </div>
-          <p className="text-xs text-[#8a8a8a] max-w-md">
+          <p className="text-xs text-[var(--text-muted)] max-w-md">
             Supported formats: CSV. The file should contain appropriate columns based on the selected import type.
           </p>
         </div>
@@ -184,7 +184,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
                 ? 'bg-green-500/20 text-green-400' 
                 : results.success > 0 
                   ? 'bg-amber-500/20 text-amber-400' 
-                  : 'bg-red-500/20 text-red-400'
+                  : 'bg-red-500/20 text-[var(--accent-primary)]'
             }`}>
               {results.success} Success, {results.errors.length} Error(s)
             </span>
@@ -201,11 +201,11 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
           
           {results.errors.length > 0 && (
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-red-400">
+              <div className="flex items-center gap-2 text-[var(--accent-primary)]">
                 <XCircle size={18} />
                 <span className="font-medium">Errors:</span>
               </div>
-              <div className="max-h-40 overflow-y-auto bg-red-500/5 border border-red-500/10 rounded-xl p-3">
+              <div className="max-h-40 overflow-y-auto bg-red-500/5 border border-[var(--accent-primary)]/10 rounded-xl p-3">
                 <ul className="space-y-1 text-sm text-red-300">
                   {results.errors.map((error, index) => (
                     <li key={index} className="flex items-start gap-2">
@@ -220,7 +220,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
         </div>
       )}
 
-      <div className="mt-6 text-sm text-[#5a5a5a]">
+      <div className="mt-6 text-sm text-[var(--text-secondary)]">
         <h5 className="font-semibold mb-2 flex items-center gap-2">
           <FileText size={16} />
           CSV Format Guide:

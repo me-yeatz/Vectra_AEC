@@ -74,16 +74,16 @@ export default function FinancialOverview({ projects, detailed = false }: Financ
                         {projectFinancials.map(project => (
                             <div
                                 key={project.id}
-                                className="bg-[#222222]/5 p-6 rounded-xl border border-[#222222]/8 hover:border-[#222222]/10 transition-all"
+                                className="bg-[var(--bg-tertiary)] p-6 rounded-xl border border-[var(--border)] hover:border-[var(--border)] transition-all"
                             >
                                 <div className="flex items-start justify-between mb-4">
                                     <div className="flex-1">
                                         <h4 className="font-semibold text-lg mb-1">{project.title}</h4>
-                                        <p className="text-sm text-[#5a5a5a]">{project.clientName}</p>
+                                        <p className="text-sm text-[var(--text-secondary)]">{project.clientName}</p>
                                     </div>
                                     {project.totalBudget && (
                                         <div className="text-right">
-                                            <p className="text-xs text-[#8a8a8a] mb-1">Project Budget</p>
+                                            <p className="text-xs text-[var(--text-muted)] mb-1">Project Budget</p>
                                             <p className="text-lg font-bold text-blue-400">
                                                 RM {(project.totalBudget / 1000000).toFixed(2)}M
                                             </p>
@@ -91,21 +91,21 @@ export default function FinancialOverview({ projects, detailed = false }: Financ
                                     )}
                                 </div>
 
-                                <div className="grid grid-cols-3 gap-6 mt-6 pt-6 border-t border-[#222222]/8">
+                                <div className="grid grid-cols-3 gap-6 mt-6 pt-6 border-t border-[var(--border)]">
                                     <div>
-                                        <p className="text-xs text-[#8a8a8a] mb-2">Total Fees</p>
-                                        <p className="text-xl font-bold text-[#333333]">
+                                        <p className="text-xs text-[var(--text-muted)] mb-2">Total Fees</p>
+                                        <p className="text-xl font-bold text-[var(--text-primary)]">
                                             RM {project.totalFees.toLocaleString()}
                                         </p>
                                     </div>
                                     <div>
-                                        <p className="text-xs text-[#8a8a8a] mb-2">Paid</p>
+                                        <p className="text-xs text-[var(--text-muted)] mb-2">Paid</p>
                                         <p className="text-xl font-bold text-green-400">
                                             RM {project.paidFees.toLocaleString()}
                                         </p>
                                     </div>
                                     <div>
-                                        <p className="text-xs text-[#8a8a8a] mb-2">Pending</p>
+                                        <p className="text-xs text-[var(--text-muted)] mb-2">Pending</p>
                                         <p className="text-xl font-bold text-amber-400">
                                             RM {project.pendingFees.toLocaleString()}
                                         </p>
@@ -113,27 +113,27 @@ export default function FinancialOverview({ projects, detailed = false }: Financ
                                 </div>
 
                                 {/* Submissions List */}
-                                <div className="mt-6 pt-6 border-t border-[#222222]/8">
-                                    <p className="text-xs text-[#8a8a8a] mb-3 font-semibold uppercase tracking-wide">
+                                <div className="mt-6 pt-6 border-t border-[var(--border)]">
+                                    <p className="text-xs text-[var(--text-muted)] mb-3 font-semibold uppercase tracking-wide">
                                         Submissions ({project.submissions.length})
                                     </p>
                                     <div className="space-y-2">
                                         {project.submissions.map(sub => (
                                             <div
                                                 key={sub.id}
-                                                className="flex items-center justify-between text-sm py-2 px-3 bg-[#222222]/5 rounded-lg"
+                                                className="flex items-center justify-between text-sm py-2 px-3 bg-[var(--bg-tertiary)] rounded-lg"
                                             >
-                                                <span className="text-[#444444]">{sub.type.replace(/-/g, ' ').toUpperCase()}</span>
+                                                <span className="text-[var(--text-secondary)]">{sub.type.replace(/-/g, ' ').toUpperCase()}</span>
                                                 <div className="flex items-center gap-4">
                                                     <span
                                                         className={`px-2 py-1 rounded text-xs font-semibold ${sub.status === 'approved' ? 'bg-green-500/20 text-green-400' :
                                                                 sub.status === 'pending' ? 'bg-amber-500/20 text-amber-400' :
-                                                                    'bg-red-500/20 text-red-400'
+                                                                    'bg-red-500/20 text-[var(--accent-primary)]'
                                                             }`}
                                                     >
                                                         {sub.status}
                                                     </span>
-                                                    <span className="text-[#5a5a5a] font-mono">
+                                                    <span className="text-[var(--text-secondary)] font-mono">
                                                         RM {sub.consultantFee.toLocaleString()}
                                                     </span>
                                                 </div>
@@ -167,7 +167,7 @@ function FinancialCard({ title, value, icon, color }: {
                     {icon}
                 </div>
             </div>
-            <p className="text-[#5a5a5a] text-sm font-medium mb-2">{title}</p>
+            <p className="text-[var(--text-secondary)] text-sm font-medium mb-2">{title}</p>
             <h3 className="text-3xl font-display font-bold">{value}</h3>
         </div>
     );

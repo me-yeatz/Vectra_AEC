@@ -56,14 +56,14 @@ const submissionTypeLabels: Record<string, string> = {
 function SubmissionRow({ sub }: { sub: Submission }) {
     const sc = submissionStatusConfig[sub.status] ?? { label: sub.status, color: '#94a3b8' };
     return (
-        <div className="flex items-start gap-4 p-4 bg-[#222222]/5 rounded-xl border border-[#222222]/8">
+        <div className="flex items-start gap-4 p-4 bg-[var(--bg-tertiary)] rounded-xl border border-[var(--border)]">
             <div
                 className="w-2 h-2 rounded-full mt-2 shrink-0"
                 style={{ backgroundColor: sc.color }}
             />
             <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2 flex-wrap mb-1">
-                    <span className="font-medium text-sm text-[#222222]">
+                    <span className="font-medium text-sm text-[var(--text-primary)]">
                         {submissionTypeLabels[sub.type] ?? sub.type}
                     </span>
                     <span
@@ -73,8 +73,8 @@ function SubmissionRow({ sub }: { sub: Submission }) {
                         {sc.label}
                     </span>
                 </div>
-                <p className="text-xs text-[#5a5a5a] mb-1">{sub.authority}</p>
-                <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#8a8a8a]">
+                <p className="text-xs text-[var(--text-secondary)] mb-1">{sub.authority}</p>
+                <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-[var(--text-muted)]">
                     {sub.submittedDate && (
                         <span>Submitted {new Date(sub.submittedDate).toLocaleDateString('en-MY')}</span>
                     )}
@@ -91,7 +91,7 @@ function SubmissionRow({ sub }: { sub: Submission }) {
                     </span>
                 </div>
                 {sub.notes && (
-                    <p className="mt-2 text-xs text-[#5a5a5a] italic">{sub.notes}</p>
+                    <p className="mt-2 text-xs text-[var(--text-secondary)] italic">{sub.notes}</p>
                 )}
             </div>
         </div>
@@ -127,7 +127,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
             >
                 {/* ── Header ── */}
                 <div
-                    className="flex items-start justify-between p-6 pb-4 border-b border-[#222222]/8 shrink-0"
+                    className="flex items-start justify-between p-6 pb-4 border-b border-[var(--border)] shrink-0"
                 >
                     <div className="flex items-center gap-4">
                         <div
@@ -153,21 +153,21 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                     <div className="flex items-center gap-2 shrink-0">
                         <button
                             onClick={handleEdit}
-                            className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-medium transition-all active:scale-95"
+                            className="flex items-center gap-2 px-4 py-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-xl text-sm font-medium transition-all active:scale-95"
                         >
                             <Edit size={15} />
                             Edit
                         </button>
                         <button
                             onClick={handleDelete}
-                            className="p-2 text-[#5a5a5a] hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-all"
+                            className="p-2 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] hover:bg-red-500/10 rounded-xl transition-all"
                             title="Delete project"
                         >
                             <Trash2 size={18} />
                         </button>
                         <button
                             onClick={onClose}
-                            className="p-2 text-[#5a5a5a] hover:text-[#222222] hover:bg-[#222222]/8 rounded-xl transition-all"
+                            className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] rounded-xl transition-all"
                         >
                             <X size={20} />
                         </button>
@@ -213,7 +213,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                         ].map(stat => (
                             <div
                                 key={stat.label}
-                                className="bg-[#222222]/5 rounded-xl p-4 border border-[#222222]/8"
+                                className="bg-[var(--bg-tertiary)] rounded-xl p-4 border border-[var(--border)]"
                             >
                                 <div
                                     className="w-8 h-8 rounded-lg flex items-center justify-center mb-2"
@@ -221,9 +221,9 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                                 >
                                     {stat.icon}
                                 </div>
-                                <p className="text-xs text-[#8a8a8a] mb-0.5">{stat.label}</p>
-                                <p className="text-lg font-bold text-[#222222]">{stat.value}</p>
-                                <p className="text-xs text-[#8a8a8a]">{stat.sub}</p>
+                                <p className="text-xs text-[var(--text-muted)] mb-0.5">{stat.label}</p>
+                                <p className="text-lg font-bold text-[var(--text-primary)]">{stat.value}</p>
+                                <p className="text-xs text-[var(--text-muted)]">{stat.sub}</p>
                             </div>
                         ))}
                     </div>
@@ -232,28 +232,28 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         {/* Client Contact */}
-                        <section className="bg-[#222222]/5 rounded-2xl p-5 border border-[#222222]/8">
-                            <h3 className="text-sm font-semibold text-[#444444] mb-4 flex items-center gap-2">
-                                <User size={15} className="text-red-400" />
+                        <section className="bg-[var(--bg-tertiary)] rounded-2xl p-5 border border-[var(--border)]">
+                            <h3 className="text-sm font-semibold text-[var(--text-secondary)] mb-4 flex items-center gap-2">
+                                <User size={15} className="text-[var(--accent-primary)]" />
                                 Client Contact
                             </h3>
                             <div className="space-y-3">
                                 <div>
-                                    <p className="text-xs text-[#8a8a8a] mb-0.5">Name</p>
-                                    <p className="text-sm font-medium text-[#222222]">{project.clientName}</p>
+                                    <p className="text-xs text-[var(--text-muted)] mb-0.5">Name</p>
+                                    <p className="text-sm font-medium text-[var(--text-primary)]">{project.clientName}</p>
                                 </div>
                                 {project.clientCompany && (
                                     <div>
-                                        <p className="text-xs text-[#8a8a8a] mb-0.5">Company</p>
-                                        <p className="text-sm text-[#333333] flex items-center gap-2">
-                                            <Building2 size={13} className="text-[#5a5a5a] shrink-0" />
+                                        <p className="text-xs text-[var(--text-muted)] mb-0.5">Company</p>
+                                        <p className="text-sm text-[var(--text-primary)] flex items-center gap-2">
+                                            <Building2 size={13} className="text-[var(--text-secondary)] shrink-0" />
                                             {project.clientCompany}
                                         </p>
                                     </div>
                                 )}
                                 {project.clientPhone ? (
                                     <div>
-                                        <p className="text-xs text-[#8a8a8a] mb-0.5">Phone</p>
+                                        <p className="text-xs text-[var(--text-muted)] mb-0.5">Phone</p>
                                         <a
                                             href={`tel:${project.clientPhone}`}
                                             className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-2 transition-colors"
@@ -264,13 +264,13 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                                     </div>
                                 ) : (
                                     <div>
-                                        <p className="text-xs text-[#8a8a8a] mb-0.5">Phone</p>
-                                        <p className="text-sm text-[#8a8a8a] italic">Not provided</p>
+                                        <p className="text-xs text-[var(--text-muted)] mb-0.5">Phone</p>
+                                        <p className="text-sm text-[var(--text-muted)] italic">Not provided</p>
                                     </div>
                                 )}
                                 {project.clientEmail ? (
                                     <div>
-                                        <p className="text-xs text-[#8a8a8a] mb-0.5">Email</p>
+                                        <p className="text-xs text-[var(--text-muted)] mb-0.5">Email</p>
                                         <a
                                             href={`mailto:${project.clientEmail}`}
                                             className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-2 transition-colors break-all"
@@ -281,31 +281,31 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                                     </div>
                                 ) : (
                                     <div>
-                                        <p className="text-xs text-[#8a8a8a] mb-0.5">Email</p>
-                                        <p className="text-sm text-[#8a8a8a] italic">Not provided</p>
+                                        <p className="text-xs text-[var(--text-muted)] mb-0.5">Email</p>
+                                        <p className="text-sm text-[var(--text-muted)] italic">Not provided</p>
                                     </div>
                                 )}
                             </div>
                         </section>
 
                         {/* Project Details */}
-                        <section className="bg-[#222222]/5 rounded-2xl p-5 border border-[#222222]/8">
-                            <h3 className="text-sm font-semibold text-[#444444] mb-4 flex items-center gap-2">
-                                <FileText size={15} className="text-red-400" />
+                        <section className="bg-[var(--bg-tertiary)] rounded-2xl p-5 border border-[var(--border)]">
+                            <h3 className="text-sm font-semibold text-[var(--text-secondary)] mb-4 flex items-center gap-2">
+                                <FileText size={15} className="text-[var(--accent-primary)]" />
                                 Project Details
                             </h3>
                             <div className="space-y-3">
                                 <div>
-                                    <p className="text-xs text-[#8a8a8a] mb-0.5">Location</p>
-                                    <p className="text-sm text-[#333333] flex items-center gap-2">
-                                        <MapPin size={13} className="text-[#5a5a5a] shrink-0" />
+                                    <p className="text-xs text-[var(--text-muted)] mb-0.5">Location</p>
+                                    <p className="text-sm text-[var(--text-primary)] flex items-center gap-2">
+                                        <MapPin size={13} className="text-[var(--text-secondary)] shrink-0" />
                                         {project.location}
                                     </p>
                                 </div>
                                 <div>
-                                    <p className="text-xs text-[#8a8a8a] mb-0.5">Start Date</p>
-                                    <p className="text-sm text-[#333333] flex items-center gap-2">
-                                        <Calendar size={13} className="text-[#5a5a5a] shrink-0" />
+                                    <p className="text-xs text-[var(--text-muted)] mb-0.5">Start Date</p>
+                                    <p className="text-sm text-[var(--text-primary)] flex items-center gap-2">
+                                        <Calendar size={13} className="text-[var(--text-secondary)] shrink-0" />
                                         {new Date(project.startDate).toLocaleDateString('en-MY', {
                                             day: 'numeric', month: 'long', year: 'numeric'
                                         })}
@@ -313,9 +313,9 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                                 </div>
                                 {project.targetCompletionDate && (
                                     <div>
-                                        <p className="text-xs text-[#8a8a8a] mb-0.5">Target Completion</p>
-                                        <p className="text-sm text-[#333333] flex items-center gap-2">
-                                            <Calendar size={13} className="text-[#5a5a5a] shrink-0" />
+                                        <p className="text-xs text-[var(--text-muted)] mb-0.5">Target Completion</p>
+                                        <p className="text-sm text-[var(--text-primary)] flex items-center gap-2">
+                                            <Calendar size={13} className="text-[var(--text-secondary)] shrink-0" />
                                             {new Date(project.targetCompletionDate).toLocaleDateString('en-MY', {
                                                 day: 'numeric', month: 'long', year: 'numeric'
                                             })}
@@ -324,7 +324,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                                 )}
                                 {project.actualCompletionDate && (
                                     <div>
-                                        <p className="text-xs text-[#8a8a8a] mb-0.5">Actual Completion</p>
+                                        <p className="text-xs text-[var(--text-muted)] mb-0.5">Actual Completion</p>
                                         <p className="text-sm text-green-400 flex items-center gap-2">
                                             <CheckCircle2 size={13} className="shrink-0" />
                                             {new Date(project.actualCompletionDate).toLocaleDateString('en-MY', {
@@ -338,12 +338,12 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                     </div>
 
                     {/* Description */}
-                    <section className="bg-[#222222]/5 rounded-2xl p-5 border border-[#222222]/8">
-                        <h3 className="text-sm font-semibold text-[#444444] mb-3 flex items-center gap-2">
-                            <FileText size={15} className="text-red-400" />
+                    <section className="bg-[var(--bg-tertiary)] rounded-2xl p-5 border border-[var(--border)]">
+                        <h3 className="text-sm font-semibold text-[var(--text-secondary)] mb-3 flex items-center gap-2">
+                            <FileText size={15} className="text-[var(--accent-primary)]" />
                             Description
                         </h3>
-                        <p className="text-sm text-[#444444] leading-relaxed">{project.description}</p>
+                        <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{project.description}</p>
                     </section>
 
                     {/* Notes */}
@@ -353,18 +353,18 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                                 <StickyNote size={15} />
                                 Notes
                             </h3>
-                            <p className="text-sm text-[#444444] leading-relaxed">{project.notes}</p>
+                            <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{project.notes}</p>
                         </section>
                     )}
 
                     {/* Submissions */}
                     <section>
-                        <h3 className="text-sm font-semibold text-[#444444] mb-3 flex items-center gap-2">
-                            <ChevronRight size={15} className="text-red-400" />
+                        <h3 className="text-sm font-semibold text-[var(--text-secondary)] mb-3 flex items-center gap-2">
+                            <ChevronRight size={15} className="text-[var(--accent-primary)]" />
                             Submissions ({project.submissions.length})
                         </h3>
                         {project.submissions.length === 0 ? (
-                            <div className="p-6 bg-[#222222]/5 rounded-2xl border border-[#222222]/8 text-center text-[#8a8a8a] text-sm">
+                            <div className="p-6 bg-[var(--bg-tertiary)] rounded-2xl border border-[var(--border)] text-center text-[var(--text-muted)] text-sm">
                                 No submissions yet
                             </div>
                         ) : (
@@ -378,10 +378,10 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                 </div>
 
                 {/* ── Footer ── */}
-                <div className="shrink-0 px-6 py-4 border-t border-[#222222]/8 flex items-center justify-between gap-4">
+                <div className="shrink-0 px-6 py-4 border-t border-[var(--border)] flex items-center justify-between gap-4">
                     <button
                         onClick={handleDelete}
-                        className="text-sm text-red-400 hover:text-red-300 flex items-center gap-1.5 transition-colors"
+                        className="text-sm text-[var(--accent-primary)] hover:text-red-300 flex items-center gap-1.5 transition-colors"
                     >
                         <Trash2 size={14} />
                         Delete project
@@ -389,13 +389,13 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                     <div className="flex items-center gap-3">
                         <button
                             onClick={onClose}
-                            className="px-5 py-2.5 bg-[#222222]/5 hover:bg-[#222222]/8 rounded-xl text-sm font-medium transition-all"
+                            className="px-5 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-xl text-sm font-medium transition-all"
                         >
                             Close
                         </button>
                         <button
                             onClick={handleEdit}
-                            className="flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-medium transition-all active:scale-95"
+                            className="flex items-center gap-2 px-5 py-2.5 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-xl text-sm font-medium transition-all active:scale-95"
                         >
                             <Edit size={14} />
                             Edit Project

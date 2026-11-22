@@ -143,7 +143,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
 
     return (
         <div
-            className={fullPage ? "min-h-screen bg-[#F6F4F1] p-6 md:p-10 flex items-start justify-center" : "fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4"}
+            className={fullPage ? "min-h-screen bg-[var(--bg-primary)] p-6 md:p-10 flex items-start justify-center" : "fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4"}
             onClick={fullPage ? undefined : onClose}
         >
             <div
@@ -154,11 +154,11 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                 <div className="flex items-start justify-between mb-8">
                     <div>
                         <h2 className="text-3xl font-display font-bold mb-2">{isEditing ? 'Edit Project' : 'Create New Project'}</h2>
-                        <p className="text-[#5a5a5a]">{isEditing ? 'Update project details' : 'Add a new architecture project to your tracker'}</p>
+                        <p className="text-[var(--text-secondary)]">{isEditing ? 'Update project details' : 'Add a new architecture project to your tracker'}</p>
                     </div>
                     <button
                         onClick={onClose}
-                        className="text-[#5a5a5a] hover:text-[#222222] transition-colors text-2xl"
+                        className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-2xl"
                     >
                         <X size={24} />
                     </button>
@@ -168,7 +168,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Project Title */}
                     <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                        <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-2">
                             <Building2 size={16} />
                             Project Title *
                         </label>
@@ -177,15 +177,15 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                             value={formData.title}
                             onChange={(e) => handleChange('title', e.target.value)}
                             placeholder="e.g., Modern Residential Villa"
-                            className={`w-full px-4 py-3 bg-[#222222]/5 border ${errors.title ? 'border-red-500' : 'border-[#222222]/10'} rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all`}
+                            className={`w-full px-4 py-3 bg-[var(--bg-tertiary)] border ${errors.title ? 'border-[var(--accent-primary)]' : 'border-[var(--border)]'} rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all`}
                         />
-                        {errors.title && <p className="text-red-400 text-sm mt-1">{errors.title}</p>}
+                        {errors.title && <p className="text-[var(--accent-primary)] text-sm mt-1">{errors.title}</p>}
                     </div>
 
                     {/* Client Name & Location */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                            <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-2">
                                 <Building2 size={16} />
                                 Client Name *
                             </label>
@@ -194,13 +194,13 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                 value={formData.clientName}
                                 onChange={(e) => handleChange('clientName', e.target.value)}
                                 placeholder="e.g., Ahmad bin Hassan"
-                                className={`w-full px-4 py-3 bg-[#222222]/5 border ${errors.clientName ? 'border-red-500' : 'border-[#222222]/10'} rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all`}
+                                className={`w-full px-4 py-3 bg-[var(--bg-tertiary)] border ${errors.clientName ? 'border-[var(--accent-primary)]' : 'border-[var(--border)]'} rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all`}
                             />
-                            {errors.clientName && <p className="text-red-400 text-sm mt-1">{errors.clientName}</p>}
+                            {errors.clientName && <p className="text-[var(--accent-primary)] text-sm mt-1">{errors.clientName}</p>}
                         </div>
 
                         <div>
-                            <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                            <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-2">
                                 <MapPin size={16} />
                                 Location *
                             </label>
@@ -209,15 +209,15 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                 value={formData.location}
                                 onChange={(e) => handleChange('location', e.target.value)}
                                 placeholder="e.g., Kuala Lumpur"
-                                className={`w-full px-4 py-3 bg-[#222222]/5 border ${errors.location ? 'border-red-500' : 'border-[#222222]/10'} rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all`}
+                                className={`w-full px-4 py-3 bg-[var(--bg-tertiary)] border ${errors.location ? 'border-[var(--accent-primary)]' : 'border-[var(--border)]'} rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all`}
                             />
-                            {errors.location && <p className="text-red-400 text-sm mt-1">{errors.location}</p>}
+                            {errors.location && <p className="text-[var(--accent-primary)] text-sm mt-1">{errors.location}</p>}
                         </div>
                     </div>
 
                     {/* Client Company */}
                     <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                        <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-2">
                             <Building2 size={16} />
                             Company / Organisation
                         </label>
@@ -226,14 +226,14 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                             value={formData.clientCompany}
                             onChange={(e) => handleChange('clientCompany', e.target.value)}
                             placeholder="e.g., Synergy Holdings Sdn Bhd"
-                            className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                            className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                         />
                     </div>
 
                     {/* Client Phone & Email */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                            <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-2">
                                 <Phone size={16} />
                                 Client Phone
                             </label>
@@ -242,12 +242,12 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                 value={formData.clientPhone}
                                 onChange={(e) => handleChange('clientPhone', e.target.value)}
                                 placeholder="e.g., +60123456789"
-                                className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                             />
                         </div>
 
                         <div>
-                            <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                            <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-2">
                                 <Mail size={16} />
                                 Client Email
                             </label>
@@ -256,14 +256,14 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                 value={formData.clientEmail}
                                 onChange={(e) => handleChange('clientEmail', e.target.value)}
                                 placeholder="e.g., client@example.com"
-                                className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                             />
                         </div>
                     </div>
 
                     {/* Description */}
                     <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                        <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-2">
                             <FileText size={16} />
                             Description *
                         </label>
@@ -272,14 +272,14 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                             onChange={(e) => handleChange('description', e.target.value)}
                             placeholder="Describe the project scope, requirements, and key features..."
                             rows={4}
-                            className={`w-full px-4 py-3 bg-[#222222]/5 border ${errors.description ? 'border-red-500' : 'border-[#222222]/10'} rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all resize-none`}
+                            className={`w-full px-4 py-3 bg-[var(--bg-tertiary)] border ${errors.description ? 'border-[var(--accent-primary)]' : 'border-[var(--border)]'} rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none`}
                         />
-                        {errors.description && <p className="text-red-400 text-sm mt-1">{errors.description}</p>}
+                        {errors.description && <p className="text-[var(--accent-primary)] text-sm mt-1">{errors.description}</p>}
                     </div>
 
                     {/* Notes */}
                     <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                        <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-2">
                             <StickyNote size={16} />
                             Internal Notes
                         </label>
@@ -288,24 +288,24 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                             onChange={(e) => handleChange('notes', e.target.value)}
                             placeholder="Any internal notes, client preferences, special requirements..."
                             rows={3}
-                            className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all resize-none"
+                            className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none"
                         />
                     </div>
 
                     {/* Status & Color */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="text-sm font-medium text-[#444444] mb-2 block">
+                            <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">
                                 Project Status
                             </label>
                             <select
                                 value={formData.status}
                                 onChange={(e) => handleChange('status', e.target.value)}
-                                className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all text-[#222222]"
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all text-[var(--text-primary)]"
                                 style={{ colorScheme: 'dark' }}
                             >
                                 {statusOptions.map(option => (
-                                    <option key={option.value} value={option.value} className="bg-[#FFFFFF] text-[#222222]">
+                                    <option key={option.value} value={option.value} className="bg-[#FFFFFF] text-[var(--text-primary)]">
                                         {option.label}
                                     </option>
                                 ))}
@@ -313,7 +313,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                         </div>
 
                         <div>
-                            <label className="text-sm font-medium text-[#444444] mb-2 block">
+                            <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">
                                 Project Color
                             </label>
                             <div className="flex gap-2">
@@ -323,7 +323,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                         type="button"
                                         onClick={() => handleChange('color', color.value)}
                                         className={`w-10 h-10 rounded-lg transition-all ${formData.color === color.value
-                                            ? 'ring-2 ring-white ring-offset-2 ring-offset-[#F6F4F1] scale-110'
+                                            ? 'ring-2 ring-white ring-offset-2 ring-offset-[#FFFFFF] scale-110'
                                             : 'hover:scale-105'
                                             }`}
                                         style={{ backgroundColor: color.value }}
@@ -337,7 +337,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                     {/* Dates */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                            <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-2">
                                 <Calendar size={16} />
                                 Start Date
                             </label>
@@ -345,12 +345,12 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                 type="date"
                                 value={formData.startDate}
                                 onChange={(e) => handleChange('startDate', e.target.value)}
-                                className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                             />
                         </div>
 
                         <div>
-                            <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                            <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-2">
                                 <Calendar size={16} />
                                 Target Completion Date
                             </label>
@@ -358,14 +358,14 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                 type="date"
                                 value={formData.targetCompletionDate}
                                 onChange={(e) => handleChange('targetCompletionDate', e.target.value)}
-                                className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                             />
                         </div>
                     </div>
 
                     {/* Budget */}
                     <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                        <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-2">
                             <DollarSign size={16} />
                             Total Budget (RM)
                         </label>
@@ -376,18 +376,18 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                             placeholder="e.g., 500000"
                             min="0"
                             step="1000"
-                            className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                            className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                         />
                     </div>
 
                     {/* Site Photos */}
                     <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                        <label className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] mb-2">
                             <ImageIcon size={16} />
                             Site Photos {!isEditing && '*'}
                         </label>
                         <div className="flex items-center gap-3 mb-3">
-                            <label className="flex items-center gap-2 px-4 py-2.5 bg-[#222222]/5 hover:bg-[#222222]/8 border border-[#222222]/10 rounded-xl cursor-pointer transition-all text-sm font-medium">
+                            <label className="flex items-center gap-2 px-4 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl cursor-pointer transition-all text-sm font-medium">
                                 <Upload size={16} />
                                 Upload photos
                                 <input
@@ -398,18 +398,18 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                     className="hidden"
                                 />
                             </label>
-                            <span className="text-xs text-[#8a8a8a]">{sitePhotos.length} photo{sitePhotos.length !== 1 ? 's' : ''} selected</span>
+                            <span className="text-xs text-[var(--text-muted)]">{sitePhotos.length} photo{sitePhotos.length !== 1 ? 's' : ''} selected</span>
                         </div>
-                        {errors.sitePhotos && <p className="text-red-400 text-sm mb-2">{errors.sitePhotos}</p>}
+                        {errors.sitePhotos && <p className="text-[var(--accent-primary)] text-sm mb-2">{errors.sitePhotos}</p>}
                         {sitePhotos.length > 0 && (
                             <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
                                 {sitePhotos.map((photo, idx) => (
-                                    <div key={idx} className="relative group rounded-xl overflow-hidden border border-[#222222]/10 aspect-square bg-[#222222]/5">
+                                    <div key={idx} className="relative group rounded-xl overflow-hidden border border-[var(--border)] aspect-square bg-[var(--bg-tertiary)]">
                                         <img src={photo} alt={`Site photo ${idx + 1}`} className="w-full h-full object-cover" />
                                         <button
                                             type="button"
                                             onClick={() => removePhoto(idx)}
-                                            className="absolute top-1.5 right-1.5 p-1 bg-black/60 hover:bg-red-600 text-[#222222] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                                            className="absolute top-1.5 right-1.5 p-1 bg-black/60 hover:bg-[var(--accent-primary)] text-[var(--text-primary)] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
                                             title="Remove photo"
                                         >
                                             <Trash2 size={14} />
@@ -422,21 +422,21 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
 
                     {/* Action Buttons */}
                     {errors.submit && (
-                        <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm mb-4">
+                        <div className="p-3 bg-red-500/10 border border-[var(--accent-primary)]/20 rounded-xl text-[var(--accent-primary)] text-sm mb-4">
                             {errors.submit}
                         </div>
                     )}
-                    <div className="flex items-center gap-4 pt-4 border-t border-[#222222]/8">
+                    <div className="flex items-center gap-4 pt-4 border-t border-[var(--border)]">
                         <button
                             type="submit"
-                            className="flex-1 bg-red-600 hover:bg-red-700 text-white px-6 py-4 rounded-xl font-medium transition-all shadow-lg shadow-red-600/20 active:scale-95"
+                            className="flex-1 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-6 py-4 rounded-xl font-medium transition-all shadow-lg shadow-[var(--accent-primary)]/20 active:scale-95"
                         >
                             {isEditing ? 'Save Changes' : 'Create Project'}
                         </button>
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-6 py-4 bg-[#222222]/5 hover:bg-[#222222]/8 rounded-xl font-medium transition-all"
+                            className="px-6 py-4 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-xl font-medium transition-all"
                         >
                             Cancel
                         </button>

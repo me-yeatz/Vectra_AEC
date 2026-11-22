@@ -492,7 +492,7 @@ export default function App() {
 
             {/* Sidebar */}
             <aside
-                className={`fixed left-0 top-0 h-full w-80 lg:w-64 shrink-0 bg-[#111111] text-white border-2-r border-2-white/10 flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed left-0 top-0 h-full w-80 lg:w-64 shrink-0 bg-[var(--bg-primary)] text-[var(--text-primary)] border-r border-[var(--border)] flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     } lg:translate-x-0`}
             >
                 <div className="p-6 flex items-center gap-3">
@@ -500,8 +500,8 @@ export default function App() {
                         <img src="/vectra-logo.svg" alt="VECTRA Logo" className="w-full h-full object-cover" />
                     </div>
                     <div>
-                        <span className="font-display font-bold text-xl tracking-tight block text-white">VECTRA</span>
-                        <span className="text-xs text-white/60">Built for Project Excellence</span>
+                        <span className="font-display font-bold text-xl tracking-tight block text-[var(--text-primary)]">VECTRA</span>
+                        <span className="text-xs text-[var(--text-secondary)]">Built for Project Excellence</span>
                     </div>
                 </div>
 
@@ -603,7 +603,7 @@ export default function App() {
                     />
                 </nav>
 
-                <div className="p-4 border-2-t border-2-[var(--border-2)]">
+                <div className="p-4 border-t border-[var(--border)]">
                     <NavItem
                         icon={<Settings size={20} />}
                         label="Settings"
@@ -613,7 +613,7 @@ export default function App() {
                         }}
                     />
                     <div className="mt-4 p-4 rounded-md bg-[var(--bg-tertiary)] flex items-center gap-3 cursor-pointer" onClick={() => { setViewMode('profile'); if (isMobile) setSidebarOpen(false); }}>
-                        <div className="w-10 h-10 rounded-md overflow-hidden bg-gradient-to-tr from-red-600 to-orange-400 flex items-center justify-center shrink-0">
+                        <div className="w-10 h-10 rounded-md overflow-hidden bg-[var(--bg-tertiary)] flex items-center justify-center shrink-0">
                             {activeProfile.photo ? (
                                 <img src={activeProfile.photo} alt="Profile" className="w-full h-full object-cover" />
                             ) : (
@@ -622,7 +622,7 @@ export default function App() {
                         </div>
                         <div className="min-w-0">
                             <p className="text-sm font-medium truncate">{activeProfile.fullName || activeProfile.username}</p>
-                            <p className="text-xs text-white/60 truncate">{activeProfile.role || 'User'}</p>
+                            <p className="text-xs text-[var(--text-secondary)] truncate">{activeProfile.role || 'User'}</p>
                         </div>
                     </div>
                 </div>
@@ -653,7 +653,7 @@ export default function App() {
                         <input
                             type="text"
                             placeholder="Search projects..."
-                            className="pl-12 pr-6 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all focus:bg-[var(--bg-tertiary)]"
+                            className="pl-12 pr-6 py-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all focus:bg-[var(--bg-tertiary)]"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
@@ -663,7 +663,7 @@ export default function App() {
                         {/* Theme toggle dongle */}
                         <button
                             onClick={() => setTheme(t => (t === 'dark' ? 'light' : 'dark'))}
-                            className="relative w-12 h-7 rounded-md bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] transition-colors flex items-center px-1"
+                            className="relative w-12 h-7 rounded-md bg-[var(--bg-tertiary)] border-2 border-[var(--border)] transition-colors flex items-center px-1"
                             title="Toggle theme"
                             aria-label="Toggle theme"
                         >
@@ -677,7 +677,7 @@ export default function App() {
                             <button
                                 onClick={() => setShowNotificationsDropdown(prev => !prev)}
                                 className={`p-3 bg-[var(--bg-tertiary)] border-2 rounded-md hover:bg-[var(--bg-tertiary)] transition-colors relative ${
-                                    showNotificationsDropdown ? 'border-2-[var(--accent-primary)]/50 text-[var(--text-primary)]' : 'border-2-[var(--border-2)] text-[var(--text-secondary)]'
+                                    showNotificationsDropdown ? 'border-2-[var(--accent-primary)]/50 text-[var(--text-primary)]' : 'border-[var(--border)] text-[var(--text-secondary)]'
                                 }`}
                                 title="Notifications"
                                 aria-label="Notifications"
@@ -690,8 +690,8 @@ export default function App() {
 
                             {/* Notifications Dropdown */}
                             {showNotificationsDropdown && (
-                                <div className="absolute right-0 mt-3 w-80 sm:w-96 glass bg-[var(--bg-secondary)]/95 backdrop-blur-xl border-2 border-2-[var(--border-2)] rounded-md shadow-2xl z-50 overflow-hidden animate-fade-in">
-                                    <div className="p-4 border-2-b border-2-[var(--border-2)] flex items-center justify-between">
+                                <div className="absolute right-0 mt-3 w-80 sm:w-96 glass bg-[var(--bg-secondary)]/95 backdrop-blur-xl border-2 border-[var(--border)] rounded-md shadow-2xl z-50 overflow-hidden animate-fade-in">
+                                    <div className="p-4 border-b border-[var(--border)] flex items-center justify-between">
                                         <div className="flex items-center gap-2">
                                             <span className="font-semibold text-[var(--text-primary)]">Notifications</span>
                                             {unreadNotificationsCount > 0 ? (
@@ -770,7 +770,7 @@ export default function App() {
                                     </div>
 
                                     {notifications.length > 0 && (
-                                        <div className="p-2.5 bg-[#222222]/[0.03] border-2-t border-2-[var(--border-2)] flex items-center justify-between gap-2">
+                                        <div className="p-2.5 bg-[#222222]/[0.03] border-t border-[var(--border)] flex items-center justify-between gap-2">
                                             <button
                                                 onClick={handleClearAllNotifications}
                                                 className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2 font-medium"
@@ -992,7 +992,7 @@ export default function App() {
 
                         <div className="glass rounded-md p-6 md:p-8 space-y-6">
                             <div className="flex items-center gap-6">
-                                <div className="w-24 h-24 rounded-md overflow-hidden bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] flex items-center justify-center shrink-0">
+                                <div className="w-24 h-24 rounded-md overflow-hidden bg-[var(--bg-tertiary)] border-2 border-[var(--border)] flex items-center justify-center shrink-0">
                                     {activeProfile.photo ? (
                                         <img src={activeProfile.photo} alt="Profile" className="w-full h-full object-cover" />
                                     ) : (
@@ -1002,7 +1002,7 @@ export default function App() {
                                 <div className="space-y-2">
                                     {isEditingProfile && (
                                         <>
-                                            <label className="flex items-center gap-2 px-4 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md cursor-pointer transition-all text-sm font-medium">
+                                            <label className="flex items-center gap-2 px-4 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md cursor-pointer transition-all text-sm font-medium">
                                                 <Upload size={16} />
                                                 Upload photo
                                                 <input
@@ -1039,7 +1039,7 @@ export default function App() {
                                         type="text"
                                         value={activeProfile.username}
                                         onChange={e => setActiveProfile(p => ({ ...p, username: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
@@ -1048,7 +1048,7 @@ export default function App() {
                                         type="text"
                                         value={activeProfile.fullName}
                                         onChange={e => setActiveProfile(p => ({ ...p, fullName: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
@@ -1057,7 +1057,7 @@ export default function App() {
                                         type="email"
                                         value={activeProfile.email || ''}
                                         onChange={e => setActiveProfile(p => ({ ...p, email: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
@@ -1066,7 +1066,7 @@ export default function App() {
                                         type="tel"
                                         value={activeProfile.phone || ''}
                                         onChange={e => setActiveProfile(p => ({ ...p, phone: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
@@ -1075,7 +1075,7 @@ export default function App() {
                                         type="text"
                                         value={activeProfile.company || ''}
                                         onChange={e => setActiveProfile(p => ({ ...p, company: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
@@ -1084,7 +1084,7 @@ export default function App() {
                                         type="text"
                                         value={activeProfile.role || ''}
                                         onChange={e => setActiveProfile(p => ({ ...p, role: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                             </fieldset>
@@ -1095,7 +1095,7 @@ export default function App() {
                                     disabled={!isEditingProfile}
                                     value={activeProfile.bio || ''}
                                     onChange={e => setActiveProfile(p => ({ ...p, bio: e.target.value }))}
-                                    className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none disabled:opacity-60 disabled:cursor-not-allowed"
+                                    className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none disabled:opacity-60 disabled:cursor-not-allowed"
                                 />
                             </div>
                             <div className="flex items-center gap-3 pt-2">
@@ -1139,7 +1139,7 @@ export default function App() {
                             </p>
 
                             <div className="space-y-4">
-                                <div className="p-4 rounded-md bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)]">
+                                <div className="p-4 rounded-md bg-[var(--bg-tertiary)] border-2 border-[var(--border)]">
                                     <h3 className="font-semibold mb-2">Google Drive</h3>
                                     <p className="text-xs text-[var(--text-muted)] mb-3">{cloud.isGoogleConfigured() ? 'Configured' : 'Not configured'}</p>
                                     <div className="flex gap-2 flex-wrap">
@@ -1185,7 +1185,7 @@ export default function App() {
                                     </div>
                                 </div>
 
-                                <div className="p-4 rounded-md bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)]">
+                                <div className="p-4 rounded-md bg-[var(--bg-tertiary)] border-2 border-[var(--border)]">
                                     <h3 className="font-semibold mb-2">OneDrive</h3>
                                     <p className="text-xs text-[var(--text-muted)] mb-3">{cloud.isOneDriveConfigured() ? 'Configured' : 'Not configured'}</p>
                                     <div className="flex gap-2 flex-wrap">
@@ -1252,7 +1252,7 @@ export default function App() {
                                     { value: 'google', label: 'Google Drive', desc: 'Sync data to your Google Drive.' },
                                     { value: 'onedrive', label: 'OneDrive', desc: 'Sync data to your OneDrive.' }
                                 ].map(opt => (
-                                    <label key={opt.value} className={`flex items-start gap-3 p-4 rounded-md border-2 cursor-pointer transition-all ${regStorage === opt.value ? 'border-2-[#FFCB74] bg-[var(--accent-primary)]/5' : 'border-2-[var(--border-2)] bg-[var(--bg-tertiary)]'}`}>
+                                    <label key={opt.value} className={`flex items-start gap-3 p-4 rounded-md border-2 cursor-pointer transition-all ${regStorage === opt.value ? 'border-2-[#FFCB74] bg-[var(--accent-primary)]/5' : 'border-[var(--border)] bg-[var(--bg-tertiary)]'}`}>
                                         <input
                                             type="radio"
                                             name="storage"
@@ -1337,8 +1337,8 @@ function NavItem({ icon, label, active = false, onClick, badge }: NavItemProps) 
             type="button"
             onClick={onClick}
             className={`w-full flex items-center gap-4 px-4 py-3 rounded-md transition-all duration-300 relative ${active
-                ? 'bg-[var(--accent-primary)]/15 text-white border-2 border-2-[var(--accent-primary)]/30'
-                : 'text-white/70 hover:bg-white/5 hover:text-white'
+                ? 'bg-[var(--accent-primary)]/15 text-[var(--text-primary)] border border-[var(--accent-primary)]/30'
+                : 'text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]'
                 }`}
         >
             {icon}
@@ -1363,7 +1363,7 @@ interface StatCardProps {
 function StatCard({ title, value, sub, color, icon }: StatCardProps) {
 
     return (
-        <div className="glass p-6 rounded-md relative overflow-hidden group hover:border-2-[var(--border-2)] transition-all">
+        <div className="glass p-6 rounded-md relative overflow-hidden group hover:border-[var(--border)] transition-all">
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-white/10 to-transparent rounded-md-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-110"></div>
             <div className="flex items-start justify-between mb-4">
                 <div className="w-12 h-12 rounded-md flex items-center justify-center" style={{ backgroundColor: `${color}20`, color }}>

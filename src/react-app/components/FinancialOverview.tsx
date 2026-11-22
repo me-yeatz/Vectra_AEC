@@ -74,7 +74,7 @@ export default function FinancialOverview({ projects, detailed = false }: Financ
                         {projectFinancials.map(project => (
                             <div
                                 key={project.id}
-                                className="bg-[var(--bg-tertiary)] p-6 rounded-md border-2 border-2-[var(--border-2)] hover:border-2-[var(--border-2)] transition-all"
+                                className="bg-[var(--bg-tertiary)] p-6 rounded-md border-2 border-[var(--border)] hover:border-[var(--border)] transition-all"
                             >
                                 <div className="flex items-start justify-between mb-4">
                                     <div className="flex-1">
@@ -91,7 +91,7 @@ export default function FinancialOverview({ projects, detailed = false }: Financ
                                     )}
                                 </div>
 
-                                <div className="grid grid-cols-3 gap-6 mt-6 pt-6 border-2-t border-2-[var(--border-2)]">
+                                <div className="grid grid-cols-3 gap-6 mt-6 pt-6 border-t border-[var(--border)]">
                                     <div>
                                         <p className="text-xs text-[var(--text-muted)] mb-2">Total Fees</p>
                                         <p className="text-xl font-bold text-[var(--text-primary)]">
@@ -113,7 +113,7 @@ export default function FinancialOverview({ projects, detailed = false }: Financ
                                 </div>
 
                                 {/* Submissions List */}
-                                <div className="mt-6 pt-6 border-2-t border-2-[var(--border-2)]">
+                                <div className="mt-6 pt-6 border-t border-[var(--border)]">
                                     <p className="text-xs text-[var(--text-muted)] mb-3 font-semibold uppercase tracking-wide">
                                         Submissions ({project.submissions.length})
                                     </p>

@@ -56,7 +56,7 @@ const submissionTypeLabels: Record<string, string> = {
 function SubmissionRow({ sub }: { sub: Submission }) {
     const sc = submissionStatusConfig[sub.status] ?? { label: sub.status, color: '#94a3b8' };
     return (
-        <div className="flex items-start gap-4 p-4 bg-[var(--bg-tertiary)] rounded-md border-2 border-2-[var(--border-2)]">
+        <div className="flex items-start gap-4 p-4 bg-[var(--bg-tertiary)] rounded-md border-2 border-[var(--border)]">
             <div
                 className="w-2 h-2 rounded-md mt-2 shrink-0"
                 style={{ backgroundColor: sc.color }}
@@ -127,7 +127,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
             >
                 {/* ── Header ── */}
                 <div
-                    className="flex items-start justify-between p-6 pb-4 border-2-b border-2-[var(--border-2)] shrink-0"
+                    className="flex items-start justify-between p-6 pb-4 border-b border-[var(--border)] shrink-0"
                 >
                     <div className="flex items-center gap-4">
                         <div
@@ -213,7 +213,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                         ].map(stat => (
                             <div
                                 key={stat.label}
-                                className="bg-[var(--bg-tertiary)] rounded-md p-4 border-2 border-2-[var(--border-2)]"
+                                className="bg-[var(--bg-tertiary)] rounded-md p-4 border-2 border-[var(--border)]"
                             >
                                 <div
                                     className="w-8 h-8 rounded-md flex items-center justify-center mb-2"
@@ -232,7 +232,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         {/* Client Contact */}
-                        <section className="bg-[var(--bg-tertiary)] rounded-md p-5 border-2 border-2-[var(--border-2)]">
+                        <section className="bg-[var(--bg-tertiary)] rounded-md p-5 border-2 border-[var(--border)]">
                             <h3 className="text-sm font-semibold text-[var(--text-secondary)] mb-4 flex items-center gap-2">
                                 <User size={15} className="text-[var(--accent-primary)]" />
                                 Client Contact
@@ -289,7 +289,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                         </section>
 
                         {/* Project Details */}
-                        <section className="bg-[var(--bg-tertiary)] rounded-md p-5 border-2 border-2-[var(--border-2)]">
+                        <section className="bg-[var(--bg-tertiary)] rounded-md p-5 border-2 border-[var(--border)]">
                             <h3 className="text-sm font-semibold text-[var(--text-secondary)] mb-4 flex items-center gap-2">
                                 <FileText size={15} className="text-[var(--accent-primary)]" />
                                 Project Details
@@ -338,7 +338,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                     </div>
 
                     {/* Description */}
-                    <section className="bg-[var(--bg-tertiary)] rounded-md p-5 border-2 border-2-[var(--border-2)]">
+                    <section className="bg-[var(--bg-tertiary)] rounded-md p-5 border-2 border-[var(--border)]">
                         <h3 className="text-sm font-semibold text-[var(--text-secondary)] mb-3 flex items-center gap-2">
                             <FileText size={15} className="text-[var(--accent-primary)]" />
                             Description
@@ -364,7 +364,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                             Submissions ({project.submissions.length})
                         </h3>
                         {project.submissions.length === 0 ? (
-                            <div className="p-6 bg-[var(--bg-tertiary)] rounded-md border-2 border-2-[var(--border-2)] text-center text-[var(--text-muted)] text-sm">
+                            <div className="p-6 bg-[var(--bg-tertiary)] rounded-md border-2 border-[var(--border)] text-center text-[var(--text-muted)] text-sm">
                                 No submissions yet
                             </div>
                         ) : (
@@ -378,7 +378,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                 </div>
 
                 {/* ── Footer ── */}
-                <div className="shrink-0 px-6 py-4 border-2-t border-2-[var(--border-2)] flex items-center justify-between gap-4">
+                <div className="shrink-0 px-6 py-4 border-t border-[var(--border)] flex items-center justify-between gap-4">
                     <button
                         onClick={handleDelete}
                         className="text-sm text-[var(--accent-primary)] hover:text-red-300 flex items-center gap-1.5 transition-colors"

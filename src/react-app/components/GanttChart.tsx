@@ -187,11 +187,11 @@ export default function GanttChart({ projects }: GanttChartProps) {
 
                 {/* Timeline Header */}
                 <div className="mb-4">
-                    <div className="relative h-12 border-2-b border-2-[var(--border-2)]">
+                    <div className="relative h-12 border-b border-[var(--border)]">
                         {monthMarkers.map((marker, idx) => (
                             <div
                                 key={idx}
-                                className="absolute top-0 h-full border-2-l border-2-[var(--border-2)]"
+                                className="absolute top-0 h-full border-l border-[var(--border)]"
                                 style={{ left: `${marker.position}%` }}
                             >
                                 <span className="absolute top-2 left-2 text-xs text-[var(--text-muted)] font-medium origin-left -rotate-45 whitespace-nowrap">
@@ -201,7 +201,7 @@ export default function GanttChart({ projects }: GanttChartProps) {
                         ))}
                         {/* Today marker */}
                         <div
-                            className="absolute top-0 h-full border-2-l-2 border-2-[var(--accent-primary)]"
+                            className="absolute top-0 h-full border-l-2 border-2-[var(--accent-primary)]"
                             style={{
                                 left: `${((new Date().getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24) / totalDays) * 100}%`
                             }}
@@ -247,7 +247,7 @@ export default function GanttChart({ projects }: GanttChartProps) {
                                             {monthMarkers.map((marker, idx) => (
                                                 <div
                                                     key={idx}
-                                                    className="absolute top-0 h-full border-2-l border-2-[var(--border-2)]"
+                                                    className="absolute top-0 h-full border-l border-[var(--border)]"
                                                     style={{ left: `${marker.position}%` }}
                                                 />
                                             ))}
@@ -318,7 +318,7 @@ export default function GanttChart({ projects }: GanttChartProps) {
                 </div>
 
                 {/* Legend */}
-                <div className="mt-6 pt-6 border-2-t border-2-[var(--border-2)]">
+                <div className="mt-6 pt-6 border-t border-[var(--border)]">
                     <p className="text-xs text-[var(--text-muted)] mb-3">Status Legend:</p>
                     <div className="flex flex-wrap gap-3">
                         {[

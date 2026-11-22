@@ -122,7 +122,7 @@ export default function CommunicationDashboard({
                     <input
                         type="text"
                         placeholder="Search messages, clients, phone numbers..."
-                        className="pl-12 pr-6 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md w-full focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all focus:bg-[var(--bg-tertiary)]"
+                        className="pl-12 pr-6 py-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md w-full focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all focus:bg-[var(--bg-tertiary)]"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
@@ -132,7 +132,7 @@ export default function CommunicationDashboard({
                     {onMarkAllAsRead && messages.some(m => !m.isRead && (m.status === 'new' || m.requiresHumanReview)) && (
                         <button
                             onClick={onMarkAllAsRead}
-                            className="flex items-center gap-2 px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-md text-sm font-medium transition-all"
+                            className="flex items-center gap-2 px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-md text-sm font-medium transition-all"
                             title="Mark all messages as read"
                         >
                             <CheckCheck size={16} className="text-green-400" />
@@ -143,7 +143,7 @@ export default function CommunicationDashboard({
                     <select
                         value={filterStatus}
                         onChange={(e) => setFilterStatus(e.target.value as MessageStatus | 'all')}
-                        className="px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                        className="px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                     >
                         <option value="all">All Status</option>
                         <option value="new">New</option>
@@ -156,7 +156,7 @@ export default function CommunicationDashboard({
                     <select
                         value={filterPriority}
                         onChange={(e) => setFilterPriority(e.target.value as MessagePriority | 'all')}
-                        className="px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                        className="px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                     >
                         <option value="all">All Priority</option>
                         <option value="urgent">Urgent</option>
@@ -167,7 +167,7 @@ export default function CommunicationDashboard({
 
                     <button
                         onClick={onOpenSettings}
-                        className="p-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md hover:bg-[var(--bg-tertiary)] transition-colors"
+                        className="p-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md hover:bg-[var(--bg-tertiary)] transition-colors"
                         title="Settings"
                     >
                         <Settings size={20} className="text-[var(--text-secondary)]" />
@@ -179,7 +179,7 @@ export default function CommunicationDashboard({
             <div className="glass rounded-md overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full">
-                        <thead className="bg-[var(--bg-tertiary)] border-2-b border-2-[var(--border-2)]">
+                        <thead className="bg-[var(--bg-tertiary)] border-b border-[var(--border)]">
                             <tr>
                                 <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Client</th>
                                 <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Message</th>
@@ -326,7 +326,7 @@ interface StatCardProps {
 
 function StatCard({ title, value, sub, color, icon }: StatCardProps) {
     return (
-        <div className="glass p-6 rounded-md relative overflow-hidden group hover:border-2-[var(--border-2)] transition-all">
+        <div className="glass p-6 rounded-md relative overflow-hidden group hover:border-[var(--border)] transition-all">
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-white/10 to-transparent rounded-md-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-110"></div>
             <div className="flex items-start justify-between mb-4">
                 <div className="w-12 h-12 rounded-md flex items-center justify-center" style={{ backgroundColor: `${color}20`, color }}>
@@ -373,7 +373,7 @@ function MessageDetailModal({ message, onClose, onStatusChange, onToggleRead }: 
                 <div className="space-y-6">
                     <div>
                         <h3 className="text-sm font-medium text-[var(--text-secondary)] mb-2">Original Message</h3>
-                        <div className="bg-[var(--bg-tertiary)] rounded-md p-4 border-2 border-2-[var(--border-2)]">
+                        <div className="bg-[var(--bg-tertiary)] rounded-md p-4 border-2 border-[var(--border)]">
                             <p className="text-[var(--text-primary)]">{message.content}</p>
                             <p className="text-xs text-[var(--text-muted)] mt-2">{new Date(message.timestamp).toLocaleString()}</p>
                         </div>
@@ -410,7 +410,7 @@ function MessageDetailModal({ message, onClose, onStatusChange, onToggleRead }: 
                         ))}
                     </div>
 
-                    <div className="flex items-center gap-3 pt-4 border-2-t border-2-[var(--border-2)] flex-wrap">
+                    <div className="flex items-center gap-3 pt-4 border-t border-[var(--border)] flex-wrap">
                         {onToggleRead && (
                             <button
                                 onClick={() => onToggleRead(!message.isRead)}

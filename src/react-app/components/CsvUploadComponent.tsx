@@ -98,7 +98,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
           className={`flex flex-col items-center justify-center p-4 rounded-md transition-all ${
             selectedImportType === 'projects'
               ? 'bg-[var(--accent-primary)]/20 border-2 border-2-[var(--accent-primary)]/30'
-              : 'bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] hover:bg-[var(--bg-tertiary)]'
+              : 'bg-[var(--bg-tertiary)] border-2 border-[var(--border)] hover:bg-[var(--bg-tertiary)]'
           }`}
           onClick={() => setSelectedImportType('projects')}
         >
@@ -109,7 +109,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
           className={`flex flex-col items-center justify-center p-4 rounded-md transition-all ${
             selectedImportType === 'tasks'
               ? 'bg-[var(--accent-primary)]/20 border-2 border-2-[var(--accent-primary)]/30'
-              : 'bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] hover:bg-[var(--bg-tertiary)]'
+              : 'bg-[var(--bg-tertiary)] border-2 border-[var(--border)] hover:bg-[var(--bg-tertiary)]'
           }`}
           onClick={() => setSelectedImportType('tasks')}
         >
@@ -120,7 +120,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
           className={`flex flex-col items-center justify-center p-4 rounded-md transition-all ${
             selectedImportType === 'clients'
               ? 'bg-[var(--accent-primary)]/20 border-2 border-2-[var(--accent-primary)]/30'
-              : 'bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] hover:bg-[var(--bg-tertiary)]'
+              : 'bg-[var(--bg-tertiary)] border-2 border-[var(--border)] hover:bg-[var(--bg-tertiary)]'
           }`}
           onClick={() => setSelectedImportType('clients')}
         >
@@ -131,7 +131,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
 
       <div
         className={`relative rounded-md border-2-2 border-2-dashed p-8 text-center transition-all ${
-          dragActive ? 'border-2-[var(--accent-primary)] bg-red-500/10' : 'border-2-[var(--border-2)]'
+          dragActive ? 'border-2-[var(--accent-primary)] bg-red-500/10' : 'border-[var(--border)]'
         }`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
@@ -170,7 +170,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
 
       {uploading && (
         <div className="mt-6 p-4 bg-blue-500/10 border-2 border-2-blue-500/20 rounded-md flex items-center gap-3">
-          <div className="animate-spin rounded-md h-5 w-5 border-2-b-2 border-2-blue-400"></div>
+          <div className="animate-spin rounded-md h-5 w-5 border-b-2 border-2-blue-400"></div>
           <span className="text-blue-400">Processing your file...</span>
         </div>
       )}

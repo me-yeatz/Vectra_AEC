@@ -66,7 +66,7 @@ const submissionTypeLabels: Record<string, string> = {
 function SubmissionCard({ sub, index }: { sub: Submission; index: number }) {
     const sc = submissionStatusConfig[sub.status] ?? { label: sub.status, color: '#94a3b8' };
     return (
-        <div className="bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md p-6 hover:border-2-[var(--border-2)] transition-all">
+        <div className="bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md p-6 hover:border-[var(--border)] transition-all">
             <div className="flex items-start justify-between mb-4 gap-3 flex-wrap">
                 <div className="flex items-center gap-3">
                     <div
@@ -265,7 +265,7 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
         <div className="animate-fade-in max-w-6xl mx-auto px-4 sm:px-6">
 
             {/* ── Sticky top bar ── */}
-            <div className="sticky top-0 z-30 px-2 py-4 mb-8 bg-[var(--bg-primary)]/90 backdrop-blur-xl border-2-b border-2-[var(--border-2)] flex items-center justify-between gap-4">
+            <div className="sticky top-0 z-30 px-2 py-4 mb-8 bg-[var(--bg-primary)]/90 backdrop-blur-xl border-b border-[var(--border)] flex items-center justify-between gap-4">
                 <button
                     onClick={onBack}
                     className="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-sm font-medium"
@@ -493,14 +493,14 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                         </h2>
                         <div className="space-y-3">
                             {project.totalBudget && (
-                                <div className="flex justify-between items-center py-2 border-2-b border-2-[var(--border-2)]">
+                                <div className="flex justify-between items-center py-2 border-b border-[var(--border)]">
                                     <span className="text-sm text-[var(--text-secondary)]">Total Budget</span>
                                     <span className="text-sm font-semibold text-[var(--text-primary)]">
                                         RM {project.totalBudget.toLocaleString()}
                                     </span>
                                 </div>
                             )}
-                            <div className="flex justify-between items-center py-2 border-2-b border-2-[var(--border-2)]">
+                            <div className="flex justify-between items-center py-2 border-b border-[var(--border)]">
                                 <span className="text-sm text-[var(--text-secondary)]">Consultant Fees</span>
                                 <span className="text-sm font-semibold text-green-400">
                                     RM {totalFees.toLocaleString()}
@@ -559,7 +559,7 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                             </h2>
                             <button
                                 onClick={() => fileInputRef.current?.click()}
-                                className="flex items-center gap-2 px-3 py-1.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md text-sm font-medium transition-all"
+                                className="flex items-center gap-2 px-3 py-1.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md text-sm font-medium transition-all"
                             >
                                 <Upload size={14} />
                                 Upload
@@ -574,13 +574,13 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                             />
                         </div>
                         {(project.sitePhotos || []).length === 0 ? (
-                            <div className="p-8 text-center text-[var(--text-muted)] text-sm border-2 border-2-dashed border-2-[var(--border-2)] rounded-md">
+                            <div className="p-8 text-center text-[var(--text-muted)] text-sm border-2 border-2-dashed border-[var(--border)] rounded-md">
                                 No site photos uploaded yet
                             </div>
                         ) : (
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                 {(project.sitePhotos || []).map((photo, idx) => (
-                                    <div key={idx} className="relative group rounded-md overflow-hidden border-2 border-2-[var(--border-2)] aspect-square bg-[var(--bg-tertiary)]">
+                                    <div key={idx} className="relative group rounded-md overflow-hidden border-2 border-[var(--border)] aspect-square bg-[var(--bg-tertiary)]">
                                         <img src={photo} alt={`Site photo ${idx + 1}`} className="w-full h-full object-cover" />
                                         <button
                                             onClick={() => removePhoto(idx)}
@@ -617,7 +617,7 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                         </div>
 
                         {showInvoiceForm && (
-                            <div className="mb-5 p-4 bg-[var(--bg-tertiary)] rounded-md border-2 border-2-[var(--border-2)] space-y-3">
+                            <div className="mb-5 p-4 bg-[var(--bg-tertiary)] rounded-md border-2 border-[var(--border)] space-y-3">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     <div>
                                         <label className="text-xs text-[var(--text-secondary)] mb-1 block">Amount (RM) *</label>
@@ -627,7 +627,7 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                                             step="0.01"
                                             value={invoiceForm.amount}
                                             onChange={e => setInvoiceForm(f => ({ ...f, amount: e.target.value }))}
-                                            className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                                            className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                                         />
                                     </div>
                                     <div>
@@ -635,7 +635,7 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                                         <select
                                             value={invoiceForm.status}
                                             onChange={e => setInvoiceForm(f => ({ ...f, status: e.target.value as 'draft' | 'sent' | 'paid' }))}
-                                            className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md text-sm text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                                            className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md text-sm text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                                             style={{ colorScheme: 'dark' }}
                                         >
                                             <option value="draft" className="bg-[#FFFFFF]">Draft</option>
@@ -649,7 +649,7 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                                             type="date"
                                             value={invoiceForm.issuedDate}
                                             onChange={e => setInvoiceForm(f => ({ ...f, issuedDate: e.target.value }))}
-                                            className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                                            className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                                         />
                                     </div>
                                     <div>
@@ -658,7 +658,7 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                                             type="date"
                                             value={invoiceForm.dueDate}
                                             onChange={e => setInvoiceForm(f => ({ ...f, dueDate: e.target.value }))}
-                                            className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                                            className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                                         />
                                     </div>
                                 </div>
@@ -669,7 +669,7 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                                         value={invoiceForm.description}
                                         onChange={e => setInvoiceForm(f => ({ ...f, description: e.target.value }))}
                                         placeholder="e.g., Consultant fee for planning permission submission"
-                                        className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                                        className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                                     />
                                 </div>
                                 <div>
@@ -678,7 +678,7 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                                         rows={2}
                                         value={invoiceForm.notes}
                                         onChange={e => setInvoiceForm(f => ({ ...f, notes: e.target.value }))}
-                                        className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                                        className="w-full px-3 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                                     />
                                 </div>
                                 <div className="flex gap-2 justify-end">
@@ -699,13 +699,13 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
                         )}
 
                         {(project.invoices || []).length === 0 ? (
-                            <div className="p-6 text-center text-[var(--text-muted)] text-sm border-2 border-2-dashed border-2-[var(--border-2)] rounded-md">
+                            <div className="p-6 text-center text-[var(--text-muted)] text-sm border-2 border-2-dashed border-[var(--border)] rounded-md">
                                 No invoices yet
                             </div>
                         ) : (
                             <div className="space-y-3">
                                 {(project.invoices || []).map(inv => (
-                                    <div key={inv.id} className="p-4 bg-[var(--bg-tertiary)] rounded-md border-2 border-2-[var(--border-2)]">
+                                    <div key={inv.id} className="p-4 bg-[var(--bg-tertiary)] rounded-md border-2 border-[var(--border)]">
                                         <div className="flex items-start justify-between gap-3 flex-wrap">
                                             <div>
                                                 <div className="flex items-center gap-2 mb-1">
@@ -804,7 +804,7 @@ ${inv.notes ? `<p style="margin-top:20px;font-size:13px;color:#555;">Notes: ${in
             </div>
 
             {/* ── Bottom action bar ── */}
-            <div className="sticky bottom-0 px-2 py-4 bg-[var(--bg-primary)]/90 backdrop-blur-xl border-2-t border-2-[var(--border-2)] flex items-center justify-between gap-4">
+            <div className="sticky bottom-0 px-2 py-4 bg-[var(--bg-primary)]/90 backdrop-blur-xl border-t border-[var(--border)] flex items-center justify-between gap-4">
                 <button
                     onClick={onBack}
                     className="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-sm font-medium"

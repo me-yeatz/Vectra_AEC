@@ -108,7 +108,7 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
                                 <div
                                     role="menu"
                                     aria-label="Project actions"
-                                    className="fixed w-44 bg-[#FFFFFF] border-2 border-2-[var(--border-2)] rounded-md shadow-2xl z-[9999] overflow-hidden animate-fade-in ring-1 ring-white/10"
+                                    className="fixed w-44 bg-[#FFFFFF] border-2 border-[var(--border)] rounded-md shadow-2xl z-[9999] overflow-hidden animate-fade-in ring-1 ring-white/10"
                                     style={{
                                         top: `${dropdownPosition.top}px`,
                                         right: `${dropdownPosition.right}px`
@@ -197,7 +197,7 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
             </div>
 
             {/* Footer */}
-            <div className="pt-6 border-2-t border-2-[var(--border-2)] flex items-center justify-between text-xs">
+            <div className="pt-6 border-t border-[var(--border)] flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2 text-[var(--text-muted)]">
                     <Calendar size={14} />
                     <span>Due {new Date(project.targetCompletionDate || project.startDate).toLocaleDateString('en-MY', { month: 'short', year: 'numeric' })}</span>

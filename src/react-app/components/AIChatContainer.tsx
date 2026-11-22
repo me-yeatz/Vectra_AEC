@@ -129,9 +129,9 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
   return (
     <div className="flex h-full bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-md overflow-hidden flex-col md:flex-row">
       {/* Sidebar for conversations - Collapsible on mobile */}
-      <div className={`bg-[var(--bg-tertiary)] border-2-r border-2-[var(--border-2)] flex-col flex-shrink-0 md:w-64 transition-all duration-300 ${showConversations ? 'flex' : 'hidden'
+      <div className={`bg-[var(--bg-tertiary)] border-r border-[var(--border)] flex-col flex-shrink-0 md:w-64 transition-all duration-300 ${showConversations ? 'flex' : 'hidden'
         } md:flex`}>
-        <div className="p-4 border-2-b border-2-[var(--border-2)] flex justify-between items-center">
+        <div className="p-4 border-b border-[var(--border)] flex justify-between items-center">
           <h3 className="font-semibold">Chats</h3>
           <button
             className="md:hidden text-[var(--text-secondary)]"
@@ -196,7 +196,7 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
       {/* Main chat area */}
       <div className="flex-1 flex flex-col">
         {/* Mobile header with toggle button */}
-        <div className="p-4 border-2-b border-2-[var(--border-2)] bg-[var(--bg-tertiary)] flex items-center justify-between md:hidden">
+        <div className="p-4 border-b border-[var(--border)] bg-[var(--bg-tertiary)] flex items-center justify-between md:hidden">
           <button
             className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-md hover:bg-[var(--bg-tertiary)]"
             onClick={() => setShowConversations(true)}
@@ -216,7 +216,7 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
 
         {currentConversation ? (
           <>
-            <div className="p-4 border-2-b border-2-[var(--border-2)] bg-[var(--bg-tertiary)] hidden md:flex items-center justify-between">
+            <div className="p-4 border-b border-[var(--border)] bg-[var(--bg-tertiary)] hidden md:flex items-center justify-between">
               <h2 className="text-lg font-semibold truncate">{currentConversation.title}</h2>
               <button
                 onClick={() => setShowSettings(true)}
@@ -299,14 +299,14 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
         )}
 
         {/* Input area */}
-        <div className="p-4 border-2-t border-2-[var(--border-2)] bg-[var(--bg-tertiary)]">
+        <div className="p-4 border-t border-[var(--border)] bg-[var(--bg-tertiary)]">
           <div className="flex gap-2">
             <textarea
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyDown={handleKeyPress}
               placeholder="Type your message here..."
-              className="flex-1 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 resize-none"
+              className="flex-1 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 resize-none"
               rows={2}
               disabled={isLoading || !hfApiKey}
             />
@@ -348,7 +348,7 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
                   value={tempApiKey}
                   onChange={(e) => setTempApiKey(e.target.value)}
                   placeholder="Enter your Hugging Face API key"
-                  className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                  className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                 />
                 <p className="text-xs text-[var(--text-muted)] mt-2">
                   Get your API key from{' '}

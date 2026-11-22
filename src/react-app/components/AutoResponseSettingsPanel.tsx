@@ -114,7 +114,7 @@ export default function AutoResponseSettingsPanel({
                                     value={settings.claudeApiKey || ''}
                                     onChange={(e) => setSettings({ ...settings, claudeApiKey: e.target.value })}
                                     placeholder="sk-ant-..."
-                                    className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all font-mono text-sm"
+                                    className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all font-mono text-sm"
                                 />
                                 <button
                                     onClick={() => setShowApiKey(!showApiKey)}
@@ -169,7 +169,7 @@ export default function AutoResponseSettingsPanel({
                                         ...settings,
                                         workingHours: { ...settings.workingHours, start: e.target.value }
                                     })}
-                                    className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                    className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                 />
                             </div>
                             <div>
@@ -181,7 +181,7 @@ export default function AutoResponseSettingsPanel({
                                         ...settings,
                                         workingHours: { ...settings.workingHours, end: e.target.value }
                                     })}
-                                    className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                    className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                 />
                             </div>
                         </div>
@@ -240,7 +240,7 @@ export default function AutoResponseSettingsPanel({
                                 type="checkbox"
                                 checked={settings.autoRespondOutsideHours}
                                 onChange={(e) => setSettings({ ...settings, autoRespondOutsideHours: e.target.checked })}
-                                className="w-5 h-5 rounded-md bg-[var(--bg-tertiary)] border-2-[var(--border-2)] text-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                                className="w-5 h-5 rounded-md bg-[var(--bg-tertiary)] border-[var(--border)] text-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                             />
                         </label>
 
@@ -250,7 +250,7 @@ export default function AutoResponseSettingsPanel({
                                 type="checkbox"
                                 checked={settings.autoRespondOnWeekends}
                                 onChange={(e) => setSettings({ ...settings, autoRespondOnWeekends: e.target.checked })}
-                                className="w-5 h-5 rounded-md bg-[var(--bg-tertiary)] border-2-[var(--border-2)] text-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                                className="w-5 h-5 rounded-md bg-[var(--bg-tertiary)] border-[var(--border)] text-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                             />
                         </label>
                     </div>
@@ -268,7 +268,7 @@ export default function AutoResponseSettingsPanel({
                                     responseTemplates: { ...settings.responseTemplates, weekendMessage: e.target.value }
                                 })}
                                 rows={3}
-                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none"
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none"
                             />
                         </div>
 
@@ -281,7 +281,7 @@ export default function AutoResponseSettingsPanel({
                                     responseTemplates: { ...settings.responseTemplates, afterHoursMessage: e.target.value }
                                 })}
                                 rows={3}
-                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none"
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none"
                             />
                         </div>
                     </div>
@@ -298,7 +298,7 @@ export default function AutoResponseSettingsPanel({
                                 escalationKeywords: e.target.value.split(',').map(k => k.trim()).filter(Boolean)
                             })}
                             placeholder="urgent, emergency, deadline, legal, safety"
-                            className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                            className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                         />
                     </div>
 
@@ -329,7 +329,7 @@ export default function AutoResponseSettingsPanel({
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex items-center gap-4 pt-4 border-2-t border-2-[var(--border-2)]">
+                    <div className="flex items-center gap-4 pt-4 border-t border-[var(--border)]">
                         <button
                             onClick={handleSave}
                             className="flex-1 flex items-center justify-center gap-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-6 py-4 rounded-md font-medium transition-all shadow-lg shadow-[var(--accent-primary)]/20"

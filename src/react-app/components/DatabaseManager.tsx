@@ -201,11 +201,11 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
   return (
     <div className="h-full flex flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-md overflow-hidden">
       {/* Tab Navigation - Mobile-friendly */}
-      <div className="border-2-b border-2-[var(--border-2)] bg-[var(--bg-tertiary)] overflow-x-auto">
+      <div className="border-b border-[var(--border)] bg-[var(--bg-tertiary)] overflow-x-auto">
         <div className="flex min-w-max">
           <button
             className={`flex items-center gap-2 px-4 py-3 sm:px-6 sm:py-4 font-medium transition-colors whitespace-nowrap ${activeTab === 'tasks'
-              ? 'text-[var(--accent-primary)] border-2-b-2 border-2-red-400'
+              ? 'text-[var(--accent-primary)] border-b-2 border-2-red-400'
               : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             onClick={() => setActiveTab('tasks')}
@@ -216,7 +216,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           </button>
           <button
             className={`flex items-center gap-2 px-4 py-3 sm:px-6 sm:py-4 font-medium transition-colors whitespace-nowrap ${activeTab === 'clients'
-              ? 'text-[var(--accent-primary)] border-2-b-2 border-2-red-400'
+              ? 'text-[var(--accent-primary)] border-b-2 border-2-red-400'
               : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             onClick={() => setActiveTab('clients')}
@@ -227,7 +227,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           </button>
           <button
             className={`flex items-center gap-2 px-4 py-3 sm:px-6 sm:py-4 font-medium transition-colors whitespace-nowrap ${activeTab === 'documents'
-              ? 'text-[var(--accent-primary)] border-2-b-2 border-2-red-400'
+              ? 'text-[var(--accent-primary)] border-b-2 border-2-red-400'
               : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             onClick={() => setActiveTab('documents')}
@@ -238,7 +238,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           </button>
           <button
             className={`flex items-center gap-2 px-4 py-3 sm:px-6 sm:py-4 font-medium transition-colors whitespace-nowrap ${activeTab === 'notes'
-              ? 'text-[var(--accent-primary)] border-2-b-2 border-2-red-400'
+              ? 'text-[var(--accent-primary)] border-b-2 border-2-red-400'
               : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             onClick={() => setActiveTab('notes')}
@@ -249,7 +249,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           </button>
           <button
             className={`flex items-center gap-2 px-4 py-3 sm:px-6 sm:py-4 font-medium transition-colors whitespace-nowrap ${activeTab === 'csv'
-              ? 'text-[var(--accent-primary)] border-2-b-2 border-2-red-400'
+              ? 'text-[var(--accent-primary)] border-b-2 border-2-red-400'
               : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             onClick={() => setActiveTab('csv')}
@@ -270,7 +270,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
             <input
               type="text"
               placeholder={`Search ${activeTab}...`}
-              className="pl-12 pr-6 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all w-full"
+              className="pl-12 pr-6 py-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all w-full"
             />
           </div>
 
@@ -299,7 +299,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newTask.title}
                   onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Task title"
                 />
               </div>
@@ -308,7 +308,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                 <select
                   value={newTask.status}
                   onChange={(e) => setNewTask({ ...newTask, status: e.target.value as Task['status'] })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                 >
                   <option value="todo">To Do</option>
                   <option value="in-progress">In Progress</option>
@@ -321,7 +321,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                 <select
                   value={newTask.priority}
                   onChange={(e) => setNewTask({ ...newTask, priority: e.target.value as Task['priority'] })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                 >
                   <option value="low">Low</option>
                   <option value="medium">Medium</option>
@@ -335,7 +335,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={projectId || newTask.projectId}
                   onChange={(e) => setNewTask({ ...newTask, projectId: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Project ID"
                 />
               </div>
@@ -344,7 +344,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                 <textarea
                   value={newTask.description}
                   onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Task description"
                   rows={3}
                 />
@@ -377,7 +377,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newClient.name}
                   onChange={(e) => setNewClient({ ...newClient, name: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Client name"
                 />
               </div>
@@ -387,7 +387,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newClient.company}
                   onChange={(e) => setNewClient({ ...newClient, company: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Company name"
                 />
               </div>
@@ -397,7 +397,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="email"
                   value={newClient.email}
                   onChange={(e) => setNewClient({ ...newClient, email: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Email address"
                 />
               </div>
@@ -407,7 +407,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="tel"
                   value={newClient.phone}
                   onChange={(e) => setNewClient({ ...newClient, phone: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Phone number"
                 />
               </div>
@@ -439,7 +439,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newDocument.fileName}
                   onChange={(e) => setNewDocument({ ...newDocument, fileName: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Document name"
                 />
               </div>
@@ -449,7 +449,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newDocument.fileType}
                   onChange={(e) => setNewDocument({ ...newDocument, fileType: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="PDF, DOC, etc."
                 />
               </div>
@@ -459,7 +459,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="number"
                   value={newDocument.fileSize}
                   onChange={(e) => setNewDocument({ ...newDocument, fileSize: parseInt(e.target.value) || 0 })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="File size in bytes"
                 />
               </div>
@@ -469,7 +469,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newDocument.downloadUrl}
                   onChange={(e) => setNewDocument({ ...newDocument, downloadUrl: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Download URL"
                 />
               </div>
@@ -479,7 +479,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={projectId || newDocument.projectId}
                   onChange={(e) => setNewDocument({ ...newDocument, projectId: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Project ID"
                 />
               </div>
@@ -511,7 +511,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newNote.title}
                   onChange={(e) => setNewNote({ ...newNote, title: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Note title"
                 />
               </div>
@@ -520,7 +520,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                 <textarea
                   value={newNote.content}
                   onChange={(e) => setNewNote({ ...newNote, content: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Note content"
                   rows={4}
                 />
@@ -531,7 +531,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newNote.tags.join(', ')}
                   onChange={(e) => setNewNote({ ...newNote, tags: e.target.value.split(',').map(tag => tag.trim()).filter(tag => tag) })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="tag1, tag2, tag3"
                 />
               </div>
@@ -541,7 +541,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={projectId || newNote.projectId}
                   onChange={(e) => setNewNote({ ...newNote, projectId: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Project ID"
                 />
               </div>
@@ -568,7 +568,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           <div className="glass rounded-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[700px]">
-                <thead className="bg-[var(--bg-tertiary)] border-2-b border-2-[var(--border-2)]">
+                <thead className="bg-[var(--bg-tertiary)] border-b border-[var(--border)]">
                   <tr>
                     <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Task</th>
                     <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Status</th>
@@ -653,7 +653,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           <div className="glass rounded-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[800px]">
-                <thead className="bg-[var(--bg-tertiary)] border-2-b border-2-[var(--border-2)]">
+                <thead className="bg-[var(--bg-tertiary)] border-b border-[var(--border)]">
                   <tr>
                     <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Client</th>
                     <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Contact</th>
@@ -710,7 +710,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           <div className="glass rounded-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[700px]">
-                <thead className="bg-[var(--bg-tertiary)] border-2-b border-2-[var(--border-2)]">
+                <thead className="bg-[var(--bg-tertiary)] border-b border-[var(--border)]">
                   <tr>
                     <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Document</th>
                     <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Type</th>
@@ -761,7 +761,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           <div className="glass rounded-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[800px]">
-                <thead className="bg-[var(--bg-tertiary)] border-2-b border-2-[var(--border-2)]">
+                <thead className="bg-[var(--bg-tertiary)] border-b border-[var(--border)]">
                   <tr>
                     <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Note</th>
                     <th className="px-6 py-4 text-left text-sm font-medium text-[var(--text-secondary)]">Project</th>

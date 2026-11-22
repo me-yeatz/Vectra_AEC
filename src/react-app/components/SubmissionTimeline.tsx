@@ -103,7 +103,7 @@ export default function SubmissionTimeline({ projects }: SubmissionTimelineProps
                                     </div>
 
                                     {/* Content */}
-                                    <div className="flex-1 bg-[var(--bg-tertiary)] p-6 rounded-md border-2 border-2-[var(--border-2)] hover:border-2-[var(--border-2)] transition-all">
+                                    <div className="flex-1 bg-[var(--bg-tertiary)] p-6 rounded-md border-2 border-[var(--border)] hover:border-[var(--border)] transition-all">
                                         <div className="flex items-start justify-between mb-4">
                                             <div>
                                                 <h4 className="font-semibold text-lg mb-1">

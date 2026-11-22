@@ -20,9 +20,11 @@ import {
     Table,
     Menu,
     X,
-    Upload
+    Upload,
+    Cloud
 } from 'lucide-react';
 import { Project, FinancialSummary, ClientMessage, CommunicationStats, AutoResponseSettings, MessageStatus, AppNotification, UserProfile } from './types';
+import * as cloud from './services/cloudStorageService';
 import { MOCK_PROJECTS } from './data/mockData';
 import { MOCK_MESSAGES, DEFAULT_AUTO_RESPONSE_SETTINGS } from './data/mockCommunicationData';
 import ProjectCard from './components/ProjectCard';
@@ -36,7 +38,7 @@ import GanttChart from './components/GanttChart';
 import AIChatContainer from './components/AIChatContainer';
 import DatabaseManager from './components/DatabaseManager';
 
-type ViewMode = 'dashboard' | 'projects' | 'submissions' | 'finances' | 'communications' | 'ai-chat' | 'database' | 'profile';
+type ViewMode = 'dashboard' | 'projects' | 'submissions' | 'finances' | 'communications' | 'ai-chat' | 'database' | 'profile' | 'cloud';
 
 const SUBMISSION_TYPE_NAMES: Record<string, string> = {
     'planning-permission': 'Planning Permission',
@@ -126,6 +128,9 @@ export default function App() {
     });
 
     const [isEditingProfile, setIsEditingProfile] = useState(false);
+
+    const [cloudStatus, setCloudStatus] = useState('');
+    const [cloudBusy, setCloudBusy] = useState(false);
     const [profileDraft, setProfileDraft] = useState<UserProfile>(profile);
 
     useEffect(() => {
@@ -556,6 +561,15 @@ export default function App() {
                         active={viewMode === 'profile'}
                         onClick={() => {
                             setViewMode('profile');
+                            if (isMobile) setSidebarOpen(false);
+                        }}
+                    />
+                    <NavItem
+                        icon={<Cloud size={20} />}
+                        label="Cloud Sync"
+                        active={viewMode === 'cloud'}
+                        onClick={() => {
+                            setViewMode('cloud');
                             if (isMobile) setSidebarOpen(false);
                         }}
                     />
@@ -1071,6 +1085,119 @@ export default function App() {
                         </div>
                     </section>
                 )}
+
+                {/* Cloud Sync View */}
+                {viewMode === 'cloud' && (
+                    <section className="max-w-3xl animate-fade-in">
+                        <h1 className="text-4xl font-display font-bold mb-4">Cloud Sync</h1>
+                        <p className="text-[#5a5a5a] mb-8">Back up and restore your data to Google Drive or OneDrive</p>
+
+                        <div className="glass rounded-2xl p-6 md:p-8 space-y-6">
+                            <p className="text-sm text-[#5a5a5a]">
+                                Configure client IDs via Vite env: <code>VITE_GOOGLE_CLIENT_ID</code>, <code>VITE_MS_CLIENT_ID</code>.
+                            </p>
+
+                            <div className="space-y-4">
+                                <div className="p-4 rounded-xl bg-[#222222]/5 border border-[#222222]/10">
+                                    <h3 className="font-semibold mb-2">Google Drive</h3>
+                                    <p className="text-xs text-[#8a8a8a] mb-3">{cloud.isGoogleConfigured() ? 'Configured' : 'Not configured'}</p>
+                                    <div className="flex gap-2 flex-wrap">
+                                        <button
+                                            onClick={async () => {
+                                                setCloudBusy(true); setCloudStatus('');
+                                                try { await cloud.connectGoogle(); setCloudStatus('Connected to Google Drive'); }
+                                                catch (e: any) { setCloudStatus(e.message); }
+                                                setCloudBusy(false);
+                                            }}
+                                            disabled={cloudBusy || !cloud.isGoogleConfigured()}
+                                            className="px-4 py-2 bg-[#F95C4B] text-white rounded-xl text-sm font-medium disabled:opacity-50"
+                                        >Connect</button>
+                                        <button
+                                            onClick={async () => {
+                                                setCloudBusy(true); setCloudStatus('');
+                                                try {
+                                                    const data = { projects, messages, profile, readNotificationIds };
+                                                    await cloud.uploadToGoogle(data);
+                                                    setCloudStatus('Backed up to Google Drive');
+                                                } catch (e: any) { setCloudStatus(e.message); }
+                                                setCloudBusy(false);
+                                            }}
+                                            disabled={cloudBusy}
+                                            className="px-4 py-2 bg-[#222222]/5 rounded-xl text-sm font-medium disabled:opacity-50"
+                                        >Backup</button>
+                                        <button
+                                            onClick={async () => {
+                                                setCloudBusy(true); setCloudStatus('');
+                                                try {
+                                                    const data = await cloud.downloadFromGoogle();
+                                                    if (data.projects) setProjects(data.projects);
+                                                    if (data.messages) setMessages(data.messages);
+                                                    if (data.profile) setProfile(data.profile);
+                                                    if (data.readNotificationIds) setReadNotificationIds(data.readNotificationIds);
+                                                    setCloudStatus('Restored from Google Drive');
+                                                } catch (e: any) { setCloudStatus(e.message); }
+                                                setCloudBusy(false);
+                                            }}
+                                            disabled={cloudBusy}
+                                            className="px-4 py-2 bg-[#222222]/5 rounded-xl text-sm font-medium disabled:opacity-50"
+                                        >Restore</button>
+                                    </div>
+                                </div>
+
+                                <div className="p-4 rounded-xl bg-[#222222]/5 border border-[#222222]/10">
+                                    <h3 className="font-semibold mb-2">OneDrive</h3>
+                                    <p className="text-xs text-[#8a8a8a] mb-3">{cloud.isOneDriveConfigured() ? 'Configured' : 'Not configured'}</p>
+                                    <div className="flex gap-2 flex-wrap">
+                                        <button
+                                            onClick={async () => {
+                                                setCloudBusy(true); setCloudStatus('');
+                                                try { await cloud.connectOneDrive(); setCloudStatus('Connected to OneDrive'); }
+                                                catch (e: any) { setCloudStatus(e.message); }
+                                                setCloudBusy(false);
+                                            }}
+                                            disabled={cloudBusy || !cloud.isOneDriveConfigured()}
+                                            className="px-4 py-2 bg-[#F95C4B] text-white rounded-xl text-sm font-medium disabled:opacity-50"
+                                        >Connect</button>
+                                        <button
+                                            onClick={async () => {
+                                                setCloudBusy(true); setCloudStatus('');
+                                                try {
+                                                    const data = { projects, messages, profile, readNotificationIds };
+                                                    await cloud.uploadToOneDrive(data);
+                                                    setCloudStatus('Backed up to OneDrive');
+                                                } catch (e: any) { setCloudStatus(e.message); }
+                                                setCloudBusy(false);
+                                            }}
+                                            disabled={cloudBusy}
+                                            className="px-4 py-2 bg-[#222222]/5 rounded-xl text-sm font-medium disabled:opacity-50"
+                                        >Backup</button>
+                                        <button
+                                            onClick={async () => {
+                                                setCloudBusy(true); setCloudStatus('');
+                                                try {
+                                                    const data = await cloud.downloadFromOneDrive();
+                                                    if (data.projects) setProjects(data.projects);
+                                                    if (data.messages) setMessages(data.messages);
+                                                    if (data.profile) setProfile(data.profile);
+                                                    if (data.readNotificationIds) setReadNotificationIds(data.readNotificationIds);
+                                                    setCloudStatus('Restored from OneDrive');
+                                                } catch (e: any) { setCloudStatus(e.message); }
+                                                setCloudBusy(false);
+                                            }}
+                                            disabled={cloudBusy}
+                                            className="px-4 py-2 bg-[#222222]/5 rounded-xl text-sm font-medium disabled:opacity-50"
+                                        >Restore</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {cloudStatus && (
+                                <p className="text-sm text-[#5a5a5a]">{cloudStatus}</p>
+                            )}
+                        </div>
+                    </section>
+                )}
+
             </main>
 
             {/* New Project Modal */}

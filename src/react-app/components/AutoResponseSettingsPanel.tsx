@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Save, TestTube, CheckCircle2, XCircle, Bot, Clock, Calendar, Shield, Key } from 'lucide-react';
+import { Save, TestTube, CheckCircle2, XCircle, Bot, Clock, Calendar, Shield, Key, Cloud, UserPlus } from 'lucide-react';
 import { AutoResponseSettings } from '../types';
 import { ClaudeAIService } from '../services/claudeService';
 
@@ -7,12 +7,16 @@ interface AutoResponseSettingsPanelProps {
     settings: AutoResponseSettings;
     onSave: (settings: AutoResponseSettings) => void;
     onClose: () => void;
+    onOpenCloud?: () => void;
+    onOpenRegister?: () => void;
 }
 
 export default function AutoResponseSettingsPanel({
     settings: initialSettings,
     onSave,
-    onClose
+    onClose,
+    onOpenCloud,
+    onOpenRegister
 }: AutoResponseSettingsPanelProps) {
     const [settings, setSettings] = useState<AutoResponseSettings>(initialSettings);
     const [testingConnection, setTestingConnection] = useState(false);
@@ -296,6 +300,32 @@ export default function AutoResponseSettingsPanel({
                             placeholder="urgent, emergency, deadline, legal, safety"
                             className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                         />
+                    </div>
+
+                    {/* Storage & Sync */}
+                    <div className="glass p-6 rounded-xl">
+                        <h3 className="font-semibold mb-4">Storage & Sync</h3>
+                        <p className="text-sm text-[var(--text-secondary)] mb-4">Connect cloud storage or choose where data is saved</p>
+                        <div className="flex gap-3 flex-wrap">
+                            {onOpenCloud && (
+                                <button
+                                    onClick={() => { onClose(); onOpenCloud(); }}
+                                    className="flex items-center gap-2 px-4 py-2 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-lg transition-all"
+                                >
+                                    <Cloud size={16} />
+                                    Cloud Sync
+                                </button>
+                            )}
+                            {onOpenRegister && (
+                                <button
+                                    onClick={() => { onClose(); onOpenRegister(); }}
+                                    className="flex items-center gap-2 px-4 py-2 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-lg transition-all"
+                                >
+                                    <UserPlus size={16} />
+                                    Register Storage
+                                </button>
+                            )}
+                        </div>
                     </div>
 
                     {/* Action Buttons */}

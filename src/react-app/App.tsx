@@ -1314,6 +1314,8 @@ export default function App() {
                     settings={autoResponseSettings}
                     onSave={handleSaveSettings}
                     onClose={() => setShowSettingsPanel(false)}
+                    onOpenCloud={() => setViewMode('cloud')}
+                    onOpenRegister={() => setViewMode('register')}
                 />
             )}
         </div>

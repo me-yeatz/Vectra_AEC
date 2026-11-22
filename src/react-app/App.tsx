@@ -492,7 +492,7 @@ export default function App() {
 
             {/* Sidebar */}
             <aside
-                className={`fixed left-0 top-0 h-full w-80 lg:w-64 shrink-0 glass border-r border-[var(--border)] flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed left-0 top-0 h-full w-80 lg:w-64 shrink-0 bg-[#1c1c1c] text-white border-r border-white/10 flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     } lg:translate-x-0`}
             >
                 <div className="p-6 flex items-center gap-3">
@@ -500,8 +500,8 @@ export default function App() {
                         <img src="/vectra-logo.svg" alt="VECTRA Logo" className="w-full h-full object-cover" />
                     </div>
                     <div>
-                        <span className="font-display font-bold text-xl tracking-tight block">VECTRA</span>
-                        <span className="text-xs text-[var(--text-secondary)]">Built for Project Excellence</span>
+                        <span className="font-display font-bold text-xl tracking-tight block text-white">VECTRA</span>
+                        <span className="text-xs text-white/60">Built for Project Excellence</span>
                     </div>
                 </div>
 
@@ -622,7 +622,7 @@ export default function App() {
                         </div>
                         <div className="min-w-0">
                             <p className="text-sm font-medium truncate">{activeProfile.fullName || activeProfile.username}</p>
-                            <p className="text-xs text-[var(--text-secondary)] truncate">{activeProfile.role || 'User'}</p>
+                            <p className="text-xs text-white/60 truncate">{activeProfile.role || 'User'}</p>
                         </div>
                     </div>
                 </div>
@@ -1335,8 +1335,8 @@ function NavItem({ icon, label, active = false, onClick, badge }: NavItemProps) 
             type="button"
             onClick={onClick}
             className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 relative ${active
-                ? 'bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] border border-[var(--accent-primary)]/20'
-                : 'text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]'
+                ? 'bg-[var(--accent-primary)]/15 text-white border border-[var(--accent-primary)]/30'
+                : 'text-white/70 hover:bg-white/5 hover:text-white'
                 }`}
         >
             {icon}

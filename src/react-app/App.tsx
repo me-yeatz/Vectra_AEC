@@ -21,7 +21,8 @@ import {
     Menu,
     X,
     Upload,
-    Cloud
+    Cloud,
+    UserPlus
 } from 'lucide-react';
 import { Project, FinancialSummary, ClientMessage, CommunicationStats, AutoResponseSettings, MessageStatus, AppNotification, UserProfile } from './types';
 import * as cloud from './services/cloudStorageService';
@@ -38,7 +39,7 @@ import GanttChart from './components/GanttChart';
 import AIChatContainer from './components/AIChatContainer';
 import DatabaseManager from './components/DatabaseManager';
 
-type ViewMode = 'dashboard' | 'projects' | 'submissions' | 'finances' | 'communications' | 'ai-chat' | 'database' | 'profile' | 'cloud';
+type ViewMode = 'dashboard' | 'projects' | 'submissions' | 'finances' | 'communications' | 'ai-chat' | 'database' | 'profile' | 'cloud' | 'register';
 
 const SUBMISSION_TYPE_NAMES: Record<string, string> = {
     'planning-permission': 'Planning Permission',
@@ -131,6 +132,9 @@ export default function App() {
 
     const [cloudStatus, setCloudStatus] = useState('');
     const [cloudBusy, setCloudBusy] = useState(false);
+
+    const [regStorage, setRegStorage] = useState<'local' | 'google' | 'onedrive'>('local');
+    const [regStatus, setRegStatus] = useState('');
     const [profileDraft, setProfileDraft] = useState<UserProfile>(profile);
 
     useEffect(() => {
@@ -570,6 +574,15 @@ export default function App() {
                         active={viewMode === 'cloud'}
                         onClick={() => {
                             setViewMode('cloud');
+                            if (isMobile) setSidebarOpen(false);
+                        }}
+                    />
+                    <NavItem
+                        icon={<UserPlus size={20} />}
+                        label="Register"
+                        active={viewMode === 'register'}
+                        onClick={() => {
+                            setViewMode('register');
                             if (isMobile) setSidebarOpen(false);
                         }}
                     />
@@ -1194,6 +1207,59 @@ export default function App() {
                             {cloudStatus && (
                                 <p className="text-sm text-[#5a5a5a]">{cloudStatus}</p>
                             )}
+                        </div>
+                    </section>
+                )}
+
+                {/* Register Storage View */}
+                {viewMode === 'register' && (
+                    <section className="max-w-3xl animate-fade-in">
+                        <h1 className="text-4xl font-display font-bold mb-4">Register Storage</h1>
+                        <p className="text-[#5a5a5a] mb-8">Choose where your app data is stored</p>
+
+                        <div className="glass rounded-2xl p-6 md:p-8 space-y-6">
+                            <div className="space-y-3">
+                                {[
+                                    { value: 'local', label: 'Local Storage (browser)', desc: 'Data stays on this device/browser.' },
+                                    { value: 'google', label: 'Google Drive', desc: 'Sync data to your Google Drive.' },
+                                    { value: 'onedrive', label: 'OneDrive', desc: 'Sync data to your OneDrive.' }
+                                ].map(opt => (
+                                    <label key={opt.value} className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all ${regStorage === opt.value ? 'border-[#F95C4B] bg-[#F95C4B]/5' : 'border-[#222222]/10 bg-[#222222]/5'}`}>
+                                        <input
+                                            type="radio"
+                                            name="storage"
+                                            value={opt.value}
+                                            checked={regStorage === opt.value}
+                                            onChange={() => setRegStorage(opt.value as any)}
+                                            className="mt-1"
+                                        />
+                                        <div>
+                                            <p className="font-medium text-[#222222]">{opt.label}</p>
+                                            <p className="text-xs text-[#5a5a5a]">{opt.desc}</p>
+                                        </div>
+                                    </label>
+                                ))}
+                            </div>
+
+                            <button
+                                onClick={async () => {
+                                    setRegStatus('');
+                                    localStorage.setItem('vectra_storage_choice', regStorage);
+                                    if (regStorage === 'google') {
+                                        try { await cloud.connectGoogle(); setRegStatus('Connected to Google Drive'); }
+                                        catch (e: any) { setRegStatus(e.message); return; }
+                                    } else if (regStorage === 'onedrive') {
+                                        try { await cloud.connectOneDrive(); setRegStatus('Connected to OneDrive'); }
+                                        catch (e: any) { setRegStatus(e.message); return; }
+                                    } else {
+                                        setRegStatus('Using local storage');
+                                    }
+                                }}
+                                className="px-5 py-2.5 bg-[#F95C4B] text-white rounded-xl text-sm font-medium"
+                            >
+                                Save & Connect
+                            </button>
+                            {regStatus && <p className="text-sm text-[#5a5a5a]">{regStatus}</p>}
                         </div>
                     </section>
                 )}

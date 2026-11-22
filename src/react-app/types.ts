@@ -31,6 +31,9 @@ export interface Project {
     id: string;
     title: string;
     clientName: string;
+    clientPhone?: string;
+    clientEmail?: string;
+    clientCompany?: string;
     location: string;
     description: string;
     status: ProjectStatus;
@@ -40,6 +43,21 @@ export interface Project {
     totalBudget?: number;
     submissions: Submission[];
     color: string;
+    notes?: string;
+    sitePhotos?: string[];
+    invoices?: Invoice[];
+}
+
+export interface Invoice {
+    id: string;
+    projectId: string;
+    number: string;
+    amount: number;
+    description: string;
+    issuedDate: string;
+    dueDate?: string;
+    status: 'draft' | 'sent' | 'paid';
+    notes?: string;
 }
 
 export interface FinancialSummary {
@@ -70,6 +88,19 @@ export interface ClientMessage {
     projectId?: string; // Link to existing project if applicable
     tags: string[];
     requiresHumanReview: boolean;
+    isRead?: boolean;
+}
+
+export interface AppNotification {
+    id: string;
+    type: 'submission' | 'message' | 'system';
+    title: string;
+    description: string;
+    timestamp: string;
+    isRead: boolean;
+    priority?: 'low' | 'medium' | 'high' | 'urgent';
+    actionView?: 'dashboard' | 'projects' | 'submissions' | 'finances' | 'communications' | 'ai-chat' | 'database';
+    actionTargetId?: string;
 }
 
 export interface AutoResponseSettings {
@@ -90,6 +121,17 @@ export interface AutoResponseSettings {
     };
     escalationKeywords: string[]; // Keywords that trigger human review
     claudeApiKey?: string;
+}
+
+export interface UserProfile {
+    username: string;
+    fullName: string;
+    email?: string;
+    phone?: string;
+    company?: string;
+    role?: string;
+    bio?: string;
+    photo?: string;
 }
 
 export interface CommunicationStats {

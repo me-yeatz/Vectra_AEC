@@ -89,7 +89,7 @@ export default function SubmissionTimeline({ projects }: SubmissionTimelineProps
                             <div key={submission.id} className="relative">
                                 {/* Timeline Line */}
                                 {index < allSubmissions.length - 1 && (
-                                    <div className="absolute left-6 top-16 w-0.5 h-full bg-white/10"></div>
+                                    <div className="absolute left-6 top-16 w-0.5 h-full bg-[#222222]/8"></div>
                                 )}
 
                                 {/* Submission Card */}
@@ -103,13 +103,13 @@ export default function SubmissionTimeline({ projects }: SubmissionTimelineProps
                                     </div>
 
                                     {/* Content */}
-                                    <div className="flex-1 bg-white/5 p-6 rounded-xl border border-white/5 hover:border-white/10 transition-all">
+                                    <div className="flex-1 bg-[#222222]/5 p-6 rounded-xl border border-[#222222]/8 hover:border-[#222222]/10 transition-all">
                                         <div className="flex items-start justify-between mb-4">
                                             <div>
                                                 <h4 className="font-semibold text-lg mb-1">
                                                     {submissionTypeLabels[submission.type]}
                                                 </h4>
-                                                <p className="text-sm text-slate-400">{submission.projectTitle}</p>
+                                                <p className="text-sm text-[#5a5a5a]">{submission.projectTitle}</p>
                                             </div>
                                             <div
                                                 className="px-3 py-1 rounded-full text-xs font-semibold"
@@ -120,12 +120,12 @@ export default function SubmissionTimeline({ projects }: SubmissionTimelineProps
                                         </div>
 
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                                            <div className="flex items-center gap-2 text-sm text-slate-400">
+                                            <div className="flex items-center gap-2 text-sm text-[#5a5a5a]">
                                                 <Building size={16} />
                                                 <span className="line-clamp-1">{submission.authority}</span>
                                             </div>
                                             {submission.submittedDate && (
-                                                <div className="flex items-center gap-2 text-sm text-slate-400">
+                                                <div className="flex items-center gap-2 text-sm text-[#5a5a5a]">
                                                     <Calendar size={16} />
                                                     <span>Submitted {new Date(submission.submittedDate).toLocaleDateString('en-MY')}</span>
                                                 </div>
@@ -137,13 +137,13 @@ export default function SubmissionTimeline({ projects }: SubmissionTimelineProps
                                         </div>
 
                                         {submission.notes && (
-                                            <div className="mt-4 p-3 bg-white/5 rounded-lg">
-                                                <p className="text-sm text-slate-300">{submission.notes}</p>
+                                            <div className="mt-4 p-3 bg-[#222222]/5 rounded-lg">
+                                                <p className="text-sm text-[#444444]">{submission.notes}</p>
                                             </div>
                                         )}
 
                                         {submission.expectedApprovalDate && (
-                                            <div className="mt-4 text-xs text-slate-500">
+                                            <div className="mt-4 text-xs text-[#8a8a8a]">
                                                 Expected approval: {new Date(submission.expectedApprovalDate).toLocaleDateString('en-MY')}
                                             </div>
                                         )}
@@ -161,7 +161,7 @@ export default function SubmissionTimeline({ projects }: SubmissionTimelineProps
 function SummaryCard({ title, value, color }: { title: string; value: string; color: string }) {
     return (
         <div className="glass p-6 rounded-2xl">
-            <p className="text-slate-400 text-sm font-medium mb-2">{title}</p>
+            <p className="text-[#5a5a5a] text-sm font-medium mb-2">{title}</p>
             <h3 className="text-3xl font-display font-bold" style={{ color }}>{value}</h3>
         </div>
     );

@@ -18,21 +18,22 @@ import { Project } from '../types';
 
 interface ProjectCardProps {
     project: Project;
+    onView: (project: Project) => void;
     onEdit: (project: Project) => void;
     onDelete: (projectId: string) => void;
 }
 
 const statusConfig = {
-    'concept': { label: 'Concept', color: '#6366f1', icon: Clock },
-    'design-development': { label: 'Design Dev', color: '#3b82f6', icon: Clock },
-    'submission-prep': { label: 'Prep Submit', color: '#f59e0b', icon: Clock },
-    'submitted': { label: 'Submitted', color: '#f97316', icon: AlertCircle },
-    'approved': { label: 'Approved', color: '#059669', icon: CheckCircle2 },
-    'on-hold': { label: 'On Hold', color: '#64748b', icon: XCircle },
-    'completed': { label: 'Completed', color: '#10b981', icon: CheckCircle2 }
+    'concept':            { label: 'Concept',         color: '#6366f1', icon: Clock },
+    'design-development': { label: 'Design Dev',      color: '#3b82f6', icon: Clock },
+    'submission-prep':    { label: 'Prep Submit',     color: '#f59e0b', icon: Clock },
+    'submitted':          { label: 'Submitted',       color: '#f97316', icon: AlertCircle },
+    'approved':           { label: 'Approved',        color: '#059669', icon: CheckCircle2 },
+    'on-hold':            { label: 'On Hold',         color: '#64748b', icon: XCircle },
+    'completed':          { label: 'Completed',       color: '#10b981', icon: CheckCircle2 },
 };
 
-export default function ProjectCard({ project, onEdit, onDelete }: ProjectCardProps) {
+export default function ProjectCard({ project, onView, onEdit, onDelete }: ProjectCardProps) {
     const [showActions, setShowActions] = useState(false);
     const [dropdownPosition, setDropdownPosition] = useState({ top: 0, right: 0 });
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -62,7 +63,10 @@ export default function ProjectCard({ project, onEdit, onDelete }: ProjectCardPr
     }, [showActions]);
 
     return (
-        <div className="glass p-6 rounded-2xl hover:border-red-500/30 transition-all group cursor-pointer animate-fade-in relative">
+        <div
+            className="glass p-6 rounded-2xl hover:border-red-500/30 transition-all group cursor-pointer animate-fade-in relative"
+            onClick={() => onView(project)}
+        >
             {/* Header */}
             <div className="flex justify-between items-start mb-6">
                 <div
@@ -82,7 +86,7 @@ export default function ProjectCard({ project, onEdit, onDelete }: ProjectCardPr
                         }}
                         className={`transition-all p-2 rounded-xl flex items-center justify-center ${showActions
                             ? 'bg-red-600 text-white shadow-lg shadow-red-600/20'
-                            : 'text-slate-500 hover:text-white hover:bg-white/10'
+                            : 'text-[#8a8a8a] hover:text-[#222222] hover:bg-[#222222]/8'
                             }`}
                         aria-label="Project actions"
                         aria-expanded={showActions}
@@ -104,7 +108,7 @@ export default function ProjectCard({ project, onEdit, onDelete }: ProjectCardPr
                                 <div
                                     role="menu"
                                     aria-label="Project actions"
-                                    className="fixed w-44 bg-[#18181b] border border-white/10 rounded-2xl shadow-2xl z-[9999] overflow-hidden animate-fade-in ring-1 ring-white/10"
+                                    className="fixed w-44 bg-[#FFFFFF] border border-[#222222]/10 rounded-2xl shadow-2xl z-[9999] overflow-hidden animate-fade-in ring-1 ring-white/10"
                                     style={{
                                         top: `${dropdownPosition.top}px`,
                                         right: `${dropdownPosition.right}px`
@@ -120,14 +124,14 @@ export default function ProjectCard({ project, onEdit, onDelete }: ProjectCardPr
                                                 onEdit(project);
                                                 setShowActions(false);
                                             }}
-                                            className="w-full text-left px-3 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white rounded-xl flex items-center gap-3 transition-all group"
+                                            className="w-full text-left px-3 py-2.5 text-sm text-[#444444] hover:bg-[#222222]/5 hover:text-[#222222] rounded-xl flex items-center gap-3 transition-all group"
                                         >
-                                            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-red-600/10 group-hover:text-red-500">
+                                            <div className="w-8 h-8 rounded-lg bg-[#222222]/5 flex items-center justify-center group-hover:bg-red-600/10 group-hover:text-red-500">
                                                 <Edit size={16} />
                                             </div>
                                             <span className="font-medium">Edit Project</span>
                                         </button>
-                                        <div className="h-px bg-white/5 mx-2" />
+                                        <div className="h-px bg-[#222222]/5 mx-2" />
                                         <button
                                             type="button"
                                             role="menuitem"
@@ -139,7 +143,7 @@ export default function ProjectCard({ project, onEdit, onDelete }: ProjectCardPr
                                             }}
                                             className="w-full text-left px-3 py-2.5 text-sm text-red-500 hover:bg-red-500/10 rounded-xl flex items-center gap-3 transition-all group"
                                         >
-                                            <div className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center group-hover:bg-red-500 group-hover:text-white">
+                                            <div className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center group-hover:bg-red-500 group-hover:text-[#222222]">
                                                 <Trash2 size={16} />
                                             </div>
                                             <span className="font-medium">Delete Project</span>
@@ -159,11 +163,11 @@ export default function ProjectCard({ project, onEdit, onDelete }: ProjectCardPr
 
             {/* Client & Location */}
             <div className="space-y-2 mb-6">
-                <div className="flex items-center gap-2 text-sm text-slate-400">
+                <div className="flex items-center gap-2 text-sm text-[#5a5a5a]">
                     <User size={14} />
                     <span className="line-clamp-1">{project.clientName}</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-slate-400">
+                <div className="flex items-center gap-2 text-sm text-[#5a5a5a]">
                     <MapPin size={14} />
                     <span className="line-clamp-1">{project.location}</span>
                 </div>
@@ -181,24 +185,24 @@ export default function ProjectCard({ project, onEdit, onDelete }: ProjectCardPr
             </div>
 
             {/* Submissions Summary */}
-            <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-white/5 rounded-xl">
+            <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-[#222222]/5 rounded-xl">
                 <div>
-                    <p className="text-xs text-slate-500 mb-1">Pending</p>
+                    <p className="text-xs text-[#8a8a8a] mb-1">Pending</p>
                     <p className="text-lg font-bold text-amber-500">{pendingSubmissions}</p>
                 </div>
                 <div>
-                    <p className="text-xs text-slate-500 mb-1">Approved</p>
+                    <p className="text-xs text-[#8a8a8a] mb-1">Approved</p>
                     <p className="text-lg font-bold text-green-500">{approvedSubmissions}</p>
                 </div>
             </div>
 
             {/* Footer */}
-            <div className="pt-6 border-t border-white/5 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2 text-slate-500">
+            <div className="pt-6 border-t border-[#222222]/8 flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2 text-[#8a8a8a]">
                     <Calendar size={14} />
                     <span>Due {new Date(project.targetCompletionDate || project.startDate).toLocaleDateString('en-MY', { month: 'short', year: 'numeric' })}</span>
                 </div>
-                <div className="flex items-center gap-1 text-slate-300 font-semibold">
+                <div className="flex items-center gap-1 text-[#444444] font-semibold">
                     <DollarSign size={14} />
                     <span>RM {(totalFees / 1000).toFixed(1)}K</span>
                 </div>

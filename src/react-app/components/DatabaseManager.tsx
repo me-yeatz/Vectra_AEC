@@ -199,14 +199,14 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-[#0a0a0c] text-white rounded-xl overflow-hidden">
+    <div className="h-full flex flex-col bg-[#F6F4F1] text-[#222222] rounded-xl overflow-hidden">
       {/* Tab Navigation - Mobile-friendly */}
-      <div className="border-b border-white/10 bg-white/5 overflow-x-auto">
+      <div className="border-b border-[#222222]/10 bg-[#222222]/5 overflow-x-auto">
         <div className="flex min-w-max">
           <button
             className={`flex items-center gap-2 px-4 py-3 sm:px-6 sm:py-4 font-medium transition-colors whitespace-nowrap ${activeTab === 'tasks'
               ? 'text-red-400 border-b-2 border-red-400'
-              : 'text-slate-400 hover:text-white'
+              : 'text-[#5a5a5a] hover:text-[#222222]'
               }`}
             onClick={() => setActiveTab('tasks')}
           >
@@ -217,7 +217,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           <button
             className={`flex items-center gap-2 px-4 py-3 sm:px-6 sm:py-4 font-medium transition-colors whitespace-nowrap ${activeTab === 'clients'
               ? 'text-red-400 border-b-2 border-red-400'
-              : 'text-slate-400 hover:text-white'
+              : 'text-[#5a5a5a] hover:text-[#222222]'
               }`}
             onClick={() => setActiveTab('clients')}
           >
@@ -228,7 +228,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           <button
             className={`flex items-center gap-2 px-4 py-3 sm:px-6 sm:py-4 font-medium transition-colors whitespace-nowrap ${activeTab === 'documents'
               ? 'text-red-400 border-b-2 border-red-400'
-              : 'text-slate-400 hover:text-white'
+              : 'text-[#5a5a5a] hover:text-[#222222]'
               }`}
             onClick={() => setActiveTab('documents')}
           >
@@ -239,7 +239,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           <button
             className={`flex items-center gap-2 px-4 py-3 sm:px-6 sm:py-4 font-medium transition-colors whitespace-nowrap ${activeTab === 'notes'
               ? 'text-red-400 border-b-2 border-red-400'
-              : 'text-slate-400 hover:text-white'
+              : 'text-[#5a5a5a] hover:text-[#222222]'
               }`}
             onClick={() => setActiveTab('notes')}
           >
@@ -250,7 +250,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           <button
             className={`flex items-center gap-2 px-4 py-3 sm:px-6 sm:py-4 font-medium transition-colors whitespace-nowrap ${activeTab === 'csv'
               ? 'text-red-400 border-b-2 border-red-400'
-              : 'text-slate-400 hover:text-white'
+              : 'text-[#5a5a5a] hover:text-[#222222]'
               }`}
             onClick={() => setActiveTab('csv')}
           >
@@ -266,11 +266,11 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
         {/* Action Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <div className="relative group w-full sm:w-80">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-red-500 transition-colors" size={18} />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8a8a8a] group-focus-within:text-red-500 transition-colors" size={18} />
             <input
               type="text"
               placeholder={`Search ${activeTab}...`}
-              className="pl-12 pr-6 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all w-full"
+              className="pl-12 pr-6 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all w-full"
             />
           </div>
 
@@ -294,21 +294,21 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
             <h3 className="text-lg font-semibold mb-4">Create New Task</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Title</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Title</label>
                 <input
                   type="text"
                   value={newTask.title}
                   onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="Task title"
                 />
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Status</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Status</label>
                 <select
                   value={newTask.status}
                   onChange={(e) => setNewTask({ ...newTask, status: e.target.value as Task['status'] })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                 >
                   <option value="todo">To Do</option>
                   <option value="in-progress">In Progress</option>
@@ -317,11 +317,11 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Priority</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Priority</label>
                 <select
                   value={newTask.priority}
                   onChange={(e) => setNewTask({ ...newTask, priority: e.target.value as Task['priority'] })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                 >
                   <option value="low">Low</option>
                   <option value="medium">Medium</option>
@@ -330,21 +330,21 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Project ID</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Project ID</label>
                 <input
                   type="text"
                   value={projectId || newTask.projectId}
                   onChange={(e) => setNewTask({ ...newTask, projectId: e.target.value })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="Project ID"
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-sm text-slate-400 mb-1">Description</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Description</label>
                 <textarea
                   value={newTask.description}
                   onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="Task description"
                   rows={3}
                 />
@@ -359,7 +359,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
               </button>
               <button
                 onClick={() => setShowTaskForm(false)}
-                className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors"
+                className="bg-[#222222]/8 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors"
               >
                 Cancel
               </button>
@@ -372,42 +372,42 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
             <h3 className="text-lg font-semibold mb-4">Create New Client</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Name *</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Name *</label>
                 <input
                   type="text"
                   value={newClient.name}
                   onChange={(e) => setNewClient({ ...newClient, name: e.target.value })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="Client name"
                 />
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Company</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Company</label>
                 <input
                   type="text"
                   value={newClient.company}
                   onChange={(e) => setNewClient({ ...newClient, company: e.target.value })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="Company name"
                 />
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Email</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Email</label>
                 <input
                   type="email"
                   value={newClient.email}
                   onChange={(e) => setNewClient({ ...newClient, email: e.target.value })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="Email address"
                 />
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Phone</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Phone</label>
                 <input
                   type="tel"
                   value={newClient.phone}
                   onChange={(e) => setNewClient({ ...newClient, phone: e.target.value })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="Phone number"
                 />
               </div>
@@ -421,7 +421,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
               </button>
               <button
                 onClick={() => setShowClientForm(false)}
-                className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors"
+                className="bg-[#222222]/8 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors"
               >
                 Cancel
               </button>
@@ -434,52 +434,52 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
             <h3 className="text-lg font-semibold mb-4">Upload Document</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-slate-400 mb-1">File Name *</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">File Name *</label>
                 <input
                   type="text"
                   value={newDocument.fileName}
                   onChange={(e) => setNewDocument({ ...newDocument, fileName: e.target.value })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="Document name"
                 />
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-1">File Type</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">File Type</label>
                 <input
                   type="text"
                   value={newDocument.fileType}
                   onChange={(e) => setNewDocument({ ...newDocument, fileType: e.target.value })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="PDF, DOC, etc."
                 />
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-1">File Size (bytes)</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">File Size (bytes)</label>
                 <input
                   type="number"
                   value={newDocument.fileSize}
                   onChange={(e) => setNewDocument({ ...newDocument, fileSize: parseInt(e.target.value) || 0 })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="File size in bytes"
                 />
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Download URL</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Download URL</label>
                 <input
                   type="text"
                   value={newDocument.downloadUrl}
                   onChange={(e) => setNewDocument({ ...newDocument, downloadUrl: e.target.value })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="Download URL"
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-sm text-slate-400 mb-1">Project ID</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Project ID</label>
                 <input
                   type="text"
                   value={projectId || newDocument.projectId}
                   onChange={(e) => setNewDocument({ ...newDocument, projectId: e.target.value })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="Project ID"
                 />
               </div>
@@ -493,7 +493,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
               </button>
               <button
                 onClick={() => setShowDocumentForm(false)}
-                className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors"
+                className="bg-[#222222]/8 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors"
               >
                 Cancel
               </button>
@@ -506,42 +506,42 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
             <h3 className="text-lg font-semibold mb-4">Create Note</h3>
             <div className="grid grid-cols-1 gap-4">
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Title *</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Title *</label>
                 <input
                   type="text"
                   value={newNote.title}
                   onChange={(e) => setNewNote({ ...newNote, title: e.target.value })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="Note title"
                 />
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Content</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Content</label>
                 <textarea
                   value={newNote.content}
                   onChange={(e) => setNewNote({ ...newNote, content: e.target.value })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="Note content"
                   rows={4}
                 />
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Tags (comma separated)</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Tags (comma separated)</label>
                 <input
                   type="text"
                   value={newNote.tags.join(', ')}
                   onChange={(e) => setNewNote({ ...newNote, tags: e.target.value.split(',').map(tag => tag.trim()).filter(tag => tag) })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="tag1, tag2, tag3"
                 />
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Project ID</label>
+                <label className="block text-sm text-[#5a5a5a] mb-1">Project ID</label>
                 <input
                   type="text"
                   value={projectId || newNote.projectId}
                   onChange={(e) => setNewNote({ ...newNote, projectId: e.target.value })}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                  className="w-full px-4 py-2 bg-[#222222]/5 border border-[#222222]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/50"
                   placeholder="Project ID"
                 />
               </div>
@@ -555,7 +555,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
               </button>
               <button
                 onClick={() => setShowNoteForm(false)}
-                className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors"
+                className="bg-[#222222]/8 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors"
               >
                 Cancel
               </button>
@@ -568,20 +568,20 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           <div className="glass rounded-xl overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[700px]">
-                <thead className="bg-white/5 border-b border-white/10">
+                <thead className="bg-[#222222]/5 border-b border-[#222222]/10">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Task</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Status</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Priority</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Created</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Actions</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Task</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Status</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Priority</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Created</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   {tasks.map(task => (
                     <React.Fragment key={task.id}>
                       <tr
-                        className="hover:bg-white/5 transition-colors cursor-pointer"
+                        className="hover:bg-[#222222]/5 transition-colors cursor-pointer"
                         onClick={() => toggleRowExpand(task.id)}
                       >
                         <td className="px-6 py-4">
@@ -589,7 +589,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                             {expandedRows.has(task.id) ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
                             <div>
                               <p className="font-medium">{task.title}</p>
-                              <p className="text-sm text-slate-400 line-clamp-1">{task.description}</p>
+                              <p className="text-sm text-[#5a5a5a] line-clamp-1">{task.description}</p>
                             </div>
                           </div>
                         </td>
@@ -603,13 +603,13 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                             {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm text-slate-400">
+                        <td className="px-6 py-4 text-sm text-[#5a5a5a]">
                           {new Date(task.createdAt).toLocaleDateString()}
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex gap-2">
-                            <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
-                              <Edit3 size={16} className="text-slate-400" />
+                            <button className="p-2 hover:bg-[#222222]/8 rounded-lg transition-colors">
+                              <Edit3 size={16} className="text-[#5a5a5a]" />
                             </button>
                             <button className="p-2 hover:bg-red-500/10 rounded-lg transition-colors">
                               <Trash2 size={16} className="text-red-400" />
@@ -619,23 +619,23 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                       </tr>
                       {expandedRows.has(task.id) && (
                         <tr>
-                          <td colSpan={5} className="px-6 py-4 bg-white/5">
+                          <td colSpan={5} className="px-6 py-4 bg-[#222222]/5">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                               <div>
-                                <p className="text-slate-400">Description</p>
-                                <p className="text-white">{task.description}</p>
+                                <p className="text-[#5a5a5a]">Description</p>
+                                <p className="text-[#222222]">{task.description}</p>
                               </div>
                               <div>
-                                <p className="text-slate-400">Project ID</p>
-                                <p className="text-white">{task.projectId || 'None'}</p>
+                                <p className="text-[#5a5a5a]">Project ID</p>
+                                <p className="text-[#222222]">{task.projectId || 'None'}</p>
                               </div>
                               <div>
-                                <p className="text-slate-400">Assigned To</p>
-                                <p className="text-white">{task.assignedTo || 'Unassigned'}</p>
+                                <p className="text-[#5a5a5a]">Assigned To</p>
+                                <p className="text-[#222222]">{task.assignedTo || 'Unassigned'}</p>
                               </div>
                               <div>
-                                <p className="text-slate-400">Due Date</p>
-                                <p className="text-white">{task.dueDate || 'No due date'}</p>
+                                <p className="text-[#5a5a5a]">Due Date</p>
+                                <p className="text-[#222222]">{task.dueDate || 'No due date'}</p>
                               </div>
                             </div>
                           </td>
@@ -653,45 +653,45 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           <div className="glass rounded-xl overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[800px]">
-                <thead className="bg-white/5 border-b border-white/10">
+                <thead className="bg-[#222222]/5 border-b border-[#222222]/10">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Client</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Contact</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Company</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Projects</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Actions</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Client</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Contact</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Company</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Projects</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   {clients.map(client => (
-                    <tr key={client.id} className="hover:bg-white/5 transition-colors">
+                    <tr key={client.id} className="hover:bg-[#222222]/5 transition-colors">
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-red-600 to-orange-400 flex items-center justify-center">
-                            <User size={18} className="text-white" />
+                            <User size={18} className="text-[#222222]" />
                           </div>
                           <div>
                             <p className="font-medium">{client.name}</p>
-                            <p className="text-sm text-slate-400">ID: {client.id.substring(0, 8)}...</p>
+                            <p className="text-sm text-[#5a5a5a]">ID: {client.id.substring(0, 8)}...</p>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4">
                         <div className="text-sm">
-                          {client.email && <p className="text-white">{client.email}</p>}
-                          {client.phone && <p className="text-slate-400">{client.phone}</p>}
+                          {client.email && <p className="text-[#222222]">{client.email}</p>}
+                          {client.phone && <p className="text-[#5a5a5a]">{client.phone}</p>}
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <p className="text-sm text-white">{client.company || '-'}</p>
+                        <p className="text-sm text-[#222222]">{client.company || '-'}</p>
                       </td>
                       <td className="px-6 py-4">
-                        <p className="text-sm text-white">{client.projects.length} projects</p>
+                        <p className="text-sm text-[#222222]">{client.projects.length} projects</p>
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex gap-2">
-                          <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
-                            <Edit3 size={16} className="text-slate-400" />
+                          <button className="p-2 hover:bg-[#222222]/8 rounded-lg transition-colors">
+                            <Edit3 size={16} className="text-[#5a5a5a]" />
                           </button>
                           <button className="p-2 hover:bg-red-500/10 rounded-lg transition-colors">
                             <Trash2 size={16} className="text-red-400" />
@@ -710,22 +710,22 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           <div className="glass rounded-xl overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[700px]">
-                <thead className="bg-white/5 border-b border-white/10">
+                <thead className="bg-[#222222]/5 border-b border-[#222222]/10">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Document</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Type</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Size</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Uploaded By</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Actions</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Document</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Type</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Size</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Uploaded By</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   {documents.map(doc => (
-                    <tr key={doc.id} className="hover:bg-white/5 transition-colors">
+                    <tr key={doc.id} className="hover:bg-[#222222]/5 transition-colors">
                       <td className="px-6 py-4">
                         <div>
                           <p className="font-medium">{doc.fileName}</p>
-                          <p className="text-sm text-slate-400">Project: {doc.projectId.substring(0, 8)}...</p>
+                          <p className="text-sm text-[#5a5a5a]">Project: {doc.projectId.substring(0, 8)}...</p>
                         </div>
                       </td>
                       <td className="px-6 py-4">
@@ -734,15 +734,15 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                         </span>
                       </td>
                       <td className="px-6 py-4">
-                        <p className="text-sm text-white">{(doc.fileSize / 1024).toFixed(2)} KB</p>
+                        <p className="text-sm text-[#222222]">{(doc.fileSize / 1024).toFixed(2)} KB</p>
                       </td>
                       <td className="px-6 py-4">
-                        <p className="text-sm text-white">{doc.uploadedBy}</p>
+                        <p className="text-sm text-[#222222]">{doc.uploadedBy}</p>
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex gap-2">
-                          <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
-                            <Edit3 size={16} className="text-slate-400" />
+                          <button className="p-2 hover:bg-[#222222]/8 rounded-lg transition-colors">
+                            <Edit3 size={16} className="text-[#5a5a5a]" />
                           </button>
                           <button className="p-2 hover:bg-red-500/10 rounded-lg transition-colors">
                             <Trash2 size={16} className="text-red-400" />
@@ -761,26 +761,26 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           <div className="glass rounded-xl overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[800px]">
-                <thead className="bg-white/5 border-b border-white/10">
+                <thead className="bg-[#222222]/5 border-b border-[#222222]/10">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Note</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Project</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Tags</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Created</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Actions</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Note</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Project</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Tags</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Created</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   {notes.map(note => (
-                    <tr key={note.id} className="hover:bg-white/5 transition-colors">
+                    <tr key={note.id} className="hover:bg-[#222222]/5 transition-colors">
                       <td className="px-6 py-4">
                         <div>
                           <p className="font-medium">{note.title}</p>
-                          <p className="text-sm text-slate-400 line-clamp-2">{note.content}</p>
+                          <p className="text-sm text-[#5a5a5a] line-clamp-2">{note.content}</p>
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <p className="text-sm text-white">{note.projectId.substring(0, 8)}...</p>
+                        <p className="text-sm text-[#222222]">{note.projectId.substring(0, 8)}...</p>
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex flex-wrap gap-1">
@@ -791,13 +791,13 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                           ))}
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-sm text-slate-400">
+                      <td className="px-6 py-4 text-sm text-[#5a5a5a]">
                         {new Date(note.createdAt).toLocaleDateString()}
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex gap-2">
-                          <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
-                            <Edit3 size={16} className="text-slate-400" />
+                          <button className="p-2 hover:bg-[#222222]/8 rounded-lg transition-colors">
+                            <Edit3 size={16} className="text-[#5a5a5a]" />
                           </button>
                           <button className="p-2 hover:bg-red-500/10 rounded-lg transition-colors">
                             <Trash2 size={16} className="text-red-400" />
@@ -816,7 +816,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
           (activeTab === 'clients' && clients.length === 0) ||
           (activeTab === 'documents' && documents.length === 0) ||
           (activeTab === 'notes' && notes.length === 0)) && (
-            <div className="h-64 flex flex-col items-center justify-center text-slate-500">
+            <div className="h-64 flex flex-col items-center justify-center text-[#8a8a8a]">
               <Table size={48} className="mb-4 opacity-50" />
               <p>No {activeTab} found</p>
               <p className="text-sm mt-2">Click "Add" to create your first item</p>

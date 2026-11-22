@@ -42,10 +42,9 @@ function createWindow() {
         mainWindow = null;
     });
 
-    // Handle external links
+    // Allow in-app windows/tabs (e.g. project details) to open, instead of forcing external browser
     mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-        require('electron').shell.openExternal(url);
-        return { action: 'deny' };
+        return { action: 'allow' };
     });
 }
 

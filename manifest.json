@@ -8,9 +8,9 @@
     "theme_color": "#dc2626",
     "icons": [
         {
-            "src": "/Icon_01.png",
-            "sizes": "512x512",
-            "type": "image/png"
+            "src": "/vectra-logo.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
         }
     ]
 }

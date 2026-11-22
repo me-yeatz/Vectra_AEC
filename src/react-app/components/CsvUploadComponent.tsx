@@ -98,7 +98,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
           className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all ${
             selectedImportType === 'projects'
               ? 'bg-red-600/20 border border-red-500/30'
-              : 'bg-white/5 border border-white/10 hover:bg-white/10'
+              : 'bg-[#222222]/5 border border-[#222222]/10 hover:bg-[#222222]/8'
           }`}
           onClick={() => setSelectedImportType('projects')}
         >
@@ -109,7 +109,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
           className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all ${
             selectedImportType === 'tasks'
               ? 'bg-red-600/20 border border-red-500/30'
-              : 'bg-white/5 border border-white/10 hover:bg-white/10'
+              : 'bg-[#222222]/5 border border-[#222222]/10 hover:bg-[#222222]/8'
           }`}
           onClick={() => setSelectedImportType('tasks')}
         >
@@ -120,7 +120,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
           className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all ${
             selectedImportType === 'clients'
               ? 'bg-red-600/20 border border-red-500/30'
-              : 'bg-white/5 border border-white/10 hover:bg-white/10'
+              : 'bg-[#222222]/5 border border-[#222222]/10 hover:bg-[#222222]/8'
           }`}
           onClick={() => setSelectedImportType('clients')}
         >
@@ -131,7 +131,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
 
       <div
         className={`relative rounded-2xl border-2 border-dashed p-8 text-center transition-all ${
-          dragActive ? 'border-red-500 bg-red-500/10' : 'border-white/10'
+          dragActive ? 'border-red-500 bg-red-500/10' : 'border-[#222222]/10'
         }`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
@@ -147,12 +147,12 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
         />
         
         <div className="flex flex-col items-center justify-center gap-4">
-          <Upload size={48} className="text-slate-500" />
+          <Upload size={48} className="text-[#8a8a8a]" />
           <div>
-            <p className="font-medium text-white">
+            <p className="font-medium text-[#222222]">
               Drag & drop your {selectedImportType}.csv file here
             </p>
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-sm text-[#5a5a5a] mt-1">
               or <button 
                 type="button" 
                 className="text-red-400 hover:underline"
@@ -162,7 +162,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
               </button>
             </p>
           </div>
-          <p className="text-xs text-slate-500 max-w-md">
+          <p className="text-xs text-[#8a8a8a] max-w-md">
             Supported formats: CSV. The file should contain appropriate columns based on the selected import type.
           </p>
         </div>
@@ -220,7 +220,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
         </div>
       )}
 
-      <div className="mt-6 text-sm text-slate-400">
+      <div className="mt-6 text-sm text-[#5a5a5a]">
         <h5 className="font-semibold mb-2 flex items-center gap-2">
           <FileText size={16} />
           CSV Format Guide:

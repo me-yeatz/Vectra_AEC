@@ -52,7 +52,7 @@
     },
     "build": {
         "appId": "com.yeatz.projecttracker",
-        "productName": "YTZ Project Tracker",
+        "productName": "VECTRA",
         "copyright": "Copyright © 2026 YEATZ",
         "directories": {
             "output": "release_build"

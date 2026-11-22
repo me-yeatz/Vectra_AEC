@@ -10,7 +10,9 @@ import {
     Search,
     Settings,
     Bot,
-    User
+    User,
+    Check,
+    CheckCheck
 } from 'lucide-react';
 import { ClientMessage, CommunicationStats, MessageStatus, MessagePriority } from '../types';
 
@@ -18,6 +20,8 @@ interface CommunicationDashboardProps {
     messages: ClientMessage[];
     stats: CommunicationStats;
     onMessageStatusChange: (messageId: string, status: MessageStatus) => void;
+    onMarkAsRead?: (messageId: string, isRead?: boolean) => void;
+    onMarkAllAsRead?: () => void;
     onOpenSettings: () => void;
 }
 
@@ -25,6 +29,8 @@ export default function CommunicationDashboard({
     messages,
     stats,
     onMessageStatusChange,
+    onMarkAsRead,
+    onMarkAllAsRead,
     onOpenSettings
 }: CommunicationDashboardProps) {
     const [searchQuery, setSearchQuery] = useState('');
@@ -60,8 +66,8 @@ export default function CommunicationDashboard({
             case 'ai-responded': return 'text-green-400 bg-green-500/10';
             case 'escalated': return 'text-amber-400 bg-amber-500/10';
             case 'resolved': return 'text-emerald-400 bg-emerald-500/10';
-            case 'archived': return 'text-slate-400 bg-slate-500/10';
-            default: return 'text-slate-400 bg-slate-500/10';
+            case 'archived': return 'text-[#5a5a5a] bg-slate-500/10';
+            default: return 'text-[#5a5a5a] bg-slate-500/10';
         }
     };
 
@@ -70,8 +76,8 @@ export default function CommunicationDashboard({
             case 'urgent': return 'text-red-400 bg-red-500/20';
             case 'high': return 'text-orange-400 bg-orange-500/20';
             case 'medium': return 'text-yellow-400 bg-yellow-500/20';
-            case 'low': return 'text-slate-400 bg-slate-500/20';
-            default: return 'text-slate-400 bg-slate-500/20';
+            case 'low': return 'text-[#5a5a5a] bg-slate-500/20';
+            default: return 'text-[#5a5a5a] bg-slate-500/20';
         }
     };
 
@@ -112,21 +118,32 @@ export default function CommunicationDashboard({
             {/* Controls */}
             <div className="flex items-center justify-between gap-4 flex-wrap">
                 <div className="relative group flex-1 max-w-md">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-red-500 transition-colors" size={18} />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8a8a8a] group-focus-within:text-red-500 transition-colors" size={18} />
                     <input
                         type="text"
                         placeholder="Search messages, clients, phone numbers..."
-                        className="pl-12 pr-6 py-3 bg-white/5 border border-white/5 rounded-2xl w-full focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all focus:bg-white/10"
+                        className="pl-12 pr-6 py-3 bg-[#222222]/5 border border-[#222222]/8 rounded-2xl w-full focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all focus:bg-[#222222]/8"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 flex-wrap">
+                    {onMarkAllAsRead && messages.some(m => !m.isRead && (m.status === 'new' || m.requiresHumanReview)) && (
+                        <button
+                            onClick={onMarkAllAsRead}
+                            className="flex items-center gap-2 px-4 py-3 bg-[#222222]/5 border border-[#222222]/8 hover:bg-[#222222]/8 text-[#444444] hover:text-[#222222] rounded-xl text-sm font-medium transition-all"
+                            title="Mark all messages as read"
+                        >
+                            <CheckCheck size={16} className="text-green-400" />
+                            <span>Mark all as read</span>
+                        </button>
+                    )}
+
                     <select
                         value={filterStatus}
                         onChange={(e) => setFilterStatus(e.target.value as MessageStatus | 'all')}
-                        className="px-4 py-3 bg-white/5 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                        className="px-4 py-3 bg-[#222222]/5 border border-[#222222]/8 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
                     >
                         <option value="all">All Status</option>
                         <option value="new">New</option>
@@ -139,7 +156,7 @@ export default function CommunicationDashboard({
                     <select
                         value={filterPriority}
                         onChange={(e) => setFilterPriority(e.target.value as MessagePriority | 'all')}
-                        className="px-4 py-3 bg-white/5 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                        className="px-4 py-3 bg-[#222222]/5 border border-[#222222]/8 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
                     >
                         <option value="all">All Priority</option>
                         <option value="urgent">Urgent</option>
@@ -150,9 +167,10 @@ export default function CommunicationDashboard({
 
                     <button
                         onClick={onOpenSettings}
-                        className="p-3 bg-white/5 border border-white/5 rounded-xl hover:bg-white/10 transition-colors"
+                        className="p-3 bg-[#222222]/5 border border-[#222222]/8 rounded-xl hover:bg-[#222222]/8 transition-colors"
+                        title="Settings"
                     >
-                        <Settings size={20} className="text-slate-400" />
+                        <Settings size={20} className="text-[#5a5a5a]" />
                     </button>
                 </div>
             </div>
@@ -161,21 +179,21 @@ export default function CommunicationDashboard({
             <div className="glass rounded-2xl overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full">
-                        <thead className="bg-white/5 border-b border-white/5">
+                        <thead className="bg-[#222222]/5 border-b border-[#222222]/8">
                             <tr>
-                                <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Client</th>
-                                <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Message</th>
-                                <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Source</th>
-                                <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Priority</th>
-                                <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Status</th>
-                                <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Time</th>
-                                <th className="px-6 py-4 text-left text-sm font-medium text-slate-400">Actions</th>
+                                <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Client</th>
+                                <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Message</th>
+                                <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Source</th>
+                                <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Priority</th>
+                                <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Status</th>
+                                <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Time</th>
+                                <th className="px-6 py-4 text-left text-sm font-medium text-[#5a5a5a]">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
                             {filteredMessages.length === 0 ? (
                                 <tr>
-                                    <td colSpan={7} className="px-6 py-12 text-center text-slate-400">
+                                    <td colSpan={7} className="px-6 py-12 text-center text-[#5a5a5a]">
                                         No messages found
                                     </td>
                                 </tr>
@@ -183,24 +201,40 @@ export default function CommunicationDashboard({
                                 filteredMessages.map((message) => (
                                     <tr
                                         key={message.id}
-                                        className="hover:bg-white/5 transition-colors cursor-pointer"
-                                        onClick={() => setSelectedMessage(message)}
+                                        className={`hover:bg-[#222222]/5 transition-colors cursor-pointer ${
+                                            !message.isRead && (message.status === 'new' || message.requiresHumanReview)
+                                                ? 'bg-[#222222]/[0.03]'
+                                                : ''
+                                        }`}
+                                        onClick={() => {
+                                            setSelectedMessage(message);
+                                            if (!message.isRead && onMarkAsRead) {
+                                                onMarkAsRead(message.id, true);
+                                            }
+                                        }}
                                     >
                                         <td className="px-6 py-4">
-                                            <div>
-                                                <p className="font-medium text-white">{message.clientName}</p>
-                                                {message.clientPhone && (
-                                                    <p className="text-sm text-slate-400">{message.clientPhone}</p>
+                                            <div className="flex items-center gap-2.5">
+                                                {!message.isRead && (message.status === 'new' || message.requiresHumanReview) && (
+                                                    <span className="w-2 h-2 rounded-full bg-red-500 shrink-0" title="Unread notification"></span>
                                                 )}
+                                                <div>
+                                                    <p className={`font-medium ${!message.isRead && message.status === 'new' ? 'text-[#222222] font-semibold' : 'text-[#333333]'}`}>
+                                                        {message.clientName}
+                                                    </p>
+                                                    {message.clientPhone && (
+                                                        <p className="text-sm text-[#5a5a5a]">{message.clientPhone}</p>
+                                                    )}
+                                                </div>
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <p className="text-sm text-slate-300 line-clamp-2 max-w-md">
+                                            <p className="text-sm text-[#444444] line-clamp-2 max-w-md">
                                                 {message.content}
                                             </p>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <div className="flex items-center gap-2 text-slate-400">
+                                            <div className="flex items-center gap-2 text-[#5a5a5a]">
                                                 {getSourceIcon(message.source)}
                                                 <span className="text-sm capitalize">{message.source}</span>
                                             </div>
@@ -216,12 +250,24 @@ export default function CommunicationDashboard({
                                             </span>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <p className="text-sm text-slate-400">
+                                            <p className="text-sm text-[#5a5a5a]">
                                                 {new Date(message.timestamp).toLocaleString()}
                                             </p>
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-2">
+                                                {onMarkAsRead && !message.isRead && (
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            onMarkAsRead(message.id, true);
+                                                        }}
+                                                        className="p-2 hover:bg-[#222222]/8 rounded-lg transition-colors text-[#5a5a5a] hover:text-green-400"
+                                                        title="Mark as read"
+                                                    >
+                                                        <Check size={16} />
+                                                    </button>
+                                                )}
                                                 {message.status === 'new' && (
                                                     <button
                                                         onClick={(e) => {
@@ -258,6 +304,12 @@ export default function CommunicationDashboard({
                         onMessageStatusChange(selectedMessage.id, status);
                         setSelectedMessage(null);
                     }}
+                    onToggleRead={(isRead) => {
+                        if (onMarkAsRead) {
+                            onMarkAsRead(selectedMessage.id, isRead);
+                            setSelectedMessage(prev => prev ? { ...prev, isRead } : null);
+                        }
+                    }}
                 />
             )}
         </div>
@@ -274,16 +326,16 @@ interface StatCardProps {
 
 function StatCard({ title, value, sub, color, icon }: StatCardProps) {
     return (
-        <div className="glass p-6 rounded-2xl relative overflow-hidden group hover:border-white/10 transition-all">
+        <div className="glass p-6 rounded-2xl relative overflow-hidden group hover:border-[#222222]/10 transition-all">
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-white/10 to-transparent rounded-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-110"></div>
             <div className="flex items-start justify-between mb-4">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${color}20`, color }}>
                     {icon}
                 </div>
             </div>
-            <p className="text-slate-400 text-sm font-medium mb-2">{title}</p>
+            <p className="text-[#5a5a5a] text-sm font-medium mb-2">{title}</p>
             <h3 className="text-3xl font-display font-bold mb-2">{value}</h3>
-            <p className="text-xs text-slate-500">{sub}</p>
+            <p className="text-xs text-[#8a8a8a]">{sub}</p>
         </div>
     );
 }
@@ -292,43 +344,49 @@ interface MessageDetailModalProps {
     message: ClientMessage;
     onClose: () => void;
     onStatusChange: (status: MessageStatus) => void;
+    onToggleRead?: (isRead: boolean) => void;
 }
 
-function MessageDetailModal({ message, onClose, onStatusChange }: MessageDetailModalProps) {
+function MessageDetailModal({ message, onClose, onStatusChange, onToggleRead }: MessageDetailModalProps) {
     return (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={onClose}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={onClose}>
             <div className="glass rounded-2xl max-w-2xl w-full p-8 animate-fade-in" onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-start justify-between mb-6">
                     <div>
-                        <h2 className="text-2xl font-display font-bold mb-2">{message.clientName}</h2>
-                        <div className="flex items-center gap-4 text-sm text-slate-400">
+                        <div className="flex items-center gap-3 mb-2">
+                            <h2 className="text-2xl font-display font-bold">{message.clientName}</h2>
+                            <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${message.isRead ? 'bg-[#222222]/8 text-[#5a5a5a]' : 'bg-red-500/20 text-red-400 border border-red-500/30'}`}>
+                                {message.isRead ? 'Read' : 'New / Unread'}
+                            </span>
+                        </div>
+                        <div className="flex items-center gap-4 text-sm text-[#5a5a5a]">
                             {message.clientPhone && <span>📱 {message.clientPhone}</span>}
                             {message.clientEmail && <span>✉️ {message.clientEmail}</span>}
                             <span className="capitalize">via {message.source}</span>
                         </div>
                     </div>
-                    <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors">
+                    <button onClick={onClose} className="text-[#5a5a5a] hover:text-[#222222] transition-colors">
                         ✕
                     </button>
                 </div>
 
                 <div className="space-y-6">
                     <div>
-                        <h3 className="text-sm font-medium text-slate-400 mb-2">Original Message</h3>
-                        <div className="bg-white/5 rounded-xl p-4 border border-white/5">
-                            <p className="text-white">{message.content}</p>
-                            <p className="text-xs text-slate-500 mt-2">{new Date(message.timestamp).toLocaleString()}</p>
+                        <h3 className="text-sm font-medium text-[#5a5a5a] mb-2">Original Message</h3>
+                        <div className="bg-[#222222]/5 rounded-xl p-4 border border-[#222222]/8">
+                            <p className="text-[#222222]">{message.content}</p>
+                            <p className="text-xs text-[#8a8a8a] mt-2">{new Date(message.timestamp).toLocaleString()}</p>
                         </div>
                     </div>
 
                     {message.aiResponse && (
                         <div>
-                            <h3 className="text-sm font-medium text-slate-400 mb-2 flex items-center gap-2">
+                            <h3 className="text-sm font-medium text-[#5a5a5a] mb-2 flex items-center gap-2">
                                 <Bot size={16} className="text-green-400" />
                                 AI Response
                             </h3>
                             <div className="bg-green-500/10 rounded-xl p-4 border border-green-500/20">
-                                <p className="text-white">{message.aiResponse}</p>
+                                <p className="text-[#222222]">{message.aiResponse}</p>
                                 {message.aiRespondedAt && (
                                     <p className="text-xs text-green-400 mt-2">Sent: {new Date(message.aiRespondedAt).toLocaleString()}</p>
                                 )}
@@ -352,22 +410,31 @@ function MessageDetailModal({ message, onClose, onStatusChange }: MessageDetailM
                         ))}
                     </div>
 
-                    <div className="flex items-center gap-3 pt-4 border-t border-white/5">
+                    <div className="flex items-center gap-3 pt-4 border-t border-[#222222]/8 flex-wrap">
+                        {onToggleRead && (
+                            <button
+                                onClick={() => onToggleRead(!message.isRead)}
+                                className="px-4 py-3 bg-[#222222]/5 hover:bg-[#222222]/8 text-[#444444] hover:text-[#222222] rounded-xl font-medium transition-all text-sm flex items-center justify-center gap-1.5"
+                            >
+                                <Check size={16} />
+                                {message.isRead ? 'Mark as Unread' : 'Mark as Read'}
+                            </button>
+                        )}
                         <button
                             onClick={() => onStatusChange('resolved')}
-                            className="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-medium transition-all"
+                            className="flex-1 bg-green-600 hover:bg-green-700 text-[#222222] px-6 py-3 rounded-xl font-medium transition-all"
                         >
                             Mark as Resolved
                         </button>
                         <button
                             onClick={() => onStatusChange('escalated')}
-                            className="flex-1 bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-xl font-medium transition-all"
+                            className="flex-1 bg-amber-600 hover:bg-amber-700 text-[#222222] px-6 py-3 rounded-xl font-medium transition-all"
                         >
                             Escalate
                         </button>
                         <button
                             onClick={() => onStatusChange('archived')}
-                            className="px-6 py-3 bg-white/5 hover:bg-white/10 rounded-xl font-medium transition-all"
+                            className="px-6 py-3 bg-[#222222]/5 hover:bg-[#222222]/8 rounded-xl font-medium transition-all"
                         >
                             Archive
                         </button>

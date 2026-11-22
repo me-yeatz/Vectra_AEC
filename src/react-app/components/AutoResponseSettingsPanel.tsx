@@ -55,14 +55,14 @@ export default function AutoResponseSettingsPanel({
     ];
 
     return (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={onClose}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={onClose}>
             <div className="glass rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8 animate-fade-in" onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-start justify-between mb-8">
                     <div>
                         <h2 className="text-3xl font-display font-bold mb-2">AI Auto-Response Settings</h2>
-                        <p className="text-slate-400">Configure your intelligent client communication manager</p>
+                        <p className="text-[#5a5a5a]">Configure your intelligent client communication manager</p>
                     </div>
-                    <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors text-2xl">
+                    <button onClick={onClose} className="text-[#5a5a5a] hover:text-[#222222] transition-colors text-2xl">
                         ✕
                     </button>
                 </div>
@@ -77,7 +77,7 @@ export default function AutoResponseSettingsPanel({
                                 </div>
                                 <div>
                                     <h3 className="font-semibold text-lg">AI Auto-Response</h3>
-                                    <p className="text-sm text-slate-400">Automatically respond to client messages using Claude AI</p>
+                                    <p className="text-sm text-[#5a5a5a]">Automatically respond to client messages using Claude AI</p>
                                 </div>
                             </div>
                             <label className="relative inline-flex items-center cursor-pointer">
@@ -87,7 +87,7 @@ export default function AutoResponseSettingsPanel({
                                     onChange={(e) => setSettings({ ...settings, enabled: e.target.checked })}
                                     className="sr-only peer"
                                 />
-                                <div className="w-14 h-7 bg-white/10 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-500/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-red-600"></div>
+                                <div className="w-14 h-7 bg-[#222222]/8 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-500/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-red-600"></div>
                             </label>
                         </div>
                     </div>
@@ -100,7 +100,7 @@ export default function AutoResponseSettingsPanel({
                             </div>
                             <div>
                                 <h3 className="font-semibold">Claude API Key</h3>
-                                <p className="text-sm text-slate-400">Get your API key from console.anthropic.com</p>
+                                <p className="text-sm text-[#5a5a5a]">Get your API key from console.anthropic.com</p>
                             </div>
                         </div>
                         <div className="space-y-3">
@@ -110,11 +110,11 @@ export default function AutoResponseSettingsPanel({
                                     value={settings.claudeApiKey || ''}
                                     onChange={(e) => setSettings({ ...settings, claudeApiKey: e.target.value })}
                                     placeholder="sk-ant-..."
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all font-mono text-sm"
+                                    className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all font-mono text-sm"
                                 />
                                 <button
                                     onClick={() => setShowApiKey(!showApiKey)}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-sm"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5a5a5a] hover:text-[#222222] text-sm"
                                 >
                                     {showApiKey ? 'Hide' : 'Show'}
                                 </button>
@@ -152,12 +152,12 @@ export default function AutoResponseSettingsPanel({
                             </div>
                             <div>
                                 <h3 className="font-semibold">Working Hours</h3>
-                                <p className="text-sm text-slate-400">Define your availability</p>
+                                <p className="text-sm text-[#5a5a5a]">Define your availability</p>
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Start Time</label>
+                                <label className="block text-sm text-[#5a5a5a] mb-2">Start Time</label>
                                 <input
                                     type="time"
                                     value={settings.workingHours.start}
@@ -165,11 +165,11 @@ export default function AutoResponseSettingsPanel({
                                         ...settings,
                                         workingHours: { ...settings.workingHours, start: e.target.value }
                                     })}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                    className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">End Time</label>
+                                <label className="block text-sm text-[#5a5a5a] mb-2">End Time</label>
                                 <input
                                     type="time"
                                     value={settings.workingHours.end}
@@ -177,7 +177,7 @@ export default function AutoResponseSettingsPanel({
                                         ...settings,
                                         workingHours: { ...settings.workingHours, end: e.target.value }
                                     })}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                    className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                 />
                             </div>
                         </div>
@@ -191,7 +191,7 @@ export default function AutoResponseSettingsPanel({
                             </div>
                             <div>
                                 <h3 className="font-semibold">Working Days</h3>
-                                <p className="text-sm text-slate-400">Select your working days</p>
+                                <p className="text-sm text-[#5a5a5a]">Select your working days</p>
                             </div>
                         </div>
                         <div className="flex gap-2">
@@ -208,8 +208,8 @@ export default function AutoResponseSettingsPanel({
                                         });
                                     }}
                                     className={`flex-1 py-3 rounded-xl font-medium transition-all ${settings.workingDays.includes(day.value)
-                                            ? 'bg-green-600 text-white'
-                                            : 'bg-white/5 text-slate-400 hover:bg-white/10'
+                                            ? 'bg-green-600 text-[#222222]'
+                                            : 'bg-[#222222]/5 text-[#5a5a5a] hover:bg-[#222222]/8'
                                         }`}
                                 >
                                     {day.label}
@@ -226,27 +226,27 @@ export default function AutoResponseSettingsPanel({
                             </div>
                             <div>
                                 <h3 className="font-semibold">Boundary Protection</h3>
-                                <p className="text-sm text-slate-400">Protect your personal time</p>
+                                <p className="text-sm text-[#5a5a5a]">Protect your personal time</p>
                             </div>
                         </div>
 
-                        <label className="flex items-center justify-between p-4 bg-white/5 rounded-xl cursor-pointer hover:bg-white/10 transition-colors">
+                        <label className="flex items-center justify-between p-4 bg-[#222222]/5 rounded-xl cursor-pointer hover:bg-[#222222]/8 transition-colors">
                             <span className="text-sm">Auto-respond outside working hours</span>
                             <input
                                 type="checkbox"
                                 checked={settings.autoRespondOutsideHours}
                                 onChange={(e) => setSettings({ ...settings, autoRespondOutsideHours: e.target.checked })}
-                                className="w-5 h-5 rounded bg-white/10 border-white/20 text-red-600 focus:ring-2 focus:ring-red-500/50"
+                                className="w-5 h-5 rounded bg-[#222222]/8 border-[#222222]/15 text-red-600 focus:ring-2 focus:ring-red-500/50"
                             />
                         </label>
 
-                        <label className="flex items-center justify-between p-4 bg-white/5 rounded-xl cursor-pointer hover:bg-white/10 transition-colors">
+                        <label className="flex items-center justify-between p-4 bg-[#222222]/5 rounded-xl cursor-pointer hover:bg-[#222222]/8 transition-colors">
                             <span className="text-sm">Auto-respond on weekends</span>
                             <input
                                 type="checkbox"
                                 checked={settings.autoRespondOnWeekends}
                                 onChange={(e) => setSettings({ ...settings, autoRespondOnWeekends: e.target.checked })}
-                                className="w-5 h-5 rounded bg-white/10 border-white/20 text-red-600 focus:ring-2 focus:ring-red-500/50"
+                                className="w-5 h-5 rounded bg-[#222222]/8 border-[#222222]/15 text-red-600 focus:ring-2 focus:ring-red-500/50"
                             />
                         </label>
                     </div>
@@ -256,7 +256,7 @@ export default function AutoResponseSettingsPanel({
                         <h3 className="font-semibold mb-4">Response Templates</h3>
 
                         <div>
-                            <label className="block text-sm text-slate-400 mb-2">Weekend Message</label>
+                            <label className="block text-sm text-[#5a5a5a] mb-2">Weekend Message</label>
                             <textarea
                                 value={settings.responseTemplates.weekendMessage}
                                 onChange={(e) => setSettings({
@@ -264,12 +264,12 @@ export default function AutoResponseSettingsPanel({
                                     responseTemplates: { ...settings.responseTemplates, weekendMessage: e.target.value }
                                 })}
                                 rows={3}
-                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all resize-none"
+                                className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all resize-none"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm text-slate-400 mb-2">After Hours Message</label>
+                            <label className="block text-sm text-[#5a5a5a] mb-2">After Hours Message</label>
                             <textarea
                                 value={settings.responseTemplates.afterHoursMessage}
                                 onChange={(e) => setSettings({
@@ -277,7 +277,7 @@ export default function AutoResponseSettingsPanel({
                                     responseTemplates: { ...settings.responseTemplates, afterHoursMessage: e.target.value }
                                 })}
                                 rows={3}
-                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all resize-none"
+                                className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all resize-none"
                             />
                         </div>
                     </div>
@@ -285,7 +285,7 @@ export default function AutoResponseSettingsPanel({
                     {/* Escalation Keywords */}
                     <div className="glass p-6 rounded-xl">
                         <h3 className="font-semibold mb-2">Escalation Keywords</h3>
-                        <p className="text-sm text-slate-400 mb-4">Messages containing these keywords will be flagged for human review</p>
+                        <p className="text-sm text-[#5a5a5a] mb-4">Messages containing these keywords will be flagged for human review</p>
                         <input
                             type="text"
                             value={settings.escalationKeywords.join(', ')}
@@ -294,12 +294,12 @@ export default function AutoResponseSettingsPanel({
                                 escalationKeywords: e.target.value.split(',').map(k => k.trim()).filter(Boolean)
                             })}
                             placeholder="urgent, emergency, deadline, legal, safety"
-                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                            className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
                         />
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex items-center gap-4 pt-4 border-t border-white/5">
+                    <div className="flex items-center gap-4 pt-4 border-t border-[#222222]/8">
                         <button
                             onClick={handleSave}
                             className="flex-1 flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-4 rounded-xl font-medium transition-all shadow-lg shadow-red-600/20"
@@ -309,7 +309,7 @@ export default function AutoResponseSettingsPanel({
                         </button>
                         <button
                             onClick={onClose}
-                            className="px-6 py-4 bg-white/5 hover:bg-white/10 rounded-xl font-medium transition-all"
+                            className="px-6 py-4 bg-[#222222]/5 hover:bg-[#222222]/8 rounded-xl font-medium transition-all"
                         >
                             Cancel
                         </button>

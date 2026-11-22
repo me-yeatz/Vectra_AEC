@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
-import { X, Building2, MapPin, Calendar, DollarSign, FileText } from 'lucide-react';
+import { X, Building2, MapPin, Calendar, DollarSign, FileText, Phone, Mail, StickyNote, Image as ImageIcon, Upload, Trash2 } from 'lucide-react';
 import { Project, ProjectStatus } from '../types';
 
 interface NewProjectModalProps {
     onClose: () => void;
     onSave: (project: Omit<Project, 'id'>) => void;
     initialData?: Project;
+    fullPage?: boolean;
 }
 
-export default function NewProjectModal({ onClose, onSave, initialData }: NewProjectModalProps) {
+export default function NewProjectModal({ onClose, onSave, initialData, fullPage }: NewProjectModalProps) {
     const [formData, setFormData] = useState({
         title: initialData?.title || '',
         clientName: initialData?.clientName || '',
+        clientPhone: initialData?.clientPhone || '',
+        clientEmail: initialData?.clientEmail || '',
+        clientCompany: initialData?.clientCompany || '',
         location: initialData?.location || '',
         description: initialData?.description || '',
+        notes: initialData?.notes || '',
         status: initialData?.status || 'concept' as ProjectStatus,
         startDate: initialData?.startDate || new Date().toISOString().split('T')[0],
         targetCompletionDate: initialData?.targetCompletionDate || '',
@@ -22,6 +27,7 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
     });
 
     const [errors, setErrors] = useState<Record<string, string>>({});
+    const [sitePhotos, setSitePhotos] = useState<string[]>(initialData?.sitePhotos || []);
 
     const isEditing = !!initialData;
 
@@ -60,6 +66,9 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
         if (!formData.description.trim()) {
             newErrors.description = 'Description is required';
         }
+        if (!isEditing && sitePhotos.length === 0) {
+            newErrors.sitePhotos = 'At least one site photo is required';
+        }
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -75,14 +84,19 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
         const newProject: Omit<Project, 'id'> = {
             title: formData.title,
             clientName: formData.clientName,
+            clientPhone: formData.clientPhone || undefined,
+            clientEmail: formData.clientEmail || undefined,
+            clientCompany: formData.clientCompany || undefined,
             location: formData.location,
             description: formData.description,
+            notes: formData.notes || undefined,
             status: formData.status,
             startDate: formData.startDate,
             targetCompletionDate: formData.targetCompletionDate || undefined,
             totalBudget: formData.totalBudget ? parseFloat(formData.totalBudget) : undefined,
             submissions: initialData?.submissions || [],
-            color: formData.color
+            color: formData.color,
+            sitePhotos: sitePhotos.length ? sitePhotos : undefined
         };
 
         try {
@@ -107,10 +121,30 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
         }
     };
 
+    const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (!files) return;
+        Array.from(files).forEach(file => {
+            if (!file.type.startsWith('image/')) return;
+            const reader = new FileReader();
+            reader.onload = () => {
+                const result = reader.result as string;
+                setSitePhotos(prev => [...prev, result]);
+            };
+            reader.readAsDataURL(file);
+        });
+        e.target.value = '';
+        if (errors.sitePhotos) setErrors(prev => ({ ...prev, sitePhotos: '' }));
+    };
+
+    const removePhoto = (index: number) => {
+        setSitePhotos(prev => prev.filter((_, i) => i !== index));
+    };
+
     return (
         <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
-            onClick={onClose}
+            className={fullPage ? "min-h-screen bg-[#F6F4F1] p-6 md:p-10 flex items-start justify-center" : "fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4"}
+            onClick={fullPage ? undefined : onClose}
         >
             <div
                 className="glass rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 animate-fade-in"
@@ -120,11 +154,11 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                 <div className="flex items-start justify-between mb-8">
                     <div>
                         <h2 className="text-3xl font-display font-bold mb-2">{isEditing ? 'Edit Project' : 'Create New Project'}</h2>
-                        <p className="text-slate-400">{isEditing ? 'Update project details' : 'Add a new architecture project to your tracker'}</p>
+                        <p className="text-[#5a5a5a]">{isEditing ? 'Update project details' : 'Add a new architecture project to your tracker'}</p>
                     </div>
                     <button
                         onClick={onClose}
-                        className="text-slate-400 hover:text-white transition-colors text-2xl"
+                        className="text-[#5a5a5a] hover:text-[#222222] transition-colors text-2xl"
                     >
                         <X size={24} />
                     </button>
@@ -134,7 +168,7 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Project Title */}
                     <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-slate-300 mb-2">
+                        <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
                             <Building2 size={16} />
                             Project Title *
                         </label>
@@ -143,7 +177,7 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                             value={formData.title}
                             onChange={(e) => handleChange('title', e.target.value)}
                             placeholder="e.g., Modern Residential Villa"
-                            className={`w-full px-4 py-3 bg-white/5 border ${errors.title ? 'border-red-500' : 'border-white/10'} rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all`}
+                            className={`w-full px-4 py-3 bg-[#222222]/5 border ${errors.title ? 'border-red-500' : 'border-[#222222]/10'} rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all`}
                         />
                         {errors.title && <p className="text-red-400 text-sm mt-1">{errors.title}</p>}
                     </div>
@@ -151,7 +185,7 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                     {/* Client Name & Location */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="flex items-center gap-2 text-sm font-medium text-slate-300 mb-2">
+                            <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
                                 <Building2 size={16} />
                                 Client Name *
                             </label>
@@ -160,13 +194,13 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                                 value={formData.clientName}
                                 onChange={(e) => handleChange('clientName', e.target.value)}
                                 placeholder="e.g., Ahmad bin Hassan"
-                                className={`w-full px-4 py-3 bg-white/5 border ${errors.clientName ? 'border-red-500' : 'border-white/10'} rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all`}
+                                className={`w-full px-4 py-3 bg-[#222222]/5 border ${errors.clientName ? 'border-red-500' : 'border-[#222222]/10'} rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all`}
                             />
                             {errors.clientName && <p className="text-red-400 text-sm mt-1">{errors.clientName}</p>}
                         </div>
 
                         <div>
-                            <label className="flex items-center gap-2 text-sm font-medium text-slate-300 mb-2">
+                            <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
                                 <MapPin size={16} />
                                 Location *
                             </label>
@@ -175,15 +209,61 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                                 value={formData.location}
                                 onChange={(e) => handleChange('location', e.target.value)}
                                 placeholder="e.g., Kuala Lumpur"
-                                className={`w-full px-4 py-3 bg-white/5 border ${errors.location ? 'border-red-500' : 'border-white/10'} rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all`}
+                                className={`w-full px-4 py-3 bg-[#222222]/5 border ${errors.location ? 'border-red-500' : 'border-[#222222]/10'} rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all`}
                             />
                             {errors.location && <p className="text-red-400 text-sm mt-1">{errors.location}</p>}
                         </div>
                     </div>
 
+                    {/* Client Company */}
+                    <div>
+                        <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                            <Building2 size={16} />
+                            Company / Organisation
+                        </label>
+                        <input
+                            type="text"
+                            value={formData.clientCompany}
+                            onChange={(e) => handleChange('clientCompany', e.target.value)}
+                            placeholder="e.g., Synergy Holdings Sdn Bhd"
+                            className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                        />
+                    </div>
+
+                    {/* Client Phone & Email */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                                <Phone size={16} />
+                                Client Phone
+                            </label>
+                            <input
+                                type="tel"
+                                value={formData.clientPhone}
+                                onChange={(e) => handleChange('clientPhone', e.target.value)}
+                                placeholder="e.g., +60123456789"
+                                className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                                <Mail size={16} />
+                                Client Email
+                            </label>
+                            <input
+                                type="email"
+                                value={formData.clientEmail}
+                                onChange={(e) => handleChange('clientEmail', e.target.value)}
+                                placeholder="e.g., client@example.com"
+                                className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                            />
+                        </div>
+                    </div>
+
                     {/* Description */}
                     <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-slate-300 mb-2">
+                        <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
                             <FileText size={16} />
                             Description *
                         </label>
@@ -192,25 +272,40 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                             onChange={(e) => handleChange('description', e.target.value)}
                             placeholder="Describe the project scope, requirements, and key features..."
                             rows={4}
-                            className={`w-full px-4 py-3 bg-white/5 border ${errors.description ? 'border-red-500' : 'border-white/10'} rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all resize-none`}
+                            className={`w-full px-4 py-3 bg-[#222222]/5 border ${errors.description ? 'border-red-500' : 'border-[#222222]/10'} rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all resize-none`}
                         />
                         {errors.description && <p className="text-red-400 text-sm mt-1">{errors.description}</p>}
+                    </div>
+
+                    {/* Notes */}
+                    <div>
+                        <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                            <StickyNote size={16} />
+                            Internal Notes
+                        </label>
+                        <textarea
+                            value={formData.notes}
+                            onChange={(e) => handleChange('notes', e.target.value)}
+                            placeholder="Any internal notes, client preferences, special requirements..."
+                            rows={3}
+                            className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all resize-none"
+                        />
                     </div>
 
                     {/* Status & Color */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="text-sm font-medium text-slate-300 mb-2 block">
+                            <label className="text-sm font-medium text-[#444444] mb-2 block">
                                 Project Status
                             </label>
                             <select
                                 value={formData.status}
                                 onChange={(e) => handleChange('status', e.target.value)}
-                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all text-white"
+                                className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all text-[#222222]"
                                 style={{ colorScheme: 'dark' }}
                             >
                                 {statusOptions.map(option => (
-                                    <option key={option.value} value={option.value} className="bg-[#1a1a1c] text-white">
+                                    <option key={option.value} value={option.value} className="bg-[#FFFFFF] text-[#222222]">
                                         {option.label}
                                     </option>
                                 ))}
@@ -218,7 +313,7 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                         </div>
 
                         <div>
-                            <label className="text-sm font-medium text-slate-300 mb-2 block">
+                            <label className="text-sm font-medium text-[#444444] mb-2 block">
                                 Project Color
                             </label>
                             <div className="flex gap-2">
@@ -228,7 +323,7 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                                         type="button"
                                         onClick={() => handleChange('color', color.value)}
                                         className={`w-10 h-10 rounded-lg transition-all ${formData.color === color.value
-                                            ? 'ring-2 ring-white ring-offset-2 ring-offset-[#0a0a0c] scale-110'
+                                            ? 'ring-2 ring-white ring-offset-2 ring-offset-[#F6F4F1] scale-110'
                                             : 'hover:scale-105'
                                             }`}
                                         style={{ backgroundColor: color.value }}
@@ -242,7 +337,7 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                     {/* Dates */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="flex items-center gap-2 text-sm font-medium text-slate-300 mb-2">
+                            <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
                                 <Calendar size={16} />
                                 Start Date
                             </label>
@@ -250,12 +345,12 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                                 type="date"
                                 value={formData.startDate}
                                 onChange={(e) => handleChange('startDate', e.target.value)}
-                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                                className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
                             />
                         </div>
 
                         <div>
-                            <label className="flex items-center gap-2 text-sm font-medium text-slate-300 mb-2">
+                            <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
                                 <Calendar size={16} />
                                 Target Completion Date
                             </label>
@@ -263,14 +358,14 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                                 type="date"
                                 value={formData.targetCompletionDate}
                                 onChange={(e) => handleChange('targetCompletionDate', e.target.value)}
-                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                                className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
                             />
                         </div>
                     </div>
 
                     {/* Budget */}
                     <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-slate-300 mb-2">
+                        <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
                             <DollarSign size={16} />
                             Total Budget (RM)
                         </label>
@@ -281,8 +376,48 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                             placeholder="e.g., 500000"
                             min="0"
                             step="1000"
-                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
+                            className="w-full px-4 py-3 bg-[#222222]/5 border border-[#222222]/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all"
                         />
+                    </div>
+
+                    {/* Site Photos */}
+                    <div>
+                        <label className="flex items-center gap-2 text-sm font-medium text-[#444444] mb-2">
+                            <ImageIcon size={16} />
+                            Site Photos {!isEditing && '*'}
+                        </label>
+                        <div className="flex items-center gap-3 mb-3">
+                            <label className="flex items-center gap-2 px-4 py-2.5 bg-[#222222]/5 hover:bg-[#222222]/8 border border-[#222222]/10 rounded-xl cursor-pointer transition-all text-sm font-medium">
+                                <Upload size={16} />
+                                Upload photos
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    multiple
+                                    onChange={handlePhotoUpload}
+                                    className="hidden"
+                                />
+                            </label>
+                            <span className="text-xs text-[#8a8a8a]">{sitePhotos.length} photo{sitePhotos.length !== 1 ? 's' : ''} selected</span>
+                        </div>
+                        {errors.sitePhotos && <p className="text-red-400 text-sm mb-2">{errors.sitePhotos}</p>}
+                        {sitePhotos.length > 0 && (
+                            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                                {sitePhotos.map((photo, idx) => (
+                                    <div key={idx} className="relative group rounded-xl overflow-hidden border border-[#222222]/10 aspect-square bg-[#222222]/5">
+                                        <img src={photo} alt={`Site photo ${idx + 1}`} className="w-full h-full object-cover" />
+                                        <button
+                                            type="button"
+                                            onClick={() => removePhoto(idx)}
+                                            className="absolute top-1.5 right-1.5 p-1 bg-black/60 hover:bg-red-600 text-[#222222] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                                            title="Remove photo"
+                                        >
+                                            <Trash2 size={14} />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     {/* Action Buttons */}
@@ -291,7 +426,7 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                             {errors.submit}
                         </div>
                     )}
-                    <div className="flex items-center gap-4 pt-4 border-t border-white/5">
+                    <div className="flex items-center gap-4 pt-4 border-t border-[#222222]/8">
                         <button
                             type="submit"
                             className="flex-1 bg-red-600 hover:bg-red-700 text-white px-6 py-4 rounded-xl font-medium transition-all shadow-lg shadow-red-600/20 active:scale-95"
@@ -301,7 +436,7 @@ export default function NewProjectModal({ onClose, onSave, initialData }: NewPro
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-6 py-4 bg-white/5 hover:bg-white/10 rounded-xl font-medium transition-all"
+                            className="px-6 py-4 bg-[#222222]/5 hover:bg-[#222222]/8 rounded-xl font-medium transition-all"
                         >
                             Cancel
                         </button>

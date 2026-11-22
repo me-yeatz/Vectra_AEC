@@ -4,7 +4,11 @@ VECTRA is a professional project-tracking platform built for architecture and en
 
 ## 🖥 Preview
 
+### Desktop
 ![VECTRA Desktop Preview](public/screenshot-desktop.png)
+
+### Mobile
+![VECTRA Mobile Preview](public/screenshot-mobile.png)
 
 ## ✨ Features
 

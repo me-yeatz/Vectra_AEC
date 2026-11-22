@@ -87,7 +87,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
   };
 
   return (
-    <div className="glass rounded-2xl p-6">
+    <div className="glass rounded-none p-6">
       <h3 className="text-xl font-display font-bold mb-6 flex items-center gap-2">
         <Upload size={24} />
         Import Data from CSV
@@ -95,10 +95,10 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <button
-          className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all ${
+          className={`flex flex-col items-center justify-center p-4 rounded-none transition-all ${
             selectedImportType === 'projects'
-              ? 'bg-[var(--accent-primary)]/20 border border-[var(--accent-primary)]/30'
-              : 'bg-[var(--bg-tertiary)] border border-[var(--border)] hover:bg-[var(--bg-tertiary)]'
+              ? 'bg-[var(--accent-primary)]/20 border-2 border-2-[var(--accent-primary)]/30'
+              : 'bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] hover:bg-[var(--bg-tertiary)]'
           }`}
           onClick={() => setSelectedImportType('projects')}
         >
@@ -106,10 +106,10 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
           <span>Projects</span>
         </button>
         <button
-          className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all ${
+          className={`flex flex-col items-center justify-center p-4 rounded-none transition-all ${
             selectedImportType === 'tasks'
-              ? 'bg-[var(--accent-primary)]/20 border border-[var(--accent-primary)]/30'
-              : 'bg-[var(--bg-tertiary)] border border-[var(--border)] hover:bg-[var(--bg-tertiary)]'
+              ? 'bg-[var(--accent-primary)]/20 border-2 border-2-[var(--accent-primary)]/30'
+              : 'bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] hover:bg-[var(--bg-tertiary)]'
           }`}
           onClick={() => setSelectedImportType('tasks')}
         >
@@ -117,10 +117,10 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
           <span>Tasks</span>
         </button>
         <button
-          className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all ${
+          className={`flex flex-col items-center justify-center p-4 rounded-none transition-all ${
             selectedImportType === 'clients'
-              ? 'bg-[var(--accent-primary)]/20 border border-[var(--accent-primary)]/30'
-              : 'bg-[var(--bg-tertiary)] border border-[var(--border)] hover:bg-[var(--bg-tertiary)]'
+              ? 'bg-[var(--accent-primary)]/20 border-2 border-2-[var(--accent-primary)]/30'
+              : 'bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] hover:bg-[var(--bg-tertiary)]'
           }`}
           onClick={() => setSelectedImportType('clients')}
         >
@@ -130,8 +130,8 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
       </div>
 
       <div
-        className={`relative rounded-2xl border-2 border-dashed p-8 text-center transition-all ${
-          dragActive ? 'border-[var(--accent-primary)] bg-red-500/10' : 'border-[var(--border)]'
+        className={`relative rounded-none border-2-2 border-2-dashed p-8 text-center transition-all ${
+          dragActive ? 'border-2-[var(--accent-primary)] bg-red-500/10' : 'border-2-[var(--border-2)]'
         }`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
@@ -169,8 +169,8 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
       </div>
 
       {uploading && (
-        <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-xl flex items-center gap-3">
-          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-400"></div>
+        <div className="mt-6 p-4 bg-blue-500/10 border-2 border-2-blue-500/20 rounded-none flex items-center gap-3">
+          <div className="animate-spin rounded-none h-5 w-5 border-2-b-2 border-2-blue-400"></div>
           <span className="text-blue-400">Processing your file...</span>
         </div>
       )}
@@ -179,7 +179,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
         <div className="mt-6">
           <div className="flex items-center gap-2 mb-3">
             <h4 className="font-semibold">Import Results:</h4>
-            <span className={`px-2 py-1 rounded-full text-xs ${
+            <span className={`px-2 py-1 rounded-none text-xs ${
               results.errors.length === 0 
                 ? 'bg-green-500/20 text-green-400' 
                 : results.success > 0 
@@ -191,7 +191,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
           </div>
           
           {results.success > 0 && (
-            <div className="p-3 bg-green-500/10 border border-green-500/20 rounded-xl mb-3 flex items-center gap-2">
+            <div className="p-3 bg-green-500/10 border-2 border-2-green-500/20 rounded-none mb-3 flex items-center gap-2">
               <CheckCircle size={18} className="text-green-400" />
               <span className="text-green-400">
                 Successfully imported {results.success} {selectedImportType}
@@ -205,7 +205,7 @@ const CsvUploadComponent: React.FC<CsvUploadComponentProps> = ({ dbService }) =>
                 <XCircle size={18} />
                 <span className="font-medium">Errors:</span>
               </div>
-              <div className="max-h-40 overflow-y-auto bg-red-500/5 border border-[var(--accent-primary)]/10 rounded-xl p-3">
+              <div className="max-h-40 overflow-y-auto bg-red-500/5 border-2 border-2-[var(--accent-primary)]/10 rounded-none p-3">
                 <ul className="space-y-1 text-sm text-red-300">
                   {results.errors.map((error, index) => (
                     <li key={index} className="flex items-start gap-2">

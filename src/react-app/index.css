@@ -7,52 +7,52 @@
 :root,
 [data-theme="light"] {
   --bg-primary: #FFFFFF;
-  --bg-secondary: #f2f2f2;
-  --bg-tertiary: #e8e8e8;
+  --bg-secondary: #f5f0e8;
+  --bg-tertiary: #efe7dc;
 
-  --accent-primary: #8b0000;
-  --accent-secondary: #6b0000;
-  --accent-glow: rgba(139, 0, 0, 0.25);
+  --accent-primary: #F0C38E;
+  --accent-secondary: #F1AA9B;
+  --accent-glow: rgba(240, 195, 142, 0.35);
 
-  --text-primary: #1c1c1c;
-  --text-secondary: #444444;
-  --text-muted: #666666;
+  --text-primary: #312C51;
+  --text-secondary: #48426D;
+  --text-muted: #6b6490;
 
-  --border: rgba(28, 28, 28, 0.1);
-  --border-hover: rgba(28, 28, 28, 0.2);
+  --border: rgba(49, 44, 81, 0.15);
+  --border-2-hover: rgba(49, 44, 81, 0.3);
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 20px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
 }
 
 [data-theme="dark"] {
-  --bg-primary: #1c1c1c;
-  --bg-secondary: #121430;
-  --bg-tertiary: #1a1a2e;
+  --bg-primary: #312C51;
+  --bg-secondary: #48426D;
+  --bg-tertiary: #48426D;
 
-  --accent-primary: #8b0000;
-  --accent-secondary: #a00000;
-  --accent-glow: rgba(139, 0, 0, 0.4);
+  --accent-primary: #F0C38E;
+  --accent-secondary: #F1AA9B;
+  --accent-glow: rgba(240, 195, 142, 0.35);
 
   --text-primary: #FFFFFF;
-  --text-secondary: #b0b0b0;
-  --text-muted: #808080;
+  --text-secondary: #F1AA9B;
+  --text-muted: #d8c9b8;
 
-  --border: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(255, 255, 255, 0.16);
+  --border: rgba(240, 195, 142, 0.2);
+  --border-2-hover: rgba(240, 195, 142, 0.4);
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 20px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
 }
 
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-2-box;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -82,7 +82,7 @@ h4,
 
 ::-webkit-scrollbar-thumb {
   background: var(--bg-tertiary);
-  border-radius: 10px;
+  border-2-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -94,7 +94,7 @@ h4,
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-2);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
 }
 
@@ -104,7 +104,7 @@ h4,
 
 .glow-on-hover:hover {
   box-shadow: 0 0 20px var(--accent-glow);
-  border-color: var(--accent-primary);
+  border-2-color: var(--accent-primary);
 }
 
 .grid-bg {

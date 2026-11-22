@@ -147,7 +147,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
             onClick={fullPage ? undefined : onClose}
         >
             <div
-                className="glass rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 animate-fade-in"
+                className="glass rounded-none max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 animate-fade-in"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
@@ -177,7 +177,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                             value={formData.title}
                             onChange={(e) => handleChange('title', e.target.value)}
                             placeholder="e.g., Modern Residential Villa"
-                            className={`w-full px-4 py-3 bg-[var(--bg-tertiary)] border ${errors.title ? 'border-[var(--accent-primary)]' : 'border-[var(--border)]'} rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all`}
+                            className={`w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 ${errors.title ? 'border-2-[var(--accent-primary)]' : 'border-2-[var(--border-2)]'} rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all`}
                         />
                         {errors.title && <p className="text-[var(--accent-primary)] text-sm mt-1">{errors.title}</p>}
                     </div>
@@ -194,7 +194,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                 value={formData.clientName}
                                 onChange={(e) => handleChange('clientName', e.target.value)}
                                 placeholder="e.g., Ahmad bin Hassan"
-                                className={`w-full px-4 py-3 bg-[var(--bg-tertiary)] border ${errors.clientName ? 'border-[var(--accent-primary)]' : 'border-[var(--border)]'} rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all`}
+                                className={`w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 ${errors.clientName ? 'border-2-[var(--accent-primary)]' : 'border-2-[var(--border-2)]'} rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all`}
                             />
                             {errors.clientName && <p className="text-[var(--accent-primary)] text-sm mt-1">{errors.clientName}</p>}
                         </div>
@@ -209,7 +209,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                 value={formData.location}
                                 onChange={(e) => handleChange('location', e.target.value)}
                                 placeholder="e.g., Kuala Lumpur"
-                                className={`w-full px-4 py-3 bg-[var(--bg-tertiary)] border ${errors.location ? 'border-[var(--accent-primary)]' : 'border-[var(--border)]'} rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all`}
+                                className={`w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 ${errors.location ? 'border-2-[var(--accent-primary)]' : 'border-2-[var(--border-2)]'} rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all`}
                             />
                             {errors.location && <p className="text-[var(--accent-primary)] text-sm mt-1">{errors.location}</p>}
                         </div>
@@ -226,7 +226,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                             value={formData.clientCompany}
                             onChange={(e) => handleChange('clientCompany', e.target.value)}
                             placeholder="e.g., Synergy Holdings Sdn Bhd"
-                            className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                            className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                         />
                     </div>
 
@@ -242,7 +242,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                 value={formData.clientPhone}
                                 onChange={(e) => handleChange('clientPhone', e.target.value)}
                                 placeholder="e.g., +60123456789"
-                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                             />
                         </div>
 
@@ -256,7 +256,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                 value={formData.clientEmail}
                                 onChange={(e) => handleChange('clientEmail', e.target.value)}
                                 placeholder="e.g., client@example.com"
-                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                             />
                         </div>
                     </div>
@@ -272,7 +272,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                             onChange={(e) => handleChange('description', e.target.value)}
                             placeholder="Describe the project scope, requirements, and key features..."
                             rows={4}
-                            className={`w-full px-4 py-3 bg-[var(--bg-tertiary)] border ${errors.description ? 'border-[var(--accent-primary)]' : 'border-[var(--border)]'} rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none`}
+                            className={`w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 ${errors.description ? 'border-2-[var(--accent-primary)]' : 'border-2-[var(--border-2)]'} rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none`}
                         />
                         {errors.description && <p className="text-[var(--accent-primary)] text-sm mt-1">{errors.description}</p>}
                     </div>
@@ -288,7 +288,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                             onChange={(e) => handleChange('notes', e.target.value)}
                             placeholder="Any internal notes, client preferences, special requirements..."
                             rows={3}
-                            className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none"
+                            className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none"
                         />
                     </div>
 
@@ -301,7 +301,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                             <select
                                 value={formData.status}
                                 onChange={(e) => handleChange('status', e.target.value)}
-                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all text-[var(--text-primary)]"
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all text-[var(--text-primary)]"
                                 style={{ colorScheme: 'dark' }}
                             >
                                 {statusOptions.map(option => (
@@ -322,7 +322,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                         key={color.value}
                                         type="button"
                                         onClick={() => handleChange('color', color.value)}
-                                        className={`w-10 h-10 rounded-lg transition-all ${formData.color === color.value
+                                        className={`w-10 h-10 rounded-none transition-all ${formData.color === color.value
                                             ? 'ring-2 ring-white ring-offset-2 ring-offset-[#FFFFFF] scale-110'
                                             : 'hover:scale-105'
                                             }`}
@@ -345,7 +345,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                 type="date"
                                 value={formData.startDate}
                                 onChange={(e) => handleChange('startDate', e.target.value)}
-                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                             />
                         </div>
 
@@ -358,7 +358,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                                 type="date"
                                 value={formData.targetCompletionDate}
                                 onChange={(e) => handleChange('targetCompletionDate', e.target.value)}
-                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                             />
                         </div>
                     </div>
@@ -376,7 +376,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                             placeholder="e.g., 500000"
                             min="0"
                             step="1000"
-                            className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                            className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                         />
                     </div>
 
@@ -387,7 +387,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                             Site Photos {!isEditing && '*'}
                         </label>
                         <div className="flex items-center gap-3 mb-3">
-                            <label className="flex items-center gap-2 px-4 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl cursor-pointer transition-all text-sm font-medium">
+                            <label className="flex items-center gap-2 px-4 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none cursor-pointer transition-all text-sm font-medium">
                                 <Upload size={16} />
                                 Upload photos
                                 <input
@@ -404,12 +404,12 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
                         {sitePhotos.length > 0 && (
                             <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
                                 {sitePhotos.map((photo, idx) => (
-                                    <div key={idx} className="relative group rounded-xl overflow-hidden border border-[var(--border)] aspect-square bg-[var(--bg-tertiary)]">
+                                    <div key={idx} className="relative group rounded-none overflow-hidden border-2 border-2-[var(--border-2)] aspect-square bg-[var(--bg-tertiary)]">
                                         <img src={photo} alt={`Site photo ${idx + 1}`} className="w-full h-full object-cover" />
                                         <button
                                             type="button"
                                             onClick={() => removePhoto(idx)}
-                                            className="absolute top-1.5 right-1.5 p-1 bg-black/60 hover:bg-[var(--accent-primary)] text-[var(--text-primary)] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                                            className="absolute top-1.5 right-1.5 p-1 bg-black/60 hover:bg-[var(--accent-primary)] text-[var(--text-primary)] rounded-none opacity-0 group-hover:opacity-100 transition-opacity"
                                             title="Remove photo"
                                         >
                                             <Trash2 size={14} />
@@ -422,21 +422,21 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
 
                     {/* Action Buttons */}
                     {errors.submit && (
-                        <div className="p-3 bg-red-500/10 border border-[var(--accent-primary)]/20 rounded-xl text-[var(--accent-primary)] text-sm mb-4">
+                        <div className="p-3 bg-red-500/10 border-2 border-2-[var(--accent-primary)]/20 rounded-none text-[var(--accent-primary)] text-sm mb-4">
                             {errors.submit}
                         </div>
                     )}
-                    <div className="flex items-center gap-4 pt-4 border-t border-[var(--border)]">
+                    <div className="flex items-center gap-4 pt-4 border-2-t border-2-[var(--border-2)]">
                         <button
                             type="submit"
-                            className="flex-1 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-6 py-4 rounded-xl font-medium transition-all shadow-lg shadow-[var(--accent-primary)]/20 active:scale-95"
+                            className="flex-1 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-6 py-4 rounded-none font-medium transition-all shadow-lg shadow-[var(--accent-primary)]/20 active:scale-95"
                         >
                             {isEditing ? 'Save Changes' : 'Create Project'}
                         </button>
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-6 py-4 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-xl font-medium transition-all"
+                            className="px-6 py-4 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-none font-medium transition-all"
                         >
                             Cancel
                         </button>

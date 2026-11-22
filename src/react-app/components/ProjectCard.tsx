@@ -64,13 +64,13 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
 
     return (
         <div
-            className="glass p-6 rounded-2xl hover:border-[var(--accent-primary)]/30 transition-all group cursor-pointer animate-fade-in relative"
+            className="glass p-6 rounded-none hover:border-2-[var(--accent-primary)]/30 transition-all group cursor-pointer animate-fade-in relative"
             onClick={() => onView(project)}
         >
             {/* Header */}
             <div className="flex justify-between items-start mb-6">
                 <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center"
+                    className="w-12 h-12 rounded-none flex items-center justify-center"
                     style={{ backgroundColor: `${project.color}20`, color: project.color }}
                 >
                     <FileText size={24} />
@@ -84,7 +84,7 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
                             e.stopPropagation();
                             setShowActions((prev) => !prev);
                         }}
-                        className={`transition-all p-2 rounded-xl flex items-center justify-center ${showActions
+                        className={`transition-all p-2 rounded-none flex items-center justify-center ${showActions
                             ? 'bg-[var(--accent-primary)] text-white shadow-lg shadow-[var(--accent-primary)]/20'
                             : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)]'
                             }`}
@@ -108,7 +108,7 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
                                 <div
                                     role="menu"
                                     aria-label="Project actions"
-                                    className="fixed w-44 bg-[#FFFFFF] border border-[var(--border)] rounded-2xl shadow-2xl z-[9999] overflow-hidden animate-fade-in ring-1 ring-white/10"
+                                    className="fixed w-44 bg-[#FFFFFF] border-2 border-2-[var(--border-2)] rounded-none shadow-2xl z-[9999] overflow-hidden animate-fade-in ring-1 ring-white/10"
                                     style={{
                                         top: `${dropdownPosition.top}px`,
                                         right: `${dropdownPosition.right}px`
@@ -124,9 +124,9 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
                                                 onEdit(project);
                                                 setShowActions(false);
                                             }}
-                                            className="w-full text-left px-3 py-2.5 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] rounded-xl flex items-center gap-3 transition-all group"
+                                            className="w-full text-left px-3 py-2.5 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)] rounded-none flex items-center gap-3 transition-all group"
                                         >
-                                            <div className="w-8 h-8 rounded-lg bg-[var(--bg-tertiary)] flex items-center justify-center group-hover:bg-[var(--accent-primary)]/10 group-hover:text-[var(--accent-primary)]">
+                                            <div className="w-8 h-8 rounded-none bg-[var(--bg-tertiary)] flex items-center justify-center group-hover:bg-[var(--accent-primary)]/10 group-hover:text-[var(--accent-primary)]">
                                                 <Edit size={16} />
                                             </div>
                                             <span className="font-medium">Edit Project</span>
@@ -141,9 +141,9 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
                                                 onDelete(project.id);
                                                 setShowActions(false);
                                             }}
-                                            className="w-full text-left px-3 py-2.5 text-sm text-[var(--accent-primary)] hover:bg-red-500/10 rounded-xl flex items-center gap-3 transition-all group"
+                                            className="w-full text-left px-3 py-2.5 text-sm text-[var(--accent-primary)] hover:bg-red-500/10 rounded-none flex items-center gap-3 transition-all group"
                                         >
-                                            <div className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center group-hover:bg-red-500 group-hover:text-[var(--text-primary)]">
+                                            <div className="w-8 h-8 rounded-none bg-red-500/10 flex items-center justify-center group-hover:bg-red-500 group-hover:text-[var(--text-primary)]">
                                                 <Trash2 size={16} />
                                             </div>
                                             <span className="font-medium">Delete Project</span>
@@ -176,7 +176,7 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
             {/* Status Badge */}
             <div className="mb-6">
                 <div
-                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-none text-xs font-semibold"
                     style={{ backgroundColor: `${config.color}20`, color: config.color }}
                 >
                     <StatusIcon size={14} />
@@ -185,7 +185,7 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
             </div>
 
             {/* Submissions Summary */}
-            <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-[var(--bg-tertiary)] rounded-xl">
+            <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-[var(--bg-tertiary)] rounded-none">
                 <div>
                     <p className="text-xs text-[var(--text-muted)] mb-1">Pending</p>
                     <p className="text-lg font-bold text-amber-500">{pendingSubmissions}</p>
@@ -197,7 +197,7 @@ export default function ProjectCard({ project, onView, onEdit, onDelete }: Proje
             </div>
 
             {/* Footer */}
-            <div className="pt-6 border-t border-[var(--border)] flex items-center justify-between text-xs">
+            <div className="pt-6 border-2-t border-2-[var(--border-2)] flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2 text-[var(--text-muted)]">
                     <Calendar size={14} />
                     <span>Due {new Date(project.targetCompletionDate || project.startDate).toLocaleDateString('en-MY', { month: 'short', year: 'numeric' })}</span>

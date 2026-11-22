@@ -67,14 +67,14 @@ export default function FinancialOverview({ projects, detailed = false }: Financ
 
             {/* Detailed Breakdown */}
             {detailed && (
-                <div className="glass p-8 rounded-2xl">
+                <div className="glass p-8 rounded-none">
                     <h3 className="text-xl font-display font-bold mb-8">Project Financial Breakdown</h3>
 
                     <div className="space-y-4">
                         {projectFinancials.map(project => (
                             <div
                                 key={project.id}
-                                className="bg-[var(--bg-tertiary)] p-6 rounded-xl border border-[var(--border)] hover:border-[var(--border)] transition-all"
+                                className="bg-[var(--bg-tertiary)] p-6 rounded-none border-2 border-2-[var(--border-2)] hover:border-2-[var(--border-2)] transition-all"
                             >
                                 <div className="flex items-start justify-between mb-4">
                                     <div className="flex-1">
@@ -91,7 +91,7 @@ export default function FinancialOverview({ projects, detailed = false }: Financ
                                     )}
                                 </div>
 
-                                <div className="grid grid-cols-3 gap-6 mt-6 pt-6 border-t border-[var(--border)]">
+                                <div className="grid grid-cols-3 gap-6 mt-6 pt-6 border-2-t border-2-[var(--border-2)]">
                                     <div>
                                         <p className="text-xs text-[var(--text-muted)] mb-2">Total Fees</p>
                                         <p className="text-xl font-bold text-[var(--text-primary)]">
@@ -113,7 +113,7 @@ export default function FinancialOverview({ projects, detailed = false }: Financ
                                 </div>
 
                                 {/* Submissions List */}
-                                <div className="mt-6 pt-6 border-t border-[var(--border)]">
+                                <div className="mt-6 pt-6 border-2-t border-2-[var(--border-2)]">
                                     <p className="text-xs text-[var(--text-muted)] mb-3 font-semibold uppercase tracking-wide">
                                         Submissions ({project.submissions.length})
                                     </p>
@@ -121,12 +121,12 @@ export default function FinancialOverview({ projects, detailed = false }: Financ
                                         {project.submissions.map(sub => (
                                             <div
                                                 key={sub.id}
-                                                className="flex items-center justify-between text-sm py-2 px-3 bg-[var(--bg-tertiary)] rounded-lg"
+                                                className="flex items-center justify-between text-sm py-2 px-3 bg-[var(--bg-tertiary)] rounded-none"
                                             >
                                                 <span className="text-[var(--text-secondary)]">{sub.type.replace(/-/g, ' ').toUpperCase()}</span>
                                                 <div className="flex items-center gap-4">
                                                     <span
-                                                        className={`px-2 py-1 rounded text-xs font-semibold ${sub.status === 'approved' ? 'bg-green-500/20 text-green-400' :
+                                                        className={`px-2 py-1 rounded-none text-xs font-semibold ${sub.status === 'approved' ? 'bg-green-500/20 text-green-400' :
                                                                 sub.status === 'pending' ? 'bg-amber-500/20 text-amber-400' :
                                                                     'bg-red-500/20 text-[var(--accent-primary)]'
                                                             }`}
@@ -157,11 +157,11 @@ function FinancialCard({ title, value, icon, color }: {
     color: string;
 }) {
     return (
-        <div className="glass p-6 rounded-2xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-white/10 to-transparent rounded-bl-full -mr-12 -mt-12"></div>
+        <div className="glass p-6 rounded-none relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-white/10 to-transparent rounded-none-bl-full -mr-12 -mt-12"></div>
             <div className="flex items-start justify-between mb-4">
                 <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center"
+                    className="w-12 h-12 rounded-none flex items-center justify-center"
                     style={{ backgroundColor: `${color}20`, color }}
                 >
                     {icon}

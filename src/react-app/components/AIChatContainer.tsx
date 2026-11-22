@@ -127,11 +127,11 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
   };
 
   return (
-    <div className="flex h-full bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-xl overflow-hidden flex-col md:flex-row">
+    <div className="flex h-full bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-none overflow-hidden flex-col md:flex-row">
       {/* Sidebar for conversations - Collapsible on mobile */}
-      <div className={`bg-[var(--bg-tertiary)] border-r border-[var(--border)] flex-col flex-shrink-0 md:w-64 transition-all duration-300 ${showConversations ? 'flex' : 'hidden'
+      <div className={`bg-[var(--bg-tertiary)] border-2-r border-2-[var(--border-2)] flex-col flex-shrink-0 md:w-64 transition-all duration-300 ${showConversations ? 'flex' : 'hidden'
         } md:flex`}>
-        <div className="p-4 border-b border-[var(--border)] flex justify-between items-center">
+        <div className="p-4 border-2-b border-2-[var(--border-2)] flex justify-between items-center">
           <h3 className="font-semibold">Chats</h3>
           <button
             className="md:hidden text-[var(--text-secondary)]"
@@ -144,7 +144,7 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
         <div className="p-4">
           <button
             onClick={createNewConversation}
-            className="w-full flex items-center justify-center gap-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-4 py-2 rounded-lg transition-colors"
+            className="w-full flex items-center justify-center gap-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-4 py-2 rounded-none transition-colors"
           >
             <MessageSquare size={16} />
             New Chat
@@ -161,8 +161,8 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
                 {conversations.map((conv: Conversation) => (
                   <div
                     key={conv.id}
-                    className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-colors ${currentConversation && currentConversation.id === conv.id
-                        ? 'bg-[var(--accent-primary)]/20 border border-[var(--accent-primary)]/30'
+                    className={`flex items-center justify-between p-3 rounded-none cursor-pointer transition-colors ${currentConversation && currentConversation.id === conv.id
+                        ? 'bg-[var(--accent-primary)]/20 border-2 border-2-[var(--accent-primary)]/30'
                         : 'hover:bg-[var(--bg-tertiary)]'
                       }`}
                     onClick={() => {
@@ -181,7 +181,7 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
                         e.stopPropagation();
                         deleteConversation(conv.id);
                       }}
-                      className="p-1 text-[var(--text-muted)] hover:text-[var(--accent-primary)] rounded-full hover:bg-red-500/10"
+                      className="p-1 text-[var(--text-muted)] hover:text-[var(--accent-primary)] rounded-none hover:bg-red-500/10"
                     >
                       <Trash2 size={14} />
                     </button>
@@ -196,9 +196,9 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
       {/* Main chat area */}
       <div className="flex-1 flex flex-col">
         {/* Mobile header with toggle button */}
-        <div className="p-4 border-b border-[var(--border)] bg-[var(--bg-tertiary)] flex items-center justify-between md:hidden">
+        <div className="p-4 border-2-b border-2-[var(--border-2)] bg-[var(--bg-tertiary)] flex items-center justify-between md:hidden">
           <button
-            className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)]"
+            className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-none hover:bg-[var(--bg-tertiary)]"
             onClick={() => setShowConversations(true)}
           >
             <MessageSquare size={20} />
@@ -208,7 +208,7 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
           </h2>
           <button
             onClick={() => setShowSettings(true)}
-            className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)]"
+            className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-none hover:bg-[var(--bg-tertiary)]"
           >
             <Settings size={20} />
           </button>
@@ -216,11 +216,11 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
 
         {currentConversation ? (
           <>
-            <div className="p-4 border-b border-[var(--border)] bg-[var(--bg-tertiary)] hidden md:flex items-center justify-between">
+            <div className="p-4 border-2-b border-2-[var(--border-2)] bg-[var(--bg-tertiary)] hidden md:flex items-center justify-between">
               <h2 className="text-lg font-semibold truncate">{currentConversation.title}</h2>
               <button
                 onClick={() => setShowSettings(true)}
-                className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-tertiary)]"
+                className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-none hover:bg-[var(--bg-tertiary)]"
               >
                 <Settings size={18} />
               </button>
@@ -239,15 +239,15 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
                     className={`flex gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     {msg.role === 'assistant' && (
-                      <div className="w-8 h-8 rounded-full bg-[var(--accent-primary)]/20 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-none bg-[var(--accent-primary)]/20 flex items-center justify-center flex-shrink-0">
                         <Bot size={18} className="text-[var(--accent-primary)]" />
                       </div>
                     )}
 
                     <div
-                      className={`max-w-[80%] rounded-2xl px-4 py-3 ${msg.role === 'user'
-                          ? 'bg-[var(--accent-primary)]/20 rounded-tr-none'
-                          : 'bg-[var(--bg-tertiary)] rounded-tl-none'
+                      className={`max-w-[80%] rounded-none px-4 py-3 ${msg.role === 'user'
+                          ? 'bg-[var(--accent-primary)]/20 rounded-none-tr-none'
+                          : 'bg-[var(--bg-tertiary)] rounded-none-tl-none'
                         }`}
                     >
                       <p className="text-sm">{msg.content}</p>
@@ -257,7 +257,7 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
                     </div>
 
                     {msg.role === 'user' && (
-                      <div className="w-8 h-8 rounded-full bg-blue-600/20 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-none bg-blue-600/20 flex items-center justify-center flex-shrink-0">
                         <User size={18} className="text-blue-400" />
                       </div>
                     )}
@@ -266,14 +266,14 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
               )}
               {isLoading && (
                 <div className="flex gap-3 justify-start">
-                  <div className="w-8 h-8 rounded-full bg-[var(--accent-primary)]/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-none bg-[var(--accent-primary)]/20 flex items-center justify-center flex-shrink-0">
                     <Bot size={18} className="text-[var(--accent-primary)]" />
                   </div>
-                  <div className="bg-[var(--bg-tertiary)] rounded-2xl rounded-tl-none px-4 py-3">
+                  <div className="bg-[var(--bg-tertiary)] rounded-none rounded-none-tl-none px-4 py-3">
                     <div className="flex space-x-2">
-                      <div className="w-2 h-2 rounded-full bg-slate-400 animate-bounce"></div>
-                      <div className="w-2 h-2 rounded-full bg-slate-400 animate-bounce delay-100"></div>
-                      <div className="w-2 h-2 rounded-full bg-slate-400 animate-bounce delay-200"></div>
+                      <div className="w-2 h-2 rounded-none bg-slate-400 animate-bounce"></div>
+                      <div className="w-2 h-2 rounded-none bg-slate-400 animate-bounce delay-100"></div>
+                      <div className="w-2 h-2 rounded-none bg-slate-400 animate-bounce delay-200"></div>
                     </div>
                   </div>
                 </div>
@@ -290,7 +290,7 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
             </p>
             <button
               onClick={createNewConversation}
-              className="flex items-center gap-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-6 py-3 rounded-xl transition-colors"
+              className="flex items-center gap-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-6 py-3 rounded-none transition-colors"
             >
               <MessageSquare size={20} />
               Start New Chat
@@ -299,21 +299,21 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
         )}
 
         {/* Input area */}
-        <div className="p-4 border-t border-[var(--border)] bg-[var(--bg-tertiary)]">
+        <div className="p-4 border-2-t border-2-[var(--border-2)] bg-[var(--bg-tertiary)]">
           <div className="flex gap-2">
             <textarea
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyDown={handleKeyPress}
               placeholder="Type your message here..."
-              className="flex-1 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 resize-none"
+              className="flex-1 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 resize-none"
               rows={2}
               disabled={isLoading || !hfApiKey}
             />
             <button
               onClick={handleSendMessage}
               disabled={isLoading || !inputMessage.trim() || !hfApiKey}
-              className="self-end bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] disabled:bg-[var(--accent-primary)]/30 disabled:cursor-not-allowed text-white p-3 rounded-xl transition-colors"
+              className="self-end bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] disabled:bg-[var(--accent-primary)]/30 disabled:cursor-not-allowed text-white p-3 rounded-none transition-colors"
             >
               <Send size={20} />
             </button>
@@ -329,7 +329,7 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
       {/* Settings Panel */}
       {showSettings && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="glass rounded-2xl max-w-md w-full p-8 animate-fade-in">
+          <div className="glass rounded-none max-w-md w-full p-8 animate-fade-in">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-display font-bold">API Settings</h2>
               <button
@@ -348,7 +348,7 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
                   value={tempApiKey}
                   onChange={(e) => setTempApiKey(e.target.value)}
                   placeholder="Enter your Hugging Face API key"
-                  className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                  className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                 />
                 <p className="text-xs text-[var(--text-muted)] mt-2">
                   Get your API key from{' '}
@@ -371,13 +371,13 @@ const AIChatContainer: React.FC<AIChatContainerProps> = ({ hfApiKey, model = 'mi
                     }
                     setShowSettings(false);
                   }}
-                  className="flex-1 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-6 py-3 rounded-xl font-medium transition-all"
+                  className="flex-1 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-6 py-3 rounded-none font-medium transition-all"
                 >
                   Save API Key
                 </button>
                 <button
                   onClick={() => setShowSettings(false)}
-                  className="px-6 py-3 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-xl font-medium transition-all"
+                  className="px-6 py-3 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-none font-medium transition-all"
                 >
                   Cancel
                 </button>

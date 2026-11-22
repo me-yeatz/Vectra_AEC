@@ -483,7 +483,7 @@ export default function App() {
         <div className="flex min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
             {/* Mobile menu button */}
             <button
-                className={`fixed top-4 left-4 z-50 p-2 rounded-lg bg-[var(--bg-tertiary)] lg:hidden ${sidebarOpen ? 'hidden' : 'block'
+                className={`fixed top-4 left-4 z-50 p-2 rounded-none bg-[var(--bg-tertiary)] lg:hidden ${sidebarOpen ? 'hidden' : 'block'
                     }`}
                 onClick={() => setSidebarOpen(true)}
             >
@@ -492,11 +492,11 @@ export default function App() {
 
             {/* Sidebar */}
             <aside
-                className={`fixed left-0 top-0 h-full w-80 lg:w-64 shrink-0 bg-[#1c1c1c] text-white border-r border-white/10 flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed left-0 top-0 h-full w-80 lg:w-64 shrink-0 bg-[#312C51] text-white border-2-r border-2-white/10 flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     } lg:translate-x-0`}
             >
                 <div className="p-6 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-[var(--accent-primary)]/20">
+                    <div className="w-10 h-10 rounded-none overflow-hidden shadow-lg shadow-[var(--accent-primary)]/20">
                         <img src="/vectra-logo.svg" alt="VECTRA Logo" className="w-full h-full object-cover" />
                     </div>
                     <div>
@@ -603,7 +603,7 @@ export default function App() {
                     />
                 </nav>
 
-                <div className="p-4 border-t border-[var(--border)]">
+                <div className="p-4 border-2-t border-2-[var(--border-2)]">
                     <NavItem
                         icon={<Settings size={20} />}
                         label="Settings"
@@ -612,8 +612,8 @@ export default function App() {
                             if (isMobile) setSidebarOpen(false);
                         }}
                     />
-                    <div className="mt-4 p-4 rounded-xl bg-[var(--bg-tertiary)] flex items-center gap-3 cursor-pointer" onClick={() => { setViewMode('profile'); if (isMobile) setSidebarOpen(false); }}>
-                        <div className="w-10 h-10 rounded-full overflow-hidden bg-gradient-to-tr from-red-600 to-orange-400 flex items-center justify-center shrink-0">
+                    <div className="mt-4 p-4 rounded-none bg-[var(--bg-tertiary)] flex items-center gap-3 cursor-pointer" onClick={() => { setViewMode('profile'); if (isMobile) setSidebarOpen(false); }}>
+                        <div className="w-10 h-10 rounded-none overflow-hidden bg-gradient-to-tr from-red-600 to-orange-400 flex items-center justify-center shrink-0">
                             {activeProfile.photo ? (
                                 <img src={activeProfile.photo} alt="Profile" className="w-full h-full object-cover" />
                             ) : (
@@ -629,7 +629,7 @@ export default function App() {
 
                 {/* Close button for mobile */}
                 <button
-                    className="absolute top-4 right-4 p-1 rounded-lg bg-[var(--bg-tertiary)] lg:hidden"
+                    className="absolute top-4 right-4 p-1 rounded-none bg-[var(--bg-tertiary)] lg:hidden"
                     onClick={() => setSidebarOpen(false)}
                 >
                     <X size={20} />
@@ -653,7 +653,7 @@ export default function App() {
                         <input
                             type="text"
                             placeholder="Search projects..."
-                            className="pl-12 pr-6 py-3 bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-2xl w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all focus:bg-[var(--bg-tertiary)]"
+                            className="pl-12 pr-6 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all focus:bg-[var(--bg-tertiary)]"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
@@ -663,12 +663,12 @@ export default function App() {
                         {/* Theme toggle dongle */}
                         <button
                             onClick={() => setTheme(t => (t === 'dark' ? 'light' : 'dark'))}
-                            className="relative w-12 h-7 rounded-full bg-[var(--bg-tertiary)] border border-[var(--border)] transition-colors flex items-center px-1"
+                            className="relative w-12 h-7 rounded-none bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] transition-colors flex items-center px-1"
                             title="Toggle theme"
                             aria-label="Toggle theme"
                         >
                             <span
-                                className={`w-5 h-5 rounded-full bg-[var(--accent-primary)] text-white flex items-center justify-center transition-transform ${theme === 'dark' ? 'translate-x-5' : 'translate-x-0'}`}
+                                className={`w-5 h-5 rounded-none bg-[var(--accent-primary)] text-white flex items-center justify-center transition-transform ${theme === 'dark' ? 'translate-x-5' : 'translate-x-0'}`}
                             >
                                 {theme === 'dark' ? <Moon size={12} /> : <Sun size={12} />}
                             </span>
@@ -676,30 +676,30 @@ export default function App() {
                         <div className="relative" ref={notificationsRef}>
                             <button
                                 onClick={() => setShowNotificationsDropdown(prev => !prev)}
-                                className={`p-3 bg-[var(--bg-tertiary)] border rounded-xl hover:bg-[var(--bg-tertiary)] transition-colors relative ${
-                                    showNotificationsDropdown ? 'border-[var(--accent-primary)]/50 text-[var(--text-primary)]' : 'border-[var(--border)] text-[var(--text-secondary)]'
+                                className={`p-3 bg-[var(--bg-tertiary)] border-2 rounded-none hover:bg-[var(--bg-tertiary)] transition-colors relative ${
+                                    showNotificationsDropdown ? 'border-2-[var(--accent-primary)]/50 text-[var(--text-primary)]' : 'border-2-[var(--border-2)] text-[var(--text-secondary)]'
                                 }`}
                                 title="Notifications"
                                 aria-label="Notifications"
                             >
                                 <Bell size={20} className={unreadNotificationsCount > 0 ? "text-[var(--text-primary)]" : "text-[var(--text-secondary)]"} />
                                 {unreadNotificationsCount > 0 && (
-                                    <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-[#FFFFFF]"></span>
+                                    <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-none border-2-2 border-2-[#FFFFFF]"></span>
                                 )}
                             </button>
 
                             {/* Notifications Dropdown */}
                             {showNotificationsDropdown && (
-                                <div className="absolute right-0 mt-3 w-80 sm:w-96 glass bg-[var(--bg-secondary)]/95 backdrop-blur-xl border border-[var(--border)] rounded-2xl shadow-2xl z-50 overflow-hidden animate-fade-in">
-                                    <div className="p-4 border-b border-[var(--border)] flex items-center justify-between">
+                                <div className="absolute right-0 mt-3 w-80 sm:w-96 glass bg-[var(--bg-secondary)]/95 backdrop-blur-xl border-2 border-2-[var(--border-2)] rounded-none shadow-2xl z-50 overflow-hidden animate-fade-in">
+                                    <div className="p-4 border-2-b border-2-[var(--border-2)] flex items-center justify-between">
                                         <div className="flex items-center gap-2">
                                             <span className="font-semibold text-[var(--text-primary)]">Notifications</span>
                                             {unreadNotificationsCount > 0 ? (
-                                                <span className="px-2 py-0.5 text-xs font-semibold bg-red-500/20 text-[var(--accent-primary)] rounded-full border border-[var(--accent-primary)]/30">
+                                                <span className="px-2 py-0.5 text-xs font-semibold bg-red-500/20 text-[var(--accent-primary)] rounded-none border-2 border-2-[var(--accent-primary)]/30">
                                                     {unreadNotificationsCount} new
                                                 </span>
                                             ) : (
-                                                <span className="px-2 py-0.5 text-xs font-medium bg-green-500/10 text-green-400 rounded-full">
+                                                <span className="px-2 py-0.5 text-xs font-medium bg-green-500/10 text-green-400 rounded-none">
                                                     All read
                                                 </span>
                                             )}
@@ -740,7 +740,7 @@ export default function App() {
                                                     }`}
                                                 >
                                                     {!notif.isRead && (
-                                                        <span className="w-2 h-2 rounded-full bg-red-500 mt-1.5 shrink-0"></span>
+                                                        <span className="w-2 h-2 rounded-none bg-red-500 mt-1.5 shrink-0"></span>
                                                     )}
                                                     <div className="flex-1 min-w-0">
                                                         <div className="flex items-center justify-between gap-2 mb-1">
@@ -758,7 +758,7 @@ export default function App() {
                                                     {!notif.isRead && (
                                                         <button
                                                             onClick={(e) => handleMarkNotificationAsRead(notif.id, e)}
-                                                            className="p-1 hover:bg-[var(--bg-tertiary)] rounded text-[var(--text-secondary)] hover:text-green-400 transition-colors shrink-0"
+                                                            className="p-1 hover:bg-[var(--bg-tertiary)] rounded-none text-[var(--text-secondary)] hover:text-green-400 transition-colors shrink-0"
                                                             title="Mark as read"
                                                         >
                                                             <Check size={14} />
@@ -770,7 +770,7 @@ export default function App() {
                                     </div>
 
                                     {notifications.length > 0 && (
-                                        <div className="p-2.5 bg-[#222222]/[0.03] border-t border-[var(--border)] flex items-center justify-between gap-2">
+                                        <div className="p-2.5 bg-[#222222]/[0.03] border-2-t border-2-[var(--border-2)] flex items-center justify-between gap-2">
                                             <button
                                                 onClick={handleClearAllNotifications}
                                                 className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors py-1 px-2 font-medium"
@@ -798,7 +798,7 @@ export default function App() {
                                 const url = `${window.location.origin}${window.location.pathname}?newProject=1`;
                                 window.open(url, '_blank');
                             }}
-                            className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-6 py-3 rounded-xl font-medium transition-all shadow-lg shadow-[var(--accent-primary)]/20 active:scale-95 whitespace-nowrap"
+                            className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-6 py-3 rounded-none font-medium transition-all shadow-lg shadow-[var(--accent-primary)]/20 active:scale-95 whitespace-nowrap"
                         >
                             <Plus size={20} />
                             <span>New Project</span>
@@ -990,9 +990,9 @@ export default function App() {
                         <h1 className="text-4xl font-display font-bold mb-4">Profile</h1>
                         <p className="text-[var(--text-secondary)] mb-8">Manage your personal and company details</p>
 
-                        <div className="glass rounded-2xl p-6 md:p-8 space-y-6">
+                        <div className="glass rounded-none p-6 md:p-8 space-y-6">
                             <div className="flex items-center gap-6">
-                                <div className="w-24 h-24 rounded-full overflow-hidden bg-[var(--bg-tertiary)] border border-[var(--border)] flex items-center justify-center shrink-0">
+                                <div className="w-24 h-24 rounded-none overflow-hidden bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] flex items-center justify-center shrink-0">
                                     {activeProfile.photo ? (
                                         <img src={activeProfile.photo} alt="Profile" className="w-full h-full object-cover" />
                                     ) : (
@@ -1002,7 +1002,7 @@ export default function App() {
                                 <div className="space-y-2">
                                     {isEditingProfile && (
                                         <>
-                                            <label className="flex items-center gap-2 px-4 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-xl cursor-pointer transition-all text-sm font-medium">
+                                            <label className="flex items-center gap-2 px-4 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none cursor-pointer transition-all text-sm font-medium">
                                                 <Upload size={16} />
                                                 Upload photo
                                                 <input
@@ -1032,14 +1032,14 @@ export default function App() {
                                 </div>
                             </div>
 
-                            <fieldset disabled={!isEditingProfile} className="grid grid-cols-1 md:grid-cols-2 gap-6 border-0 p-0 m-0 min-w-0">
+                            <fieldset disabled={!isEditingProfile} className="grid grid-cols-1 md:grid-cols-2 gap-6 border-2-0 p-0 m-0 min-w-0">
                                 <div>
                                     <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Username</label>
                                     <input
                                         type="text"
                                         value={activeProfile.username}
                                         onChange={e => setActiveProfile(p => ({ ...p, username: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
@@ -1048,7 +1048,7 @@ export default function App() {
                                         type="text"
                                         value={activeProfile.fullName}
                                         onChange={e => setActiveProfile(p => ({ ...p, fullName: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
@@ -1057,7 +1057,7 @@ export default function App() {
                                         type="email"
                                         value={activeProfile.email || ''}
                                         onChange={e => setActiveProfile(p => ({ ...p, email: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
@@ -1066,7 +1066,7 @@ export default function App() {
                                         type="tel"
                                         value={activeProfile.phone || ''}
                                         onChange={e => setActiveProfile(p => ({ ...p, phone: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
@@ -1075,7 +1075,7 @@ export default function App() {
                                         type="text"
                                         value={activeProfile.company || ''}
                                         onChange={e => setActiveProfile(p => ({ ...p, company: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                                 <div>
@@ -1084,7 +1084,7 @@ export default function App() {
                                         type="text"
                                         value={activeProfile.role || ''}
                                         onChange={e => setActiveProfile(p => ({ ...p, role: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                                        className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                                     />
                                 </div>
                             </fieldset>
@@ -1095,14 +1095,14 @@ export default function App() {
                                     disabled={!isEditingProfile}
                                     value={activeProfile.bio || ''}
                                     onChange={e => setActiveProfile(p => ({ ...p, bio: e.target.value }))}
-                                    className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none disabled:opacity-60 disabled:cursor-not-allowed"
+                                    className="w-full px-4 py-3 bg-[var(--bg-secondary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none disabled:opacity-60 disabled:cursor-not-allowed"
                                 />
                             </div>
                             <div className="flex items-center gap-3 pt-2">
                                 {!isEditingProfile ? (
                                     <button
                                         onClick={startEditProfile}
-                                        className="px-5 py-2.5 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-xl text-sm font-medium transition-all"
+                                        className="px-5 py-2.5 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-none text-sm font-medium transition-all"
                                     >
                                         Edit Profile
                                     </button>
@@ -1110,13 +1110,13 @@ export default function App() {
                                     <>
                                         <button
                                             onClick={saveProfile}
-                                            className="px-5 py-2.5 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-xl text-sm font-medium transition-all"
+                                            className="px-5 py-2.5 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-none text-sm font-medium transition-all"
                                         >
                                             Save Changes
                                         </button>
                                         <button
                                             onClick={cancelEditProfile}
-                                            className="px-5 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-xl text-sm font-medium transition-all"
+                                            className="px-5 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-none text-sm font-medium transition-all"
                                         >
                                             Cancel
                                         </button>
@@ -1133,13 +1133,13 @@ export default function App() {
                         <h1 className="text-4xl font-display font-bold mb-4">Cloud Sync</h1>
                         <p className="text-[var(--text-secondary)] mb-8">Back up and restore your data to Google Drive or OneDrive</p>
 
-                        <div className="glass rounded-2xl p-6 md:p-8 space-y-6">
+                        <div className="glass rounded-none p-6 md:p-8 space-y-6">
                             <p className="text-sm text-[var(--text-secondary)]">
                                 Configure client IDs via Vite env: <code>VITE_GOOGLE_CLIENT_ID</code>, <code>VITE_MS_CLIENT_ID</code>.
                             </p>
 
                             <div className="space-y-4">
-                                <div className="p-4 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border)]">
+                                <div className="p-4 rounded-none bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)]">
                                     <h3 className="font-semibold mb-2">Google Drive</h3>
                                     <p className="text-xs text-[var(--text-muted)] mb-3">{cloud.isGoogleConfigured() ? 'Configured' : 'Not configured'}</p>
                                     <div className="flex gap-2 flex-wrap">
@@ -1151,7 +1151,7 @@ export default function App() {
                                                 setCloudBusy(false);
                                             }}
                                             disabled={cloudBusy || !cloud.isGoogleConfigured()}
-                                            className="px-4 py-2 bg-[var(--accent-primary)] text-white rounded-xl text-sm font-medium disabled:opacity-50"
+                                            className="px-4 py-2 bg-[var(--accent-primary)] text-white rounded-none text-sm font-medium disabled:opacity-50"
                                         >Connect</button>
                                         <button
                                             onClick={async () => {
@@ -1164,7 +1164,7 @@ export default function App() {
                                                 setCloudBusy(false);
                                             }}
                                             disabled={cloudBusy}
-                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-xl text-sm font-medium disabled:opacity-50"
+                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-none text-sm font-medium disabled:opacity-50"
                                         >Backup</button>
                                         <button
                                             onClick={async () => {
@@ -1180,12 +1180,12 @@ export default function App() {
                                                 setCloudBusy(false);
                                             }}
                                             disabled={cloudBusy}
-                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-xl text-sm font-medium disabled:opacity-50"
+                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-none text-sm font-medium disabled:opacity-50"
                                         >Restore</button>
                                     </div>
                                 </div>
 
-                                <div className="p-4 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border)]">
+                                <div className="p-4 rounded-none bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)]">
                                     <h3 className="font-semibold mb-2">OneDrive</h3>
                                     <p className="text-xs text-[var(--text-muted)] mb-3">{cloud.isOneDriveConfigured() ? 'Configured' : 'Not configured'}</p>
                                     <div className="flex gap-2 flex-wrap">
@@ -1197,7 +1197,7 @@ export default function App() {
                                                 setCloudBusy(false);
                                             }}
                                             disabled={cloudBusy || !cloud.isOneDriveConfigured()}
-                                            className="px-4 py-2 bg-[var(--accent-primary)] text-white rounded-xl text-sm font-medium disabled:opacity-50"
+                                            className="px-4 py-2 bg-[var(--accent-primary)] text-white rounded-none text-sm font-medium disabled:opacity-50"
                                         >Connect</button>
                                         <button
                                             onClick={async () => {
@@ -1210,7 +1210,7 @@ export default function App() {
                                                 setCloudBusy(false);
                                             }}
                                             disabled={cloudBusy}
-                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-xl text-sm font-medium disabled:opacity-50"
+                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-none text-sm font-medium disabled:opacity-50"
                                         >Backup</button>
                                         <button
                                             onClick={async () => {
@@ -1226,7 +1226,7 @@ export default function App() {
                                                 setCloudBusy(false);
                                             }}
                                             disabled={cloudBusy}
-                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-xl text-sm font-medium disabled:opacity-50"
+                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-none text-sm font-medium disabled:opacity-50"
                                         >Restore</button>
                                     </div>
                                 </div>
@@ -1245,14 +1245,14 @@ export default function App() {
                         <h1 className="text-4xl font-display font-bold mb-4">Register Storage</h1>
                         <p className="text-[var(--text-secondary)] mb-8">Choose where your app data is stored</p>
 
-                        <div className="glass rounded-2xl p-6 md:p-8 space-y-6">
+                        <div className="glass rounded-none p-6 md:p-8 space-y-6">
                             <div className="space-y-3">
                                 {[
                                     { value: 'local', label: 'Local Storage (browser)', desc: 'Data stays on this device/browser.' },
                                     { value: 'google', label: 'Google Drive', desc: 'Sync data to your Google Drive.' },
                                     { value: 'onedrive', label: 'OneDrive', desc: 'Sync data to your OneDrive.' }
                                 ].map(opt => (
-                                    <label key={opt.value} className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all ${regStorage === opt.value ? 'border-[#8b0000] bg-[var(--accent-primary)]/5' : 'border-[var(--border)] bg-[var(--bg-tertiary)]'}`}>
+                                    <label key={opt.value} className={`flex items-start gap-3 p-4 rounded-none border-2 cursor-pointer transition-all ${regStorage === opt.value ? 'border-2-[#F0C38E] bg-[var(--accent-primary)]/5' : 'border-2-[var(--border-2)] bg-[var(--bg-tertiary)]'}`}>
                                         <input
                                             type="radio"
                                             name="storage"
@@ -1283,7 +1283,7 @@ export default function App() {
                                         setRegStatus('Using local storage');
                                     }
                                 }}
-                                className="px-5 py-2.5 bg-[var(--accent-primary)] text-white rounded-xl text-sm font-medium"
+                                className="px-5 py-2.5 bg-[var(--accent-primary)] text-white rounded-none text-sm font-medium"
                             >
                                 Save & Connect
                             </button>
@@ -1336,15 +1336,15 @@ function NavItem({ icon, label, active = false, onClick, badge }: NavItemProps) 
         <button
             type="button"
             onClick={onClick}
-            className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 relative ${active
-                ? 'bg-[var(--accent-primary)]/15 text-white border border-[var(--accent-primary)]/30'
+            className={`w-full flex items-center gap-4 px-4 py-3 rounded-none transition-all duration-300 relative ${active
+                ? 'bg-[var(--accent-primary)]/15 text-white border-2 border-2-[var(--accent-primary)]/30'
                 : 'text-white/70 hover:bg-white/5 hover:text-white'
                 }`}
         >
             {icon}
             <span className="font-medium">{label}</span>
             {badge !== undefined && badge > 0 && (
-                <span className="ml-auto bg-[var(--accent-primary)] text-white text-xs px-2 py-0.5 rounded-full font-semibold">
+                <span className="ml-auto bg-[var(--accent-primary)] text-white text-xs px-2 py-0.5 rounded-none font-semibold">
                     {badge}
                 </span>
             )}
@@ -1363,10 +1363,10 @@ interface StatCardProps {
 function StatCard({ title, value, sub, color, icon }: StatCardProps) {
 
     return (
-        <div className="glass p-6 rounded-2xl relative overflow-hidden group hover:border-[var(--border)] transition-all">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-white/10 to-transparent rounded-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-110"></div>
+        <div className="glass p-6 rounded-none relative overflow-hidden group hover:border-2-[var(--border-2)] transition-all">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-white/10 to-transparent rounded-none-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-110"></div>
             <div className="flex items-start justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${color}20`, color }}>
+                <div className="w-12 h-12 rounded-none flex items-center justify-center" style={{ backgroundColor: `${color}20`, color }}>
                     {icon}
                 </div>
             </div>

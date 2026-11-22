@@ -56,9 +56,9 @@ const submissionTypeLabels: Record<string, string> = {
 function SubmissionRow({ sub }: { sub: Submission }) {
     const sc = submissionStatusConfig[sub.status] ?? { label: sub.status, color: '#94a3b8' };
     return (
-        <div className="flex items-start gap-4 p-4 bg-[var(--bg-tertiary)] rounded-none border-2 border-2-[var(--border-2)]">
+        <div className="flex items-start gap-4 p-4 bg-[var(--bg-tertiary)] rounded-md border-2 border-2-[var(--border-2)]">
             <div
-                className="w-2 h-2 rounded-none mt-2 shrink-0"
+                className="w-2 h-2 rounded-md mt-2 shrink-0"
                 style={{ backgroundColor: sc.color }}
             />
             <div className="flex-1 min-w-0">
@@ -67,7 +67,7 @@ function SubmissionRow({ sub }: { sub: Submission }) {
                         {submissionTypeLabels[sub.type] ?? sub.type}
                     </span>
                     <span
-                        className="text-xs font-semibold px-2 py-0.5 rounded-none"
+                        className="text-xs font-semibold px-2 py-0.5 rounded-md"
                         style={{ backgroundColor: `${sc.color}25`, color: sc.color }}
                     >
                         {sc.label}
@@ -122,7 +122,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
             onClick={onClose}
         >
             <div
-                className="glass rounded-none w-full max-w-3xl max-h-[92vh] flex flex-col animate-fade-in"
+                className="glass rounded-md w-full max-w-3xl max-h-[92vh] flex flex-col animate-fade-in"
                 onClick={e => e.stopPropagation()}
             >
                 {/* ── Header ── */}
@@ -131,7 +131,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                 >
                     <div className="flex items-center gap-4">
                         <div
-                            className="w-14 h-14 rounded-none flex items-center justify-center shrink-0"
+                            className="w-14 h-14 rounded-md flex items-center justify-center shrink-0"
                             style={{ backgroundColor: `${project.color}22`, color: project.color }}
                         >
                             <FileText size={26} />
@@ -141,7 +141,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                                 {project.title}
                             </h2>
                             <div
-                                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-none text-xs font-semibold"
+                                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold"
                                 style={{ backgroundColor: `${cfg.color}22`, color: cfg.color }}
                             >
                                 <StatusIcon size={12} />
@@ -153,21 +153,21 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                     <div className="flex items-center gap-2 shrink-0">
                         <button
                             onClick={handleEdit}
-                            className="flex items-center gap-2 px-4 py-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-none text-sm font-medium transition-all active:scale-95"
+                            className="flex items-center gap-2 px-4 py-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-md text-sm font-medium transition-all active:scale-95"
                         >
                             <Edit size={15} />
                             Edit
                         </button>
                         <button
                             onClick={handleDelete}
-                            className="p-2 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] hover:bg-red-500/10 rounded-none transition-all"
+                            className="p-2 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] hover:bg-red-500/10 rounded-md transition-all"
                             title="Delete project"
                         >
                             <Trash2 size={18} />
                         </button>
                         <button
                             onClick={onClose}
-                            className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] rounded-none transition-all"
+                            className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] rounded-md transition-all"
                         >
                             <X size={20} />
                         </button>
@@ -213,10 +213,10 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                         ].map(stat => (
                             <div
                                 key={stat.label}
-                                className="bg-[var(--bg-tertiary)] rounded-none p-4 border-2 border-2-[var(--border-2)]"
+                                className="bg-[var(--bg-tertiary)] rounded-md p-4 border-2 border-2-[var(--border-2)]"
                             >
                                 <div
-                                    className="w-8 h-8 rounded-none flex items-center justify-center mb-2"
+                                    className="w-8 h-8 rounded-md flex items-center justify-center mb-2"
                                     style={{ backgroundColor: `${stat.color}22`, color: stat.color }}
                                 >
                                     {stat.icon}
@@ -232,7 +232,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         {/* Client Contact */}
-                        <section className="bg-[var(--bg-tertiary)] rounded-none p-5 border-2 border-2-[var(--border-2)]">
+                        <section className="bg-[var(--bg-tertiary)] rounded-md p-5 border-2 border-2-[var(--border-2)]">
                             <h3 className="text-sm font-semibold text-[var(--text-secondary)] mb-4 flex items-center gap-2">
                                 <User size={15} className="text-[var(--accent-primary)]" />
                                 Client Contact
@@ -289,7 +289,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                         </section>
 
                         {/* Project Details */}
-                        <section className="bg-[var(--bg-tertiary)] rounded-none p-5 border-2 border-2-[var(--border-2)]">
+                        <section className="bg-[var(--bg-tertiary)] rounded-md p-5 border-2 border-2-[var(--border-2)]">
                             <h3 className="text-sm font-semibold text-[var(--text-secondary)] mb-4 flex items-center gap-2">
                                 <FileText size={15} className="text-[var(--accent-primary)]" />
                                 Project Details
@@ -338,7 +338,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                     </div>
 
                     {/* Description */}
-                    <section className="bg-[var(--bg-tertiary)] rounded-none p-5 border-2 border-2-[var(--border-2)]">
+                    <section className="bg-[var(--bg-tertiary)] rounded-md p-5 border-2 border-2-[var(--border-2)]">
                         <h3 className="text-sm font-semibold text-[var(--text-secondary)] mb-3 flex items-center gap-2">
                             <FileText size={15} className="text-[var(--accent-primary)]" />
                             Description
@@ -348,7 +348,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
 
                     {/* Notes */}
                     {project.notes && (
-                        <section className="bg-amber-500/5 rounded-none p-5 border-2 border-2-amber-500/20">
+                        <section className="bg-amber-500/5 rounded-md p-5 border-2 border-2-amber-500/20">
                             <h3 className="text-sm font-semibold text-amber-400 mb-3 flex items-center gap-2">
                                 <StickyNote size={15} />
                                 Notes
@@ -364,7 +364,7 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                             Submissions ({project.submissions.length})
                         </h3>
                         {project.submissions.length === 0 ? (
-                            <div className="p-6 bg-[var(--bg-tertiary)] rounded-none border-2 border-2-[var(--border-2)] text-center text-[var(--text-muted)] text-sm">
+                            <div className="p-6 bg-[var(--bg-tertiary)] rounded-md border-2 border-2-[var(--border-2)] text-center text-[var(--text-muted)] text-sm">
                                 No submissions yet
                             </div>
                         ) : (
@@ -389,13 +389,13 @@ export default function ProjectDetailModal({ project, onClose, onEdit, onDelete 
                     <div className="flex items-center gap-3">
                         <button
                             onClick={onClose}
-                            className="px-5 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-none text-sm font-medium transition-all"
+                            className="px-5 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-md text-sm font-medium transition-all"
                         >
                             Close
                         </button>
                         <button
                             onClick={handleEdit}
-                            className="flex items-center gap-2 px-5 py-2.5 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-none text-sm font-medium transition-all active:scale-95"
+                            className="flex items-center gap-2 px-5 py-2.5 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-md text-sm font-medium transition-all active:scale-95"
                         >
                             <Edit size={14} />
                             Edit Project

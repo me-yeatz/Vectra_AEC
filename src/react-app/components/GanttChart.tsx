@@ -123,7 +123,7 @@ export default function GanttChart({ projects }: GanttChartProps) {
 
     if (projects.length === 0) {
         return (
-            <div className="glass rounded-none p-12 text-center">
+            <div className="glass rounded-md p-12 text-center">
                 <Calendar size={48} className="mx-auto text-[var(--text-muted)] mb-4" />
                 <h3 className="text-xl font-semibold mb-2">No Projects Yet</h3>
                 <p className="text-[var(--text-secondary)]">Create your first project to see the timeline</p>
@@ -135,7 +135,7 @@ export default function GanttChart({ projects }: GanttChartProps) {
         <div className="space-y-6">
             {/* Statistics */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="glass p-4 rounded-none">
+                <div className="glass p-4 rounded-md">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-sm text-[var(--text-secondary)]">Active Projects</p>
@@ -144,7 +144,7 @@ export default function GanttChart({ projects }: GanttChartProps) {
                         <TrendingUp size={24} className="text-blue-400" />
                     </div>
                 </div>
-                <div className="glass p-4 rounded-none">
+                <div className="glass p-4 rounded-md">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-sm text-[var(--text-secondary)]">On Track</p>
@@ -153,7 +153,7 @@ export default function GanttChart({ projects }: GanttChartProps) {
                         <Clock size={24} className="text-green-400" />
                     </div>
                 </div>
-                <div className="glass p-4 rounded-none">
+                <div className="glass p-4 rounded-md">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-sm text-[var(--text-secondary)]">Delayed</p>
@@ -165,7 +165,7 @@ export default function GanttChart({ projects }: GanttChartProps) {
             </div>
 
             {/* Gantt Chart */}
-            <div className="glass rounded-none p-6">
+            <div className="glass rounded-md p-6">
                 <div className="flex items-center justify-between mb-6">
                     <div>
                         <h3 className="text-xl font-display font-bold">Project Timeline</h3>
@@ -175,11 +175,11 @@ export default function GanttChart({ projects }: GanttChartProps) {
                     </div>
                     <div className="flex items-center gap-4 text-xs">
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-none bg-blue-500"></div>
+                            <div className="w-3 h-3 rounded-md bg-blue-500"></div>
                             <span className="text-[var(--text-secondary)]">Progress</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-none bg-[var(--bg-tertiary)]"></div>
+                            <div className="w-3 h-3 rounded-md bg-[var(--bg-tertiary)]"></div>
                             <span className="text-[var(--text-secondary)]">Remaining</span>
                         </div>
                     </div>
@@ -226,7 +226,7 @@ export default function GanttChart({ projects }: GanttChartProps) {
                                     <div className="w-64 flex-shrink-0">
                                         <div className="flex items-center gap-2">
                                             <div
-                                                className="w-3 h-3 rounded-none flex-shrink-0"
+                                                className="w-3 h-3 rounded-md flex-shrink-0"
                                                 style={{ backgroundColor: project.color }}
                                             />
                                             <div className="flex-1 min-w-0">
@@ -255,7 +255,7 @@ export default function GanttChart({ projects }: GanttChartProps) {
 
                                         {/* Project bar */}
                                         <div
-                                            className="absolute top-1/2 -translate-y-1/2 h-6 rounded-none overflow-hidden transition-all group-hover:h-8"
+                                            className="absolute top-1/2 -translate-y-1/2 h-6 rounded-md overflow-hidden transition-all group-hover:h-8"
                                             style={{
                                                 left: `${bar.left}%`,
                                                 width: `${bar.width}%`,
@@ -286,7 +286,7 @@ export default function GanttChart({ projects }: GanttChartProps) {
 
                                         {/* Tooltip on hover */}
                                         <div className="absolute left-0 top-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
-                                            <div className="glass rounded-none p-3 shadow-xl min-w-[200px]">
+                                            <div className="glass rounded-md p-3 shadow-xl min-w-[200px]">
                                                 <p className="font-semibold text-sm mb-2">{project.title}</p>
                                                 <div className="space-y-1 text-xs">
                                                     <div className="flex justify-between">
@@ -332,7 +332,7 @@ export default function GanttChart({ projects }: GanttChartProps) {
                         ].map(({ status, label }) => (
                             <div key={status} className="flex items-center gap-2">
                                 <div
-                                    className="w-3 h-3 rounded-none"
+                                    className="w-3 h-3 rounded-md"
                                     style={{ backgroundColor: getStatusColor(status) }}
                                 />
                                 <span className="text-xs text-[var(--text-secondary)]">{label}</span>

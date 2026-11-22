@@ -21,10 +21,10 @@
   --border: rgba(17, 17, 17, 0.15);
   --border-hover: rgba(17, 17, 17, 0.3);
 
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 }
 
 [data-theme="dark"] {
@@ -43,10 +43,10 @@
   --border: rgba(255, 203, 116, 0.2);
   --border-hover: rgba(255, 203, 116, 0.4);
 
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 }
 
 * {

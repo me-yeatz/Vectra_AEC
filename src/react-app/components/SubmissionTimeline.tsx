@@ -77,7 +77,7 @@ export default function SubmissionTimeline({ projects }: SubmissionTimelineProps
             </div>
 
             {/* Timeline */}
-            <div className="glass p-8 rounded-none">
+            <div className="glass p-8 rounded-md">
                 <h3 className="text-xl font-display font-bold mb-8">Submission Timeline</h3>
 
                 <div className="space-y-6">
@@ -96,14 +96,14 @@ export default function SubmissionTimeline({ projects }: SubmissionTimelineProps
                                 <div className="flex gap-6 group">
                                     {/* Icon */}
                                     <div
-                                        className="w-12 h-12 rounded-none flex items-center justify-center flex-shrink-0 z-10"
+                                        className="w-12 h-12 rounded-md flex items-center justify-center flex-shrink-0 z-10"
                                         style={{ backgroundColor: `${config.color}20`, color: config.color }}
                                     >
                                         <StatusIcon size={24} />
                                     </div>
 
                                     {/* Content */}
-                                    <div className="flex-1 bg-[var(--bg-tertiary)] p-6 rounded-none border-2 border-2-[var(--border-2)] hover:border-2-[var(--border-2)] transition-all">
+                                    <div className="flex-1 bg-[var(--bg-tertiary)] p-6 rounded-md border-2 border-2-[var(--border-2)] hover:border-2-[var(--border-2)] transition-all">
                                         <div className="flex items-start justify-between mb-4">
                                             <div>
                                                 <h4 className="font-semibold text-lg mb-1">
@@ -112,7 +112,7 @@ export default function SubmissionTimeline({ projects }: SubmissionTimelineProps
                                                 <p className="text-sm text-[var(--text-secondary)]">{submission.projectTitle}</p>
                                             </div>
                                             <div
-                                                className="px-3 py-1 rounded-none text-xs font-semibold"
+                                                className="px-3 py-1 rounded-md text-xs font-semibold"
                                                 style={{ backgroundColor: `${config.color}20`, color: config.color }}
                                             >
                                                 {config.label}
@@ -137,7 +137,7 @@ export default function SubmissionTimeline({ projects }: SubmissionTimelineProps
                                         </div>
 
                                         {submission.notes && (
-                                            <div className="mt-4 p-3 bg-[var(--bg-tertiary)] rounded-none">
+                                            <div className="mt-4 p-3 bg-[var(--bg-tertiary)] rounded-md">
                                                 <p className="text-sm text-[var(--text-secondary)]">{submission.notes}</p>
                                             </div>
                                         )}
@@ -160,7 +160,7 @@ export default function SubmissionTimeline({ projects }: SubmissionTimelineProps
 
 function SummaryCard({ title, value, color }: { title: string; value: string; color: string }) {
     return (
-        <div className="glass p-6 rounded-none">
+        <div className="glass p-6 rounded-md">
             <p className="text-[var(--text-secondary)] text-sm font-medium mb-2">{title}</p>
             <h3 className="text-3xl font-display font-bold" style={{ color }}>{value}</h3>
         </div>

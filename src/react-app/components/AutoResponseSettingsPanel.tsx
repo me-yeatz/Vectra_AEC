@@ -60,7 +60,7 @@ export default function AutoResponseSettingsPanel({
 
     return (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={onClose}>
-            <div className="glass rounded-none max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8 animate-fade-in" onClick={(e) => e.stopPropagation()}>
+            <div className="glass rounded-md max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8 animate-fade-in" onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-start justify-between mb-8">
                     <div>
                         <h2 className="text-3xl font-display font-bold mb-2">AI Auto-Response Settings</h2>
@@ -73,10 +73,10 @@ export default function AutoResponseSettingsPanel({
 
                 <div className="space-y-8">
                     {/* Enable/Disable */}
-                    <div className="glass p-6 rounded-none">
+                    <div className="glass p-6 rounded-md">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 bg-[var(--accent-primary)]/20 rounded-none flex items-center justify-center">
+                                <div className="w-12 h-12 bg-[var(--accent-primary)]/20 rounded-md flex items-center justify-center">
                                     <Bot size={24} className="text-[var(--accent-primary)]" />
                                 </div>
                                 <div>
@@ -91,15 +91,15 @@ export default function AutoResponseSettingsPanel({
                                     onChange={(e) => setSettings({ ...settings, enabled: e.target.checked })}
                                     className="sr-only peer"
                                 />
-                                <div className="w-14 h-7 bg-[var(--bg-tertiary)] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[var(--accent-primary)]/20 rounded-none peer peer-checked:after:translate-x-full peer-checked:after:border-2-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:rounded-none after:h-6 after:w-6 after:transition-all peer-checked:bg-[var(--accent-primary)]"></div>
+                                <div className="w-14 h-7 bg-[var(--bg-tertiary)] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[var(--accent-primary)]/20 rounded-md peer peer-checked:after:translate-x-full peer-checked:after:border-2-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:rounded-md after:h-6 after:w-6 after:transition-all peer-checked:bg-[var(--accent-primary)]"></div>
                             </label>
                         </div>
                     </div>
 
                     {/* Claude API Key */}
-                    <div className="glass p-6 rounded-none">
+                    <div className="glass p-6 rounded-md">
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 bg-purple-600/20 rounded-none flex items-center justify-center">
+                            <div className="w-10 h-10 bg-purple-600/20 rounded-md flex items-center justify-center">
                                 <Key size={20} className="text-purple-500" />
                             </div>
                             <div>
@@ -114,7 +114,7 @@ export default function AutoResponseSettingsPanel({
                                     value={settings.claudeApiKey || ''}
                                     onChange={(e) => setSettings({ ...settings, claudeApiKey: e.target.value })}
                                     placeholder="sk-ant-..."
-                                    className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all font-mono text-sm"
+                                    className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all font-mono text-sm"
                                 />
                                 <button
                                     onClick={() => setShowApiKey(!showApiKey)}
@@ -127,7 +127,7 @@ export default function AutoResponseSettingsPanel({
                                 <button
                                     onClick={handleTestConnection}
                                     disabled={testingConnection || !settings.claudeApiKey}
-                                    className="flex items-center gap-2 px-4 py-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 rounded-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="flex items-center gap-2 px-4 py-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 rounded-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     <TestTube size={16} />
                                     {testingConnection ? 'Testing...' : 'Test Connection'}
@@ -149,9 +149,9 @@ export default function AutoResponseSettingsPanel({
                     </div>
 
                     {/* Working Hours */}
-                    <div className="glass p-6 rounded-none">
+                    <div className="glass p-6 rounded-md">
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 bg-blue-600/20 rounded-none flex items-center justify-center">
+                            <div className="w-10 h-10 bg-blue-600/20 rounded-md flex items-center justify-center">
                                 <Clock size={20} className="text-blue-500" />
                             </div>
                             <div>
@@ -169,7 +169,7 @@ export default function AutoResponseSettingsPanel({
                                         ...settings,
                                         workingHours: { ...settings.workingHours, start: e.target.value }
                                     })}
-                                    className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                    className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                 />
                             </div>
                             <div>
@@ -181,16 +181,16 @@ export default function AutoResponseSettingsPanel({
                                         ...settings,
                                         workingHours: { ...settings.workingHours, end: e.target.value }
                                     })}
-                                    className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                    className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                 />
                             </div>
                         </div>
                     </div>
 
                     {/* Working Days */}
-                    <div className="glass p-6 rounded-none">
+                    <div className="glass p-6 rounded-md">
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 bg-green-600/20 rounded-none flex items-center justify-center">
+                            <div className="w-10 h-10 bg-green-600/20 rounded-md flex items-center justify-center">
                                 <Calendar size={20} className="text-green-500" />
                             </div>
                             <div>
@@ -211,7 +211,7 @@ export default function AutoResponseSettingsPanel({
                                                 : [...settings.workingDays, day.value].sort()
                                         });
                                     }}
-                                    className={`flex-1 py-3 rounded-none font-medium transition-all ${settings.workingDays.includes(day.value)
+                                    className={`flex-1 py-3 rounded-md font-medium transition-all ${settings.workingDays.includes(day.value)
                                             ? 'bg-green-600 text-[var(--text-primary)]'
                                             : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]'
                                         }`}
@@ -223,9 +223,9 @@ export default function AutoResponseSettingsPanel({
                     </div>
 
                     {/* Auto-Response Options */}
-                    <div className="glass p-6 rounded-none space-y-4">
+                    <div className="glass p-6 rounded-md space-y-4">
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 bg-amber-600/20 rounded-none flex items-center justify-center">
+                            <div className="w-10 h-10 bg-amber-600/20 rounded-md flex items-center justify-center">
                                 <Shield size={20} className="text-amber-500" />
                             </div>
                             <div>
@@ -234,29 +234,29 @@ export default function AutoResponseSettingsPanel({
                             </div>
                         </div>
 
-                        <label className="flex items-center justify-between p-4 bg-[var(--bg-tertiary)] rounded-none cursor-pointer hover:bg-[var(--bg-tertiary)] transition-colors">
+                        <label className="flex items-center justify-between p-4 bg-[var(--bg-tertiary)] rounded-md cursor-pointer hover:bg-[var(--bg-tertiary)] transition-colors">
                             <span className="text-sm">Auto-respond outside working hours</span>
                             <input
                                 type="checkbox"
                                 checked={settings.autoRespondOutsideHours}
                                 onChange={(e) => setSettings({ ...settings, autoRespondOutsideHours: e.target.checked })}
-                                className="w-5 h-5 rounded-none bg-[var(--bg-tertiary)] border-2-[var(--border-2)] text-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                                className="w-5 h-5 rounded-md bg-[var(--bg-tertiary)] border-2-[var(--border-2)] text-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                             />
                         </label>
 
-                        <label className="flex items-center justify-between p-4 bg-[var(--bg-tertiary)] rounded-none cursor-pointer hover:bg-[var(--bg-tertiary)] transition-colors">
+                        <label className="flex items-center justify-between p-4 bg-[var(--bg-tertiary)] rounded-md cursor-pointer hover:bg-[var(--bg-tertiary)] transition-colors">
                             <span className="text-sm">Auto-respond on weekends</span>
                             <input
                                 type="checkbox"
                                 checked={settings.autoRespondOnWeekends}
                                 onChange={(e) => setSettings({ ...settings, autoRespondOnWeekends: e.target.checked })}
-                                className="w-5 h-5 rounded-none bg-[var(--bg-tertiary)] border-2-[var(--border-2)] text-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                                className="w-5 h-5 rounded-md bg-[var(--bg-tertiary)] border-2-[var(--border-2)] text-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                             />
                         </label>
                     </div>
 
                     {/* Response Templates */}
-                    <div className="glass p-6 rounded-none space-y-4">
+                    <div className="glass p-6 rounded-md space-y-4">
                         <h3 className="font-semibold mb-4">Response Templates</h3>
 
                         <div>
@@ -268,7 +268,7 @@ export default function AutoResponseSettingsPanel({
                                     responseTemplates: { ...settings.responseTemplates, weekendMessage: e.target.value }
                                 })}
                                 rows={3}
-                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none"
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none"
                             />
                         </div>
 
@@ -281,13 +281,13 @@ export default function AutoResponseSettingsPanel({
                                     responseTemplates: { ...settings.responseTemplates, afterHoursMessage: e.target.value }
                                 })}
                                 rows={3}
-                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none"
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all resize-none"
                             />
                         </div>
                     </div>
 
                     {/* Escalation Keywords */}
-                    <div className="glass p-6 rounded-none">
+                    <div className="glass p-6 rounded-md">
                         <h3 className="font-semibold mb-2">Escalation Keywords</h3>
                         <p className="text-sm text-[var(--text-secondary)] mb-4">Messages containing these keywords will be flagged for human review</p>
                         <input
@@ -298,19 +298,19 @@ export default function AutoResponseSettingsPanel({
                                 escalationKeywords: e.target.value.split(',').map(k => k.trim()).filter(Boolean)
                             })}
                             placeholder="urgent, emergency, deadline, legal, safety"
-                            className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                            className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
                         />
                     </div>
 
                     {/* Storage & Sync */}
-                    <div className="glass p-6 rounded-none">
+                    <div className="glass p-6 rounded-md">
                         <h3 className="font-semibold mb-4">Storage & Sync</h3>
                         <p className="text-sm text-[var(--text-secondary)] mb-4">Connect cloud storage or choose where data is saved</p>
                         <div className="flex gap-3 flex-wrap">
                             {onOpenCloud && (
                                 <button
                                     onClick={() => { onClose(); onOpenCloud(); }}
-                                    className="flex items-center gap-2 px-4 py-2 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-none transition-all"
+                                    className="flex items-center gap-2 px-4 py-2 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-md transition-all"
                                 >
                                     <Cloud size={16} />
                                     Cloud Sync
@@ -319,7 +319,7 @@ export default function AutoResponseSettingsPanel({
                             {onOpenRegister && (
                                 <button
                                     onClick={() => { onClose(); onOpenRegister(); }}
-                                    className="flex items-center gap-2 px-4 py-2 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-none transition-all"
+                                    className="flex items-center gap-2 px-4 py-2 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-md transition-all"
                                 >
                                     <UserPlus size={16} />
                                     Register Storage
@@ -332,14 +332,14 @@ export default function AutoResponseSettingsPanel({
                     <div className="flex items-center gap-4 pt-4 border-2-t border-2-[var(--border-2)]">
                         <button
                             onClick={handleSave}
-                            className="flex-1 flex items-center justify-center gap-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-6 py-4 rounded-none font-medium transition-all shadow-lg shadow-[var(--accent-primary)]/20"
+                            className="flex-1 flex items-center justify-center gap-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-6 py-4 rounded-md font-medium transition-all shadow-lg shadow-[var(--accent-primary)]/20"
                         >
                             <Save size={20} />
                             Save Settings
                         </button>
                         <button
                             onClick={onClose}
-                            className="px-6 py-4 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-none font-medium transition-all"
+                            className="px-6 py-4 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-md font-medium transition-all"
                         >
                             Cancel
                         </button>

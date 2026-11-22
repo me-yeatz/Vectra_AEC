@@ -199,7 +199,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-none overflow-hidden">
+    <div className="h-full flex flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-md overflow-hidden">
       {/* Tab Navigation - Mobile-friendly */}
       <div className="border-2-b border-2-[var(--border-2)] bg-[var(--bg-tertiary)] overflow-x-auto">
         <div className="flex min-w-max">
@@ -270,7 +270,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
             <input
               type="text"
               placeholder={`Search ${activeTab}...`}
-              className="pl-12 pr-6 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all w-full"
+              className="pl-12 pr-6 py-3 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all w-full"
             />
           </div>
 
@@ -281,7 +281,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
               else if (activeTab === 'documents') setShowDocumentForm(true);
               else if (activeTab === 'notes') setShowNoteForm(true);
             }}
-            className="flex items-center justify-center gap-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-4 py-2 rounded-none transition-colors w-full sm:w-auto"
+            className="flex items-center justify-center gap-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-4 py-2 rounded-md transition-colors w-full sm:w-auto"
           >
             <Plus size={16} />
             <span>Add {activeTab.slice(0, -1).charAt(0).toUpperCase() + activeTab.slice(0, -1).slice(1)}</span>
@@ -290,7 +290,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
 
         {/* Forms */}
         {showTaskForm && (
-          <div className="glass p-6 rounded-none mb-6">
+          <div className="glass p-6 rounded-md mb-6">
             <h3 className="text-lg font-semibold mb-4">Create New Task</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -299,7 +299,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newTask.title}
                   onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Task title"
                 />
               </div>
@@ -308,7 +308,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                 <select
                   value={newTask.status}
                   onChange={(e) => setNewTask({ ...newTask, status: e.target.value as Task['status'] })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                 >
                   <option value="todo">To Do</option>
                   <option value="in-progress">In Progress</option>
@@ -321,7 +321,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                 <select
                   value={newTask.priority}
                   onChange={(e) => setNewTask({ ...newTask, priority: e.target.value as Task['priority'] })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                 >
                   <option value="low">Low</option>
                   <option value="medium">Medium</option>
@@ -335,7 +335,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={projectId || newTask.projectId}
                   onChange={(e) => setNewTask({ ...newTask, projectId: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Project ID"
                 />
               </div>
@@ -344,7 +344,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                 <textarea
                   value={newTask.description}
                   onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Task description"
                   rows={3}
                 />
@@ -353,13 +353,13 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
             <div className="flex gap-3 mt-4">
               <button
                 onClick={handleCreateTask}
-                className="bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-4 py-2 rounded-none transition-colors"
+                className="bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-4 py-2 rounded-md transition-colors"
               >
                 Create Task
               </button>
               <button
                 onClick={() => setShowTaskForm(false)}
-                className="bg-[var(--bg-tertiary)] hover:bg-white/20 px-4 py-2 rounded-none transition-colors"
+                className="bg-[var(--bg-tertiary)] hover:bg-white/20 px-4 py-2 rounded-md transition-colors"
               >
                 Cancel
               </button>
@@ -368,7 +368,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
         )}
 
         {showClientForm && (
-          <div className="glass p-6 rounded-none mb-6">
+          <div className="glass p-6 rounded-md mb-6">
             <h3 className="text-lg font-semibold mb-4">Create New Client</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -377,7 +377,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newClient.name}
                   onChange={(e) => setNewClient({ ...newClient, name: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Client name"
                 />
               </div>
@@ -387,7 +387,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newClient.company}
                   onChange={(e) => setNewClient({ ...newClient, company: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Company name"
                 />
               </div>
@@ -397,7 +397,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="email"
                   value={newClient.email}
                   onChange={(e) => setNewClient({ ...newClient, email: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Email address"
                 />
               </div>
@@ -407,7 +407,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="tel"
                   value={newClient.phone}
                   onChange={(e) => setNewClient({ ...newClient, phone: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Phone number"
                 />
               </div>
@@ -415,13 +415,13 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
             <div className="flex gap-3 mt-4">
               <button
                 onClick={handleCreateClient}
-                className="bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-4 py-2 rounded-none transition-colors"
+                className="bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-4 py-2 rounded-md transition-colors"
               >
                 Create Client
               </button>
               <button
                 onClick={() => setShowClientForm(false)}
-                className="bg-[var(--bg-tertiary)] hover:bg-white/20 px-4 py-2 rounded-none transition-colors"
+                className="bg-[var(--bg-tertiary)] hover:bg-white/20 px-4 py-2 rounded-md transition-colors"
               >
                 Cancel
               </button>
@@ -430,7 +430,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
         )}
 
         {showDocumentForm && (
-          <div className="glass p-6 rounded-none mb-6">
+          <div className="glass p-6 rounded-md mb-6">
             <h3 className="text-lg font-semibold mb-4">Upload Document</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -439,7 +439,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newDocument.fileName}
                   onChange={(e) => setNewDocument({ ...newDocument, fileName: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Document name"
                 />
               </div>
@@ -449,7 +449,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newDocument.fileType}
                   onChange={(e) => setNewDocument({ ...newDocument, fileType: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="PDF, DOC, etc."
                 />
               </div>
@@ -459,7 +459,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="number"
                   value={newDocument.fileSize}
                   onChange={(e) => setNewDocument({ ...newDocument, fileSize: parseInt(e.target.value) || 0 })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="File size in bytes"
                 />
               </div>
@@ -469,7 +469,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newDocument.downloadUrl}
                   onChange={(e) => setNewDocument({ ...newDocument, downloadUrl: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Download URL"
                 />
               </div>
@@ -479,7 +479,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={projectId || newDocument.projectId}
                   onChange={(e) => setNewDocument({ ...newDocument, projectId: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Project ID"
                 />
               </div>
@@ -487,13 +487,13 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
             <div className="flex gap-3 mt-4">
               <button
                 onClick={handleCreateDocument}
-                className="bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-4 py-2 rounded-none transition-colors"
+                className="bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-4 py-2 rounded-md transition-colors"
               >
                 Upload Document
               </button>
               <button
                 onClick={() => setShowDocumentForm(false)}
-                className="bg-[var(--bg-tertiary)] hover:bg-white/20 px-4 py-2 rounded-none transition-colors"
+                className="bg-[var(--bg-tertiary)] hover:bg-white/20 px-4 py-2 rounded-md transition-colors"
               >
                 Cancel
               </button>
@@ -502,7 +502,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
         )}
 
         {showNoteForm && (
-          <div className="glass p-6 rounded-none mb-6">
+          <div className="glass p-6 rounded-md mb-6">
             <h3 className="text-lg font-semibold mb-4">Create Note</h3>
             <div className="grid grid-cols-1 gap-4">
               <div>
@@ -511,7 +511,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newNote.title}
                   onChange={(e) => setNewNote({ ...newNote, title: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Note title"
                 />
               </div>
@@ -520,7 +520,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                 <textarea
                   value={newNote.content}
                   onChange={(e) => setNewNote({ ...newNote, content: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Note content"
                   rows={4}
                 />
@@ -531,7 +531,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={newNote.tags.join(', ')}
                   onChange={(e) => setNewNote({ ...newNote, tags: e.target.value.split(',').map(tag => tag.trim()).filter(tag => tag) })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="tag1, tag2, tag3"
                 />
               </div>
@@ -541,7 +541,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                   type="text"
                   value={projectId || newNote.projectId}
                   onChange={(e) => setNewNote({ ...newNote, projectId: e.target.value })}
-                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-none focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                  className="w-full px-4 py-2 bg-[var(--bg-tertiary)] border-2 border-2-[var(--border-2)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
                   placeholder="Project ID"
                 />
               </div>
@@ -549,13 +549,13 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
             <div className="flex gap-3 mt-4">
               <button
                 onClick={handleCreateNote}
-                className="bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-4 py-2 rounded-none transition-colors"
+                className="bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-4 py-2 rounded-md transition-colors"
               >
                 Create Note
               </button>
               <button
                 onClick={() => setShowNoteForm(false)}
-                className="bg-[var(--bg-tertiary)] hover:bg-white/20 px-4 py-2 rounded-none transition-colors"
+                className="bg-[var(--bg-tertiary)] hover:bg-white/20 px-4 py-2 rounded-md transition-colors"
               >
                 Cancel
               </button>
@@ -565,7 +565,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
 
         {/* Data Tables */}
         {activeTab === 'tasks' && (
-          <div className="glass rounded-none overflow-hidden">
+          <div className="glass rounded-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[700px]">
                 <thead className="bg-[var(--bg-tertiary)] border-2-b border-2-[var(--border-2)]">
@@ -594,7 +594,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <span className={`px-3 py-1 rounded-none text-xs font-medium ${getStatusColor(task.status)} bg-opacity-20`}>
+                          <span className={`px-3 py-1 rounded-md text-xs font-medium ${getStatusColor(task.status)} bg-opacity-20`}>
                             {task.status.replace('-', ' ')}
                           </span>
                         </td>
@@ -608,10 +608,10 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex gap-2">
-                            <button className="p-2 hover:bg-[var(--bg-tertiary)] rounded-none transition-colors">
+                            <button className="p-2 hover:bg-[var(--bg-tertiary)] rounded-md transition-colors">
                               <Edit3 size={16} className="text-[var(--text-secondary)]" />
                             </button>
-                            <button className="p-2 hover:bg-red-500/10 rounded-none transition-colors">
+                            <button className="p-2 hover:bg-red-500/10 rounded-md transition-colors">
                               <Trash2 size={16} className="text-[var(--accent-primary)]" />
                             </button>
                           </div>
@@ -650,7 +650,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
         )}
 
         {activeTab === 'clients' && (
-          <div className="glass rounded-none overflow-hidden">
+          <div className="glass rounded-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[800px]">
                 <thead className="bg-[var(--bg-tertiary)] border-2-b border-2-[var(--border-2)]">
@@ -667,7 +667,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                     <tr key={client.id} className="hover:bg-[var(--bg-tertiary)] transition-colors">
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-none bg-gradient-to-tr from-red-600 to-orange-400 flex items-center justify-center">
+                          <div className="w-10 h-10 rounded-md bg-gradient-to-tr from-red-600 to-orange-400 flex items-center justify-center">
                             <User size={18} className="text-[var(--text-primary)]" />
                           </div>
                           <div>
@@ -690,10 +690,10 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex gap-2">
-                          <button className="p-2 hover:bg-[var(--bg-tertiary)] rounded-none transition-colors">
+                          <button className="p-2 hover:bg-[var(--bg-tertiary)] rounded-md transition-colors">
                             <Edit3 size={16} className="text-[var(--text-secondary)]" />
                           </button>
-                          <button className="p-2 hover:bg-red-500/10 rounded-none transition-colors">
+                          <button className="p-2 hover:bg-red-500/10 rounded-md transition-colors">
                             <Trash2 size={16} className="text-[var(--accent-primary)]" />
                           </button>
                         </div>
@@ -707,7 +707,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
         )}
 
         {activeTab === 'documents' && (
-          <div className="glass rounded-none overflow-hidden">
+          <div className="glass rounded-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[700px]">
                 <thead className="bg-[var(--bg-tertiary)] border-2-b border-2-[var(--border-2)]">
@@ -729,7 +729,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className="px-3 py-1 rounded-none text-xs font-medium bg-blue-500 bg-opacity-20 text-blue-400">
+                        <span className="px-3 py-1 rounded-md text-xs font-medium bg-blue-500 bg-opacity-20 text-blue-400">
                           {doc.fileType}
                         </span>
                       </td>
@@ -741,10 +741,10 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex gap-2">
-                          <button className="p-2 hover:bg-[var(--bg-tertiary)] rounded-none transition-colors">
+                          <button className="p-2 hover:bg-[var(--bg-tertiary)] rounded-md transition-colors">
                             <Edit3 size={16} className="text-[var(--text-secondary)]" />
                           </button>
-                          <button className="p-2 hover:bg-red-500/10 rounded-none transition-colors">
+                          <button className="p-2 hover:bg-red-500/10 rounded-md transition-colors">
                             <Trash2 size={16} className="text-[var(--accent-primary)]" />
                           </button>
                         </div>
@@ -758,7 +758,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
         )}
 
         {activeTab === 'notes' && (
-          <div className="glass rounded-none overflow-hidden">
+          <div className="glass rounded-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[800px]">
                 <thead className="bg-[var(--bg-tertiary)] border-2-b border-2-[var(--border-2)]">
@@ -785,7 +785,7 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                       <td className="px-6 py-4">
                         <div className="flex flex-wrap gap-1">
                           {note.tags.map((tag, idx) => (
-                            <span key={idx} className="px-2 py-1 rounded-none text-xs bg-purple-500 bg-opacity-20 text-purple-400">
+                            <span key={idx} className="px-2 py-1 rounded-md text-xs bg-purple-500 bg-opacity-20 text-purple-400">
                               {tag}
                             </span>
                           ))}
@@ -796,10 +796,10 @@ const DatabaseManager: React.FC<DatabaseManagerProps> = ({ projectId }) => {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex gap-2">
-                          <button className="p-2 hover:bg-[var(--bg-tertiary)] rounded-none transition-colors">
+                          <button className="p-2 hover:bg-[var(--bg-tertiary)] rounded-md transition-colors">
                             <Edit3 size={16} className="text-[var(--text-secondary)]" />
                           </button>
-                          <button className="p-2 hover:bg-red-500/10 rounded-none transition-colors">
+                          <button className="p-2 hover:bg-red-500/10 rounded-md transition-colors">
                             <Trash2 size={16} className="text-[var(--accent-primary)]" />
                           </button>
                         </div>

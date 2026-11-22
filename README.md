@@ -2,6 +2,10 @@
 
 VECTRA is a professional project-tracking platform built for architecture and engineering firms. It centralizes projects, regulatory submissions, communications, finances, site photos, and invoicing in one streamlined workspace.
 
+## 🖥 Preview
+
+![VECTRA Desktop Preview](public/screenshot-desktop.png)
+
 ## ✨ Features
 
 - **Project Management** — Create, edit, and track architecture projects with rich client/contact details, budgets, timelines, and notes.

@@ -66,6 +66,10 @@ npm run build
 npm run electron:build
 ```
 
+## 🌐 Live Demo
+
+**https://vectra-project-tracker.vercel.app/**
+
 ## 📦 Deployment
 
 The app is deployed via **Vercel**. Pushing to `main` triggers an automatic deployment.

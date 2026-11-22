@@ -492,7 +492,7 @@ export default function App() {
 
             {/* Sidebar */}
             <aside
-                className={`fixed left-0 top-0 h-full w-80 lg:w-64 shrink-0 bg-[#312C51] text-white border-2-r border-2-white/10 flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed left-0 top-0 h-full w-80 lg:w-64 shrink-0 bg-[#111111] text-white border-2-r border-2-white/10 flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     } lg:translate-x-0`}
             >
                 <div className="p-6 flex items-center gap-3">
@@ -1252,7 +1252,7 @@ export default function App() {
                                     { value: 'google', label: 'Google Drive', desc: 'Sync data to your Google Drive.' },
                                     { value: 'onedrive', label: 'OneDrive', desc: 'Sync data to your OneDrive.' }
                                 ].map(opt => (
-                                    <label key={opt.value} className={`flex items-start gap-3 p-4 rounded-none border-2 cursor-pointer transition-all ${regStorage === opt.value ? 'border-2-[#F0C38E] bg-[var(--accent-primary)]/5' : 'border-2-[var(--border-2)] bg-[var(--bg-tertiary)]'}`}>
+                                    <label key={opt.value} className={`flex items-start gap-3 p-4 rounded-none border-2 cursor-pointer transition-all ${regStorage === opt.value ? 'border-2-[#FFCB74] bg-[var(--accent-primary)]/5' : 'border-2-[var(--border-2)] bg-[var(--bg-tertiary)]'}`}>
                                         <input
                                             type="radio"
                                             name="storage"

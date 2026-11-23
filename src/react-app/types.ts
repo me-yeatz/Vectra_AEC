@@ -121,6 +121,8 @@ export interface AutoResponseSettings {
     };
     escalationKeywords: string[]; // Keywords that trigger human review
     claudeApiKey?: string;
+    whatsappEnabled?: boolean;
+    whatsappMode?: 'off' | 'draft' | 'auto';
 }
 
 export interface UserProfile {

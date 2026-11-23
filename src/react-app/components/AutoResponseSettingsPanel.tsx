@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Save, TestTube, CheckCircle2, XCircle, Bot, Clock, Calendar, Shield, Key, Palette, X } from 'lucide-react';
+import { Save, TestTube, CheckCircle2, XCircle, Bot, Clock, Calendar, Shield, Key, Palette, X, MessageSquare, BookOpen } from 'lucide-react';
 import { AutoResponseSettings } from '../types';
 import { ClaudeAIService } from '../services/claudeService';
 
@@ -406,6 +406,112 @@ export default function AutoResponseSettingsPanel({
                                 </div>
                             </div>
                         )}
+                    </div>
+
+                    {/* WhatsApp Integration */}
+                    <div className="glass p-6 rounded-md space-y-4">
+                        <div className="flex items-center gap-3 mb-2">
+                            <div className="w-10 h-10 bg-green-600/20 rounded-md flex items-center justify-center">
+                                <MessageSquare size={20} className="text-green-500" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold">WhatsApp Integration</h3>
+                                <p className="text-sm text-[var(--text-secondary)]">Connect Vectra to WhatsApp Business and let AI assist clients</p>
+                            </div>
+                        </div>
+
+                        <label className="flex items-center justify-between p-4 bg-[var(--bg-tertiary)] rounded-md cursor-pointer hover:bg-[var(--bg-tertiary)] transition-colors">
+                            <span className="text-sm">Enable WhatsApp channel</span>
+                            <input
+                                type="checkbox"
+                                checked={settings.whatsappEnabled || false}
+                                onChange={(e) => setSettings({ ...settings, whatsappEnabled: e.target.checked })}
+                                className="w-5 h-5 rounded-md bg-[var(--bg-tertiary)] border-[var(--border)] text-[var(--accent-primary)] focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                            />
+                        </label>
+
+                        <div>
+                            <label className="block text-sm text-[var(--text-secondary)] mb-2">AI Reply Mode</label>
+                            <select
+                                value={settings.whatsappMode || 'off'}
+                                onChange={(e) => setSettings({ ...settings, whatsappMode: e.target.value as 'off' | 'draft' | 'auto' })}
+                                className="w-full px-4 py-3 bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 transition-all"
+                            >
+                                <option value="off">Off - No AI replies</option>
+                                <option value="draft">Draft - AI suggests, you approve</option>
+                                <option value="auto">Auto - AI replies automatically (with guardrails)</option>
+                            </select>
+                        </div>
+
+                        <div className="p-4 bg-[var(--bg-tertiary)] rounded-md text-sm space-y-2">
+                            <p className="font-medium">Backend configuration (set in Cloudflare Worker env):</p>
+                            <ul className="list-disc list-inside text-[var(--text-secondary)] space-y-1">
+                                <li><code>WHATSAPP_ACCESS_TOKEN</code></li>
+                                <li><code>WHATSAPP_PHONE_NUMBER_ID</code></li>
+                                <li><code>CLAUDE_API_KEY</code></li>
+                            </ul>
+                            <p className="text-[var(--text-muted)]">
+                                Webhook URL: <code>{window.location.origin}/whatsapp/webhook</code>
+                            </p>
+                            <p className="text-[var(--text-muted)]">
+                                Verify token: <code>yeatz_architecture_2026</code>
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* WhatsApp Manual */}
+                    <div className="glass p-6 rounded-md space-y-4">
+                        <div className="flex items-center gap-3 mb-2">
+                            <div className="w-10 h-10 bg-blue-600/20 rounded-md flex items-center justify-center">
+                                <BookOpen size={20} className="text-blue-500" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold">WhatsApp Setup Manual</h3>
+                                <p className="text-sm text-[var(--text-secondary)]">Step-by-step guide to connect WhatsApp</p>
+                            </div>
+                        </div>
+
+                        <div className="space-y-4 text-sm text-[var(--text-secondary)]">
+                            <div>
+                                <h4 className="font-semibold text-[var(--text-primary)]">Phase 1 - Receive messages</h4>
+                                <ol className="list-decimal list-inside space-y-1 mt-1">
+                                    <li>Create a Meta app and add the WhatsApp product.</li>
+                                    <li>Add a phone number and generate an access token.</li>
+                                    <li>Set webhook URL to your worker: <code>/whatsapp/webhook</code></li>
+                                    <li>Use verify token: <code>yeatz_architecture_2026</code></li>
+                                    <li>Subscribe to the <code>messages</code> field.</li>
+                                    <li>Send a test message to your number; it should appear in Vectra Communications.</li>
+                                </ol>
+                            </div>
+                            <div>
+                                <h4 className="font-semibold text-[var(--text-primary)]">Phase 2 - AI draft replies</h4>
+                                <ol className="list-decimal list-inside space-y-1 mt-1">
+                                    <li>Set <code>CLAUDE_API_KEY</code> in worker env.</li>
+                                    <li>Enable <strong>Draft</strong> mode above.</li>
+                                    <li>Incoming messages show an AI-suggested reply.</li>
+                                    <li>Review/edit, then click Send in Communications.</li>
+                                </ol>
+                            </div>
+                            <div>
+                                <h4 className="font-semibold text-[var(--text-primary)]">Phase 3 - Auto-reply</h4>
+                                <ol className="list-decimal list-inside space-y-1 mt-1">
+                                    <li>Enable <strong>Auto</strong> mode above.</li>
+                                    <li>Set working hours and escalation keywords.</li>
+                                    <li>AI replies automatically during allowed hours.</li>
+                                    <li>Escalation keywords flag messages for human review.</li>
+                                    <li>First outbound messages may require approved templates.</li>
+                                </ol>
+                            </div>
+                            <div>
+                                <h4 className="font-semibold text-[var(--text-primary)]">Troubleshooting</h4>
+                                <ul className="list-disc list-inside space-y-1 mt-1">
+                                    <li>Webhook verification fails: check verify token and URL.</li>
+                                    <li>No messages received: ensure <code>messages</code> subscription is active.</li>
+                                    <li>AI not replying: check <code>CLAUDE_API_KEY</code> and enabled toggle.</li>
+                                    <li>Send fails: verify access token and phone number ID.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Action Buttons */}

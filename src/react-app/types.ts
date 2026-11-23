@@ -134,6 +134,28 @@ export interface UserProfile {
     photo?: string;
 }
 
+export type CalendarEventCategory = 'meeting' | 'deadline' | 'reminder' | 'task' | 'other';
+
+export interface CalendarEvent {
+    id: string;
+    title: string;
+    date: string; // YYYY-MM-DD
+    startTime?: string; // HH:mm
+    endTime?: string; // HH:mm
+    allDay: boolean;
+    category: CalendarEventCategory;
+    color: string;
+    description?: string;
+}
+
+export interface CalendarNote {
+    id: string;
+    date: string; // YYYY-MM-DD
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
 export interface CommunicationStats {
     totalMessages: number;
     newMessages: number;

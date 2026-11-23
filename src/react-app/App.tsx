@@ -21,13 +21,13 @@ import {
     Menu,
     X,
     Upload,
-    Cloud,
-    UserPlus,
+
     Sun,
-    Moon
+    Moon,
+    Calendar
 } from 'lucide-react';
 import { Project, FinancialSummary, ClientMessage, CommunicationStats, AutoResponseSettings, MessageStatus, AppNotification, UserProfile } from './types';
-import * as cloud from './services/cloudStorageService';
+
 import { MOCK_PROJECTS } from './data/mockData';
 import { MOCK_MESSAGES, DEFAULT_AUTO_RESPONSE_SETTINGS } from './data/mockCommunicationData';
 import ProjectCard from './components/ProjectCard';
@@ -40,8 +40,9 @@ import ProjectDetailView from './components/ProjectDetailView';
 import GanttChart from './components/GanttChart';
 import AIChatContainer from './components/AIChatContainer';
 import DatabaseManager from './components/DatabaseManager';
+import CalendarView from './components/CalendarView';
 
-type ViewMode = 'dashboard' | 'projects' | 'submissions' | 'finances' | 'communications' | 'ai-chat' | 'database' | 'profile' | 'cloud' | 'register';
+type ViewMode = 'dashboard' | 'projects' | 'submissions' | 'finances' | 'communications' | 'ai-chat' | 'database' | 'profile' | 'calendar';
 
 const SUBMISSION_TYPE_NAMES: Record<string, string> = {
     'planning-permission': 'Planning Permission',
@@ -92,9 +93,9 @@ export default function App() {
     }, [projects]);
     const [viewMode, setViewMode] = useState<ViewMode>('dashboard');
 
-    const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    const [theme, setTheme] = useState<'dark' | 'light' | 'theme2'>(() => {
         try {
-            return (localStorage.getItem('ytz_theme') as 'dark' | 'light') || 'light';
+            return (localStorage.getItem('ytz_theme') as 'dark' | 'light' | 'theme2') || 'light';
         } catch {
             return 'light';
         }
@@ -145,11 +146,7 @@ export default function App() {
 
     const [isEditingProfile, setIsEditingProfile] = useState(false);
 
-    const [cloudStatus, setCloudStatus] = useState('');
-    const [cloudBusy, setCloudBusy] = useState(false);
 
-    const [regStorage, setRegStorage] = useState<'local' | 'google' | 'onedrive'>('local');
-    const [regStatus, setRegStatus] = useState('');
     const [profileDraft, setProfileDraft] = useState<UserProfile>(profile);
 
     useEffect(() => {
@@ -166,7 +163,8 @@ export default function App() {
     };
 
     const saveProfile = () => {
-        setActiveProfile(profileDraft);
+        setProfile(profileDraft);
+        setProfileDraft(profileDraft);
         setIsEditingProfile(false);
     };
 
@@ -584,20 +582,11 @@ export default function App() {
                         }}
                     />
                     <NavItem
-                        icon={<Cloud size={20} />}
-                        label="Cloud Sync"
-                        active={viewMode === 'cloud'}
+                        icon={<Calendar size={20} />}
+                        label="Calendar"
+                        active={viewMode === 'calendar'}
                         onClick={() => {
-                            setViewMode('cloud');
-                            if (isMobile) setSidebarOpen(false);
-                        }}
-                    />
-                    <NavItem
-                        icon={<UserPlus size={20} />}
-                        label="Register"
-                        active={viewMode === 'register'}
-                        onClick={() => {
-                            setViewMode('register');
+                            setViewMode('calendar');
                             if (isMobile) setSidebarOpen(false);
                         }}
                     />
@@ -999,7 +988,9 @@ export default function App() {
                                         <User size={40} className="text-[var(--text-muted)]" />
                                     )}
                                 </div>
-                                <div className="space-y-2">
+                                <div className="space-y-2 min-w-0">
+                                    <h2 className="text-xl font-semibold truncate">{activeProfile.fullName || activeProfile.username}</h2>
+                                    <p className="text-sm text-[var(--text-secondary)] truncate">{activeProfile.role || 'User'}</p>
                                     {isEditingProfile && (
                                         <>
                                             <label className="flex items-center gap-2 px-4 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md cursor-pointer transition-all text-sm font-medium">
@@ -1127,168 +1118,10 @@ export default function App() {
                     </section>
                 )}
 
-                {/* Cloud Sync View */}
-                {viewMode === 'cloud' && (
-                    <section className="max-w-3xl animate-fade-in">
-                        <h1 className="text-4xl font-display font-bold mb-4">Cloud Sync</h1>
-                        <p className="text-[var(--text-secondary)] mb-8">Back up and restore your data to Google Drive or OneDrive</p>
-
-                        <div className="glass rounded-md p-6 md:p-8 space-y-6">
-                            <p className="text-sm text-[var(--text-secondary)]">
-                                Configure client IDs via Vite env: <code>VITE_GOOGLE_CLIENT_ID</code>, <code>VITE_MS_CLIENT_ID</code>.
-                            </p>
-
-                            <div className="space-y-4">
-                                <div className="p-4 rounded-md bg-[var(--bg-tertiary)] border-2 border-[var(--border)]">
-                                    <h3 className="font-semibold mb-2">Google Drive</h3>
-                                    <p className="text-xs text-[var(--text-muted)] mb-3">{cloud.isGoogleConfigured() ? 'Configured' : 'Not configured'}</p>
-                                    <div className="flex gap-2 flex-wrap">
-                                        <button
-                                            onClick={async () => {
-                                                setCloudBusy(true); setCloudStatus('');
-                                                try { await cloud.connectGoogle(); setCloudStatus('Connected to Google Drive'); }
-                                                catch (e: any) { setCloudStatus(e.message); }
-                                                setCloudBusy(false);
-                                            }}
-                                            disabled={cloudBusy || !cloud.isGoogleConfigured()}
-                                            className="px-4 py-2 bg-[var(--accent-primary)] text-white rounded-md text-sm font-medium disabled:opacity-50"
-                                        >Connect</button>
-                                        <button
-                                            onClick={async () => {
-                                                setCloudBusy(true); setCloudStatus('');
-                                                try {
-                                                    const data = { projects, messages, profile, readNotificationIds };
-                                                    await cloud.uploadToGoogle(data);
-                                                    setCloudStatus('Backed up to Google Drive');
-                                                } catch (e: any) { setCloudStatus(e.message); }
-                                                setCloudBusy(false);
-                                            }}
-                                            disabled={cloudBusy}
-                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-md text-sm font-medium disabled:opacity-50"
-                                        >Backup</button>
-                                        <button
-                                            onClick={async () => {
-                                                setCloudBusy(true); setCloudStatus('');
-                                                try {
-                                                    const data = await cloud.downloadFromGoogle();
-                                                    if (data.projects) setProjects(data.projects);
-                                                    if (data.messages) setMessages(data.messages);
-                                                    if (data.profile) setProfile(data.profile);
-                                                    if (data.readNotificationIds) setReadNotificationIds(data.readNotificationIds);
-                                                    setCloudStatus('Restored from Google Drive');
-                                                } catch (e: any) { setCloudStatus(e.message); }
-                                                setCloudBusy(false);
-                                            }}
-                                            disabled={cloudBusy}
-                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-md text-sm font-medium disabled:opacity-50"
-                                        >Restore</button>
-                                    </div>
-                                </div>
-
-                                <div className="p-4 rounded-md bg-[var(--bg-tertiary)] border-2 border-[var(--border)]">
-                                    <h3 className="font-semibold mb-2">OneDrive</h3>
-                                    <p className="text-xs text-[var(--text-muted)] mb-3">{cloud.isOneDriveConfigured() ? 'Configured' : 'Not configured'}</p>
-                                    <div className="flex gap-2 flex-wrap">
-                                        <button
-                                            onClick={async () => {
-                                                setCloudBusy(true); setCloudStatus('');
-                                                try { await cloud.connectOneDrive(); setCloudStatus('Connected to OneDrive'); }
-                                                catch (e: any) { setCloudStatus(e.message); }
-                                                setCloudBusy(false);
-                                            }}
-                                            disabled={cloudBusy || !cloud.isOneDriveConfigured()}
-                                            className="px-4 py-2 bg-[var(--accent-primary)] text-white rounded-md text-sm font-medium disabled:opacity-50"
-                                        >Connect</button>
-                                        <button
-                                            onClick={async () => {
-                                                setCloudBusy(true); setCloudStatus('');
-                                                try {
-                                                    const data = { projects, messages, profile, readNotificationIds };
-                                                    await cloud.uploadToOneDrive(data);
-                                                    setCloudStatus('Backed up to OneDrive');
-                                                } catch (e: any) { setCloudStatus(e.message); }
-                                                setCloudBusy(false);
-                                            }}
-                                            disabled={cloudBusy}
-                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-md text-sm font-medium disabled:opacity-50"
-                                        >Backup</button>
-                                        <button
-                                            onClick={async () => {
-                                                setCloudBusy(true); setCloudStatus('');
-                                                try {
-                                                    const data = await cloud.downloadFromOneDrive();
-                                                    if (data.projects) setProjects(data.projects);
-                                                    if (data.messages) setMessages(data.messages);
-                                                    if (data.profile) setProfile(data.profile);
-                                                    if (data.readNotificationIds) setReadNotificationIds(data.readNotificationIds);
-                                                    setCloudStatus('Restored from OneDrive');
-                                                } catch (e: any) { setCloudStatus(e.message); }
-                                                setCloudBusy(false);
-                                            }}
-                                            disabled={cloudBusy}
-                                            className="px-4 py-2 bg-[var(--bg-tertiary)] rounded-md text-sm font-medium disabled:opacity-50"
-                                        >Restore</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {cloudStatus && (
-                                <p className="text-sm text-[var(--text-secondary)]">{cloudStatus}</p>
-                            )}
-                        </div>
-                    </section>
-                )}
-
-                {/* Register Storage View */}
-                {viewMode === 'register' && (
-                    <section className="max-w-3xl animate-fade-in">
-                        <h1 className="text-4xl font-display font-bold mb-4">Register Storage</h1>
-                        <p className="text-[var(--text-secondary)] mb-8">Choose where your app data is stored</p>
-
-                        <div className="glass rounded-md p-6 md:p-8 space-y-6">
-                            <div className="space-y-3">
-                                {[
-                                    { value: 'local', label: 'Local Storage (browser)', desc: 'Data stays on this device/browser.' },
-                                    { value: 'google', label: 'Google Drive', desc: 'Sync data to your Google Drive.' },
-                                    { value: 'onedrive', label: 'OneDrive', desc: 'Sync data to your OneDrive.' }
-                                ].map(opt => (
-                                    <label key={opt.value} className={`flex items-start gap-3 p-4 rounded-md border-2 cursor-pointer transition-all ${regStorage === opt.value ? 'border-2-[#FFCB74] bg-[var(--accent-primary)]/5' : 'border-[var(--border)] bg-[var(--bg-tertiary)]'}`}>
-                                        <input
-                                            type="radio"
-                                            name="storage"
-                                            value={opt.value}
-                                            checked={regStorage === opt.value}
-                                            onChange={() => setRegStorage(opt.value as any)}
-                                            className="mt-1"
-                                        />
-                                        <div>
-                                            <p className="font-medium text-[var(--text-primary)]">{opt.label}</p>
-                                            <p className="text-xs text-[var(--text-secondary)]">{opt.desc}</p>
-                                        </div>
-                                    </label>
-                                ))}
-                            </div>
-
-                            <button
-                                onClick={async () => {
-                                    setRegStatus('');
-                                    localStorage.setItem('vectra_storage_choice', regStorage);
-                                    if (regStorage === 'google') {
-                                        try { await cloud.connectGoogle(); setRegStatus('Connected to Google Drive'); }
-                                        catch (e: any) { setRegStatus(e.message); return; }
-                                    } else if (regStorage === 'onedrive') {
-                                        try { await cloud.connectOneDrive(); setRegStatus('Connected to OneDrive'); }
-                                        catch (e: any) { setRegStatus(e.message); return; }
-                                    } else {
-                                        setRegStatus('Using local storage');
-                                    }
-                                }}
-                                className="px-5 py-2.5 bg-[var(--accent-primary)] text-white rounded-md text-sm font-medium"
-                            >
-                                Save & Connect
-                            </button>
-                            {regStatus && <p className="text-sm text-[var(--text-secondary)]">{regStatus}</p>}
-                        </div>
+                {/* Calendar View */}
+                {viewMode === 'calendar' && (
+                    <section className="animate-fade-in">
+                        <CalendarView />
                     </section>
                 )}
 
@@ -1314,8 +1147,8 @@ export default function App() {
                     settings={autoResponseSettings}
                     onSave={handleSaveSettings}
                     onClose={() => setShowSettingsPanel(false)}
-                    onOpenCloud={() => setViewMode('cloud')}
-                    onOpenRegister={() => setViewMode('register')}
+                    theme={theme}
+                    onThemeChange={setTheme}
                 />
             )}
         </div>

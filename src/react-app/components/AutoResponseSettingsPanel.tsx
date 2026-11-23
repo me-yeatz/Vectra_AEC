@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Save, TestTube, CheckCircle2, XCircle, Bot, Clock, Calendar, Shield, Key, Cloud, UserPlus } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Save, TestTube, CheckCircle2, XCircle, Bot, Clock, Calendar, Shield, Key, Palette, X } from 'lucide-react';
 import { AutoResponseSettings } from '../types';
 import { ClaudeAIService } from '../services/claudeService';
 
@@ -7,21 +7,41 @@ interface AutoResponseSettingsPanelProps {
     settings: AutoResponseSettings;
     onSave: (settings: AutoResponseSettings) => void;
     onClose: () => void;
-    onOpenCloud?: () => void;
-    onOpenRegister?: () => void;
+    theme: 'dark' | 'light' | 'theme2';
+    onThemeChange: (theme: 'dark' | 'light' | 'theme2') => void;
 }
 
 export default function AutoResponseSettingsPanel({
     settings: initialSettings,
     onSave,
     onClose,
-    onOpenCloud,
-    onOpenRegister
+    theme,
+    onThemeChange
 }: AutoResponseSettingsPanelProps) {
     const [settings, setSettings] = useState<AutoResponseSettings>(initialSettings);
     const [testingConnection, setTestingConnection] = useState(false);
     const [connectionStatus, setConnectionStatus] = useState<'idle' | 'success' | 'error'>('idle');
     const [showApiKey, setShowApiKey] = useState(false);
+    const [savedThemes, setSavedThemes] = useState<{ name: string; mode: 'dark' | 'light' | 'theme2' }[]>(() => {
+        try {
+            const saved = localStorage.getItem('ytz_saved_themes');
+            if (saved) return JSON.parse(saved);
+        } catch (e) {
+            console.error(e);
+        }
+        return [
+            { name: 'Soft Brown', mode: 'light' },
+            { name: 'Indigo Coral', mode: 'theme2' }
+        ];
+    });
+
+    useEffect(() => {
+        try {
+            localStorage.setItem('ytz_saved_themes', JSON.stringify(savedThemes));
+        } catch (e) {
+            console.error(e);
+        }
+    }, [savedThemes]);
 
     const handleTestConnection = async () => {
         if (!settings.claudeApiKey) {
@@ -46,6 +66,20 @@ export default function AutoResponseSettingsPanel({
     const handleSave = () => {
         onSave(settings);
         onClose();
+    };
+
+    const saveCurrentTheme = () => {
+        const name = window.prompt('Name this theme:', `My Theme ${savedThemes.length + 1}`);
+        if (!name || !name.trim()) return;
+        setSavedThemes((prev) => [...prev.filter((t) => t.name !== name.trim()), { name: name.trim(), mode: theme }]);
+    };
+
+    const applyTheme = (mode: 'dark' | 'light' | 'theme2') => {
+        onThemeChange(mode);
+    };
+
+    const deleteTheme = (name: string) => {
+        setSavedThemes((prev) => prev.filter((t) => t.name !== name));
     };
 
     const weekDays = [
@@ -302,30 +336,76 @@ export default function AutoResponseSettingsPanel({
                         />
                     </div>
 
-                    {/* Storage & Sync */}
-                    <div className="glass p-6 rounded-md">
-                        <h3 className="font-semibold mb-4">Storage & Sync</h3>
-                        <p className="text-sm text-[var(--text-secondary)] mb-4">Connect cloud storage or choose where data is saved</p>
-                        <div className="flex gap-3 flex-wrap">
-                            {onOpenCloud && (
-                                <button
-                                    onClick={() => { onClose(); onOpenCloud(); }}
-                                    className="flex items-center gap-2 px-4 py-2 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-md transition-all"
-                                >
-                                    <Cloud size={16} />
-                                    Cloud Sync
-                                </button>
-                            )}
-                            {onOpenRegister && (
-                                <button
-                                    onClick={() => { onClose(); onOpenRegister(); }}
-                                    className="flex items-center gap-2 px-4 py-2 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-md transition-all"
-                                >
-                                    <UserPlus size={16} />
-                                    Register Storage
-                                </button>
-                            )}
+                    {/* Theme */}
+                    <div className="glass p-6 rounded-md space-y-4">
+                        <div className="flex items-center gap-3 mb-2">
+                            <div className="w-10 h-10 bg-[var(--accent-primary)]/20 rounded-md flex items-center justify-center">
+                                <Palette size={20} className="text-[var(--accent-primary)]" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold">Theme</h3>
+                                <p className="text-sm text-[var(--text-secondary)]">Choose, save and name your preferred theme</p>
+                            </div>
                         </div>
+
+                        <div className="flex gap-3">
+                            <button
+                                onClick={() => onThemeChange('light')}
+                                className={`flex-1 py-3 rounded-md font-medium transition-all ${theme === 'light' ? 'bg-[var(--accent-primary)] text-white' : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]'}`}
+                            >
+                                Light
+                            </button>
+                            <button
+                                onClick={() => onThemeChange('dark')}
+                                className={`flex-1 py-3 rounded-md font-medium transition-all ${theme === 'dark' ? 'bg-[var(--accent-primary)] text-white' : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]'}`}
+                            >
+                                Dark
+                            </button>
+                            <button
+                                onClick={() => onThemeChange('theme2')}
+                                className={`flex-1 py-3 rounded-md font-medium transition-all ${theme === 'theme2' ? 'bg-[var(--accent-primary)] text-white' : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]'}`}
+                            >
+                                Indigo Coral
+                            </button>
+                        </div>
+
+                        <button
+                            onClick={saveCurrentTheme}
+                            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] rounded-md text-sm font-medium transition-all"
+                        >
+                            <Save size={16} />
+                            Save current theme as option
+                        </button>
+
+                        {savedThemes.length > 0 && (
+                            <div className="space-y-2">
+                                <p className="text-xs text-[var(--text-secondary)] font-medium">Saved themes</p>
+                                <div className="space-y-2">
+                                    {savedThemes.map((t) => (
+                                        <div key={t.name} className="flex items-center justify-between p-3 bg-[var(--bg-tertiary)] rounded-md">
+                                            <div>
+                                                <p className="text-sm font-medium">{t.name}</p>
+                                                <p className="text-xs text-[var(--text-muted)]">{t.mode === 'dark' ? 'Dark' : 'Light'}</p>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <button
+                                                    onClick={() => applyTheme(t.mode)}
+                                                    className="px-3 py-1.5 bg-[var(--accent-primary)] text-white rounded-md text-xs font-medium"
+                                                >
+                                                    Apply
+                                                </button>
+                                                <button
+                                                    onClick={() => deleteTheme(t.name)}
+                                                    className="p-1.5 rounded-md hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)]"
+                                                >
+                                                    <X size={14} />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Action Buttons */}

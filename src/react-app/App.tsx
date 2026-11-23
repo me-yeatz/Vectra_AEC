@@ -578,7 +578,7 @@ export default function App() {
                         }}
                     />
                     <NavItem
-                        icon={<MessageSquare size={20} />}
+                        icon={<MessageSquare size={20} className="text-[var(--accent-primary)]" />}
                         label="Communications"
                         active={viewMode === 'communications'}
                         onClick={() => {

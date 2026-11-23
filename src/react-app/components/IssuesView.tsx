@@ -7,9 +7,12 @@ import {
     MessageSquare,
     Filter,
     LayoutGrid,
-    List
+    List,
+    Upload,
+    Paperclip,
+    FileText as FileIcon
 } from 'lucide-react';
-import { Issue, IssueType, IssuePriority, IssueStatus, IssueComment, Project } from '../types';
+import { Issue, IssueType, IssuePriority, IssueStatus, IssueComment, IssueAttachment, Project } from '../types';
 
 interface IssuesViewProps {
     issues: Issue[];
@@ -104,6 +107,23 @@ export default function IssuesView({ issues, setIssues, projects, fullPageNew = 
         });
     }, [issues, statusFilter, priorityFilter, projectFilter, searchQuery]);
 
+    const openNew = () => {
+        setEditingIssue(null);
+        setForm({
+            title: '',
+            description: '',
+            type: 'task',
+            priority: 'medium',
+            status: 'open',
+            assignee: '',
+            dueDate: '',
+            projectId: '',
+            attachments: []
+        });
+        setFormFullPage(true);
+        setShowForm(true);
+    };
+
     const openEdit = (issue: Issue) => {
         setEditingIssue(issue);
         setForm({
@@ -114,10 +134,36 @@ export default function IssuesView({ issues, setIssues, projects, fullPageNew = 
             status: issue.status,
             assignee: issue.assignee || '',
             dueDate: issue.dueDate || '',
-            projectId: issue.projectId || ''
+            projectId: issue.projectId || '',
+            attachments: issue.attachments || []
         });
         setFormFullPage(false);
         setShowForm(true);
+    };
+
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (!files) return;
+        Array.from(files).forEach((file) => {
+            if (!file.type.match(/image\/(jpeg|png)|application\/pdf/)) return;
+            const reader = new FileReader();
+            reader.onload = () => {
+                const attachment: IssueAttachment = {
+                    id: `att-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+                    name: file.name,
+                    type: file.type,
+                    dataUrl: reader.result as string,
+                    createdAt: new Date().toISOString()
+                };
+                setForm((f) => ({ ...f, attachments: [...(f.attachments || []), attachment] }));
+            };
+            reader.readAsDataURL(file);
+        });
+        e.target.value = '';
+    };
+
+    const removeAttachment = (id: string) => {
+        setForm((f) => ({ ...f, attachments: (f.attachments || []).filter((a) => a.id !== id) }));
     };
 
     const saveIssue = () => {
@@ -143,6 +189,7 @@ export default function IssuesView({ issues, setIssues, projects, fullPageNew = 
                 dueDate: form.dueDate || undefined,
                 projectId: form.projectId || undefined,
                 comments: [],
+                attachments: form.attachments || [],
                 createdAt: now,
                 updatedAt: now
             };
@@ -210,10 +257,7 @@ export default function IssuesView({ issues, setIssues, projects, fullPageNew = 
                         {viewMode === 'list' ? 'Kanban' : 'List'}
                     </button>
                     <button
-                        onClick={() => {
-                            const url = `${window.location.origin}${window.location.pathname}?app=1&newIssue=1`;
-                            window.open(url, '_blank');
-                        }}
+                        onClick={openNew}
                         className="flex items-center gap-2 px-4 py-2.5 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-md text-sm font-medium transition-all"
                     >
                         <Plus size={16} />
@@ -419,6 +463,31 @@ export default function IssuesView({ issues, setIssues, projects, fullPageNew = 
                             {selectedIssue.dueDate && <p>Due: {selectedIssue.dueDate}</p>}
                         </div>
 
+                        {selectedIssue.attachments && selectedIssue.attachments.length > 0 && (
+                            <div className="border-t border-[var(--border)] pt-4">
+                                <h4 className="font-semibold mb-2 flex items-center gap-2">
+                                    <Paperclip size={16} />
+                                    Attachments
+                                </h4>
+                                <div className="space-y-2">
+                                    {selectedIssue.attachments.map((att) => (
+                                        <a
+                                            key={att.id}
+                                            href={att.dataUrl}
+                                            download={att.name}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-2 p-2.5 rounded-md bg-[var(--bg-tertiary)] border border-[var(--border)] hover:border-[var(--border-hover)] transition-all"
+                                        >
+                                            <FileIcon size={16} className="text-[var(--text-muted)] shrink-0" />
+                                            <span className="text-sm truncate">{att.name}</span>
+                                            <span className="text-[10px] text-[var(--text-muted)] ml-auto">{att.type}</span>
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
                         <div className="border-t border-[var(--border)] pt-4">
                             <h4 className="font-semibold mb-3 flex items-center gap-2">
                                 <MessageSquare size={16} />
@@ -515,6 +584,45 @@ export default function IssuesView({ issues, setIssues, projects, fullPageNew = 
                                     className="w-full px-4 py-2.5 bg-[var(--bg-secondary)] border-2 border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50 resize-none"
                                     placeholder="Details"
                                 />
+                            </div>
+
+                            <div>
+                                <label className="text-sm font-medium text-[var(--text-secondary)] mb-2 block">Attachments (JPG, PNG, PDF)</label>
+                                <div className="flex items-center gap-3 mb-3">
+                                    <label className="flex items-center gap-2 px-4 py-2.5 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-tertiary)] border-2 border-[var(--border)] rounded-md cursor-pointer transition-all text-sm font-medium">
+                                        <Upload size={16} />
+                                        Upload files
+                                        <input
+                                            type="file"
+                                            accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf"
+                                            multiple
+                                            onChange={handleFileUpload}
+                                            className="hidden"
+                                        />
+                                    </label>
+                                    <span className="text-xs text-[var(--text-muted)]">
+                                        {(form.attachments || []).length} file{(form.attachments || []).length !== 1 ? 's' : ''} attached
+                                    </span>
+                                </div>
+                                {(form.attachments || []).length > 0 && (
+                                    <div className="space-y-2">
+                                        {(form.attachments || []).map((att) => (
+                                            <div key={att.id} className="flex items-center justify-between p-2.5 bg-[var(--bg-tertiary)] rounded-md border border-[var(--border)]">
+                                                <div className="flex items-center gap-2 min-w-0">
+                                                    <Paperclip size={14} className="text-[var(--text-muted)] shrink-0" />
+                                                    <span className="text-sm truncate">{att.name}</span>
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeAttachment(att.id)}
+                                                    className="p-1 rounded-md hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)]"
+                                                >
+                                                    <Trash2 size={13} />
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

@@ -169,6 +169,14 @@ export interface IssueComment {
     createdAt: string;
 }
 
+export interface IssueAttachment {
+    id: string;
+    name: string;
+    type: string;
+    dataUrl: string;
+    createdAt: string;
+}
+
 export interface Issue {
     id: string;
     title: string;
@@ -180,6 +188,7 @@ export interface Issue {
     dueDate?: string; // YYYY-MM-DD
     projectId?: string;
     comments: IssueComment[];
+    attachments?: IssueAttachment[];
     createdAt: string;
     updatedAt: string;
 }

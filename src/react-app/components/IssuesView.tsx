@@ -72,6 +72,7 @@ export default function IssuesView({ issues, setIssues, projects }: IssuesViewPr
     const [searchQuery, setSearchQuery] = useState('');
 
     const [showForm, setShowForm] = useState(false);
+    const [formFullPage, setFormFullPage] = useState(false);
     const [editingIssue, setEditingIssue] = useState<Issue | null>(null);
     const [form, setForm] = useState<Omit<Issue, 'id' | 'comments' | 'createdAt' | 'updatedAt'>>({
         title: '',
@@ -114,6 +115,7 @@ export default function IssuesView({ issues, setIssues, projects }: IssuesViewPr
             dueDate: '',
             projectId: ''
         });
+        setFormFullPage(true);
         setShowForm(true);
     };
 
@@ -129,6 +131,7 @@ export default function IssuesView({ issues, setIssues, projects }: IssuesViewPr
             dueDate: issue.dueDate || '',
             projectId: issue.projectId || ''
         });
+        setFormFullPage(false);
         setShowForm(true);
     };
 
@@ -161,6 +164,7 @@ export default function IssuesView({ issues, setIssues, projects }: IssuesViewPr
             setIssues((prev) => [newIssue, ...prev]);
         }
         setShowForm(false);
+        setFormFullPage(false);
         setEditingIssue(null);
     };
 
@@ -490,8 +494,8 @@ export default function IssuesView({ issues, setIssues, projects }: IssuesViewPr
             )}
 
             {showForm && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-                    <div className="glass rounded-md w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 space-y-4">
+                <div className={formFullPage ? "fixed inset-0 z-50 bg-[var(--bg-primary)] overflow-y-auto p-6 md:p-10" : "fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"}>
+                    <div className={formFullPage ? "max-w-6xl mx-auto glass rounded-md w-full p-6 space-y-4" : "glass rounded-md w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 space-y-4"}>
                         <div className="flex items-center justify-between">
                             <h3 className="text-lg font-semibold">{editingIssue ? 'Edit Issue' : 'New Issue'}</h3>
                             <button onClick={() => { setShowForm(false); setEditingIssue(null); }} className="p-2 rounded-md hover:bg-[var(--bg-tertiary)]">
@@ -602,7 +606,7 @@ export default function IssuesView({ issues, setIssues, projects }: IssuesViewPr
 
                         <div className="flex justify-end gap-2 pt-2">
                             <button
-                                onClick={() => { setShowForm(false); setEditingIssue(null); }}
+                                onClick={() => { setShowForm(false); setFormFullPage(false); setEditingIssue(null); }}
                                 className="px-4 py-2.5 bg-[var(--bg-tertiary)] rounded-md text-sm font-medium"
                             >
                                 Cancel

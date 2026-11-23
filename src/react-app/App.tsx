@@ -569,6 +569,15 @@ export default function App() {
                         }}
                     />
                     <NavItem
+                        icon={<Calendar size={20} />}
+                        label="Calendar"
+                        active={viewMode === 'calendar'}
+                        onClick={() => {
+                            setViewMode('calendar');
+                            if (isMobile) setSidebarOpen(false);
+                        }}
+                    />
+                    <NavItem
                         icon={<MessageSquare size={20} />}
                         label="Communications"
                         active={viewMode === 'communications'}
@@ -602,15 +611,6 @@ export default function App() {
                         active={viewMode === 'profile'}
                         onClick={() => {
                             setViewMode('profile');
-                            if (isMobile) setSidebarOpen(false);
-                        }}
-                    />
-                    <NavItem
-                        icon={<Calendar size={20} />}
-                        label="Calendar"
-                        active={viewMode === 'calendar'}
-                        onClick={() => {
-                            setViewMode('calendar');
                             if (isMobile) setSidebarOpen(false);
                         }}
                     />

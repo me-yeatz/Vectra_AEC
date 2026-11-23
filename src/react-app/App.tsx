@@ -107,6 +107,7 @@ export default function App() {
     }, [theme]);
     const [searchQuery, setSearchQuery] = useState('');
     const [showNewProjectModal, setShowNewProjectModal] = useState(false);
+    const [showNewProjectPage, setShowNewProjectPage] = useState(false);
     const [editingProject, setEditingProject] = useState<Project | null>(null);
     const [viewingProject, setViewingProject] = useState<Project | null>(null);
     // Communication Manager State
@@ -460,6 +461,29 @@ export default function App() {
     }
 
 
+    // Full-page new project form in the same window (not a new tab/window)
+    if (showNewProjectPage) {
+        return (
+            <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+                    <NewProjectModal
+                        fullPage
+                        onClose={() => {
+                            setShowNewProjectPage(false);
+                            setEditingProject(null);
+                        }}
+                        onSave={(data) => {
+                            handleSaveProject(data);
+                            setShowNewProjectPage(false);
+                            setEditingProject(null);
+                        }}
+                        initialData={editingProject || undefined}
+                    />
+                </div>
+            </div>
+        );
+    }
+
     // Full-page new project form in a dedicated tab
     const isNewProject = new URLSearchParams(window.location.search).get('newProject') === '1';
     if (isNewProject) {
@@ -784,8 +808,8 @@ export default function App() {
 
                         <button
                             onClick={() => {
-                                const url = `${window.location.origin}${window.location.pathname}?newProject=1`;
-                                window.open(url, '_blank');
+                                setEditingProject(null);
+                                setShowNewProjectPage(true);
                             }}
                             className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white px-6 py-3 rounded-md font-medium transition-all shadow-lg shadow-[var(--accent-primary)]/20 active:scale-95 whitespace-nowrap"
                         >

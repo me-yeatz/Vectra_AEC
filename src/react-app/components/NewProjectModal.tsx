@@ -147,7 +147,7 @@ export default function NewProjectModal({ onClose, onSave, initialData, fullPage
             onClick={fullPage ? undefined : onClose}
         >
             <div
-                className="glass rounded-md max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 animate-fade-in"
+                className={`glass rounded-md w-full max-h-[90vh] overflow-y-auto p-8 animate-fade-in ${fullPage ? 'max-w-6xl' : 'max-w-3xl'}`}
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}

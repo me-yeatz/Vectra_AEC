@@ -401,7 +401,7 @@ export default function IssuesView({ issues, setIssues, projects }: IssuesViewPr
 
             {selectedIssue && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-                    <div className="glass rounded-md w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 space-y-4">
+                    <div className="glass rounded-md w-full max-w-6xl max-h-[90vh] overflow-y-auto p-6 space-y-4">
                         <div className="flex items-center justify-between">
                             <h3 className="text-lg font-semibold">{selectedIssue.title}</h3>
                             <button onClick={() => setSelectedIssue(null)} className="p-2 rounded-md hover:bg-[var(--bg-tertiary)]">
@@ -495,7 +495,7 @@ export default function IssuesView({ issues, setIssues, projects }: IssuesViewPr
 
             {showForm && (
                 <div className={formFullPage ? "fixed inset-0 z-50 bg-[var(--bg-primary)] overflow-y-auto p-6 md:p-10" : "fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"}>
-                    <div className={formFullPage ? "max-w-6xl mx-auto glass rounded-md w-full p-6 space-y-4" : "glass rounded-md w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 space-y-4"}>
+                    <div className={formFullPage ? "max-w-6xl mx-auto glass rounded-md w-full p-6 space-y-4" : "glass rounded-md w-full max-w-6xl max-h-[90vh] overflow-y-auto p-6 space-y-4"}>
                         <div className="flex items-center justify-between">
                             <h3 className="text-lg font-semibold">{editingIssue ? 'Edit Issue' : 'New Issue'}</h3>
                             <button onClick={() => { setShowForm(false); setEditingIssue(null); }} className="p-2 rounded-md hover:bg-[var(--bg-tertiary)]">

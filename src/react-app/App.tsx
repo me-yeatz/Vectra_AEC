@@ -526,6 +526,16 @@ export default function App() {
         );
     }
 
+    // Full-page new issue form in a dedicated tab
+    const isNewIssue = new URLSearchParams(window.location.search).get('newIssue') === '1';
+    if (isNewIssue) {
+        return (
+            <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+                <IssuesView issues={issues} setIssues={setIssues} projects={projects} fullPageNew />
+            </div>
+        );
+    }
+
     // Full-page new project form in a dedicated tab
     const isNewProject = new URLSearchParams(window.location.search).get('newProject') === '1';
     if (isNewProject) {

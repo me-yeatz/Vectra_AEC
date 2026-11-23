@@ -15,6 +15,7 @@ interface IssuesViewProps {
     issues: Issue[];
     setIssues: React.Dispatch<React.SetStateAction<Issue[]>>;
     projects: Project[];
+    fullPageNew?: boolean;
 }
 
 const TYPE_LABELS: Record<IssueType, string> = {
@@ -64,15 +65,15 @@ function isOverdue(issue: Issue): boolean {
     return !!issue.dueDate && issue.dueDate < todayISO() && issue.status !== 'done';
 }
 
-export default function IssuesView({ issues, setIssues, projects }: IssuesViewProps) {
+export default function IssuesView({ issues, setIssues, projects, fullPageNew = false }: IssuesViewProps) {
     const [viewMode, setViewMode] = useState<'list' | 'kanban'>('list');
     const [statusFilter, setStatusFilter] = useState<IssueStatus | 'all'>('all');
     const [priorityFilter, setPriorityFilter] = useState<IssuePriority | 'all'>('all');
     const [projectFilter, setProjectFilter] = useState<string>('all');
     const [searchQuery, setSearchQuery] = useState('');
 
-    const [showForm, setShowForm] = useState(false);
-    const [formFullPage, setFormFullPage] = useState(false);
+    const [showForm, setShowForm] = useState(fullPageNew);
+    const [formFullPage, setFormFullPage] = useState(fullPageNew);
     const [editingIssue, setEditingIssue] = useState<Issue | null>(null);
     const [form, setForm] = useState<Omit<Issue, 'id' | 'comments' | 'createdAt' | 'updatedAt'>>({
         title: '',
@@ -102,22 +103,6 @@ export default function IssuesView({ issues, setIssues, projects }: IssuesViewPr
             return true;
         });
     }, [issues, statusFilter, priorityFilter, projectFilter, searchQuery]);
-
-    const openNew = () => {
-        setEditingIssue(null);
-        setForm({
-            title: '',
-            description: '',
-            type: 'task',
-            priority: 'medium',
-            status: 'open',
-            assignee: '',
-            dueDate: '',
-            projectId: ''
-        });
-        setFormFullPage(true);
-        setShowForm(true);
-    };
 
     const openEdit = (issue: Issue) => {
         setEditingIssue(issue);
@@ -166,6 +151,9 @@ export default function IssuesView({ issues, setIssues, projects }: IssuesViewPr
         setShowForm(false);
         setFormFullPage(false);
         setEditingIssue(null);
+        if (fullPageNew) {
+            window.location.href = `${window.location.origin}${window.location.pathname}`;
+        }
     };
 
     const deleteIssue = (id: string) => {
@@ -222,7 +210,10 @@ export default function IssuesView({ issues, setIssues, projects }: IssuesViewPr
                         {viewMode === 'list' ? 'Kanban' : 'List'}
                     </button>
                     <button
-                        onClick={openNew}
+                        onClick={() => {
+                            const url = `${window.location.origin}${window.location.pathname}?app=1&newIssue=1`;
+                            window.open(url, '_blank');
+                        }}
                         className="flex items-center gap-2 px-4 py-2.5 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-md text-sm font-medium transition-all"
                     >
                         <Plus size={16} />
@@ -606,7 +597,14 @@ export default function IssuesView({ issues, setIssues, projects }: IssuesViewPr
 
                         <div className="flex justify-end gap-2 pt-2">
                             <button
-                                onClick={() => { setShowForm(false); setFormFullPage(false); setEditingIssue(null); }}
+                                onClick={() => {
+                                    setShowForm(false);
+                                    setFormFullPage(false);
+                                    setEditingIssue(null);
+                                    if (fullPageNew) {
+                                        window.location.href = `${window.location.origin}${window.location.pathname}`;
+                                    }
+                                }}
                                 className="px-4 py-2.5 bg-[var(--bg-tertiary)] rounded-md text-sm font-medium"
                             >
                                 Cancel

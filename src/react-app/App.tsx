@@ -585,7 +585,7 @@ export default function App() {
                             setViewMode('communications');
                             if (isMobile) setSidebarOpen(false);
                         }}
-                        badge={communicationStats.newMessages}
+                        badge={communicationStats?.newMessages || 0}
                     />
                     <NavItem
                         icon={<Bot size={20} />}

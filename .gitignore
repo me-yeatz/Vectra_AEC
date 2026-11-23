@@ -40,3 +40,5 @@ dist-electron
 
 # OS
 Thumbs.db
+.vercel
+.env*.local

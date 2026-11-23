@@ -43,6 +43,7 @@ import AIChatContainer from './components/AIChatContainer';
 import DatabaseManager from './components/DatabaseManager';
 import CalendarView from './components/CalendarView';
 import IssuesView from './components/IssuesView';
+import LandingPage from './components/LandingPage';
 
 type ViewMode = 'dashboard' | 'projects' | 'submissions' | 'finances' | 'communications' | 'ai-chat' | 'database' | 'profile' | 'calendar' | 'issues';
 
@@ -94,6 +95,15 @@ export default function App() {
         }
     }, [projects]);
     const [viewMode, setViewMode] = useState<ViewMode>('dashboard');
+
+    const [showLanding, setShowLanding] = useState(() => {
+        try {
+            if (new URLSearchParams(window.location.search).get('app') === '1') return false;
+            return localStorage.getItem('vectra_landing_seen') !== '1';
+        } catch {
+            return true;
+        }
+    });
 
     const [issues, setIssues] = useState<Issue[]>(() => {
         try {
@@ -444,6 +454,18 @@ export default function App() {
         project.location.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    // Landing page (shown until user enters the app)
+    if (showLanding) {
+        return (
+            <LandingPage
+                onEnter={() => {
+                    try { localStorage.setItem('vectra_landing_seen', '1'); } catch {}
+                    setShowLanding(false);
+                }}
+            />
+        );
+    }
+
     // Full-window project details (in the same tab, not a pop-out modal)
     if (viewingProject) {
         const currentProject = projects.find(p => p.id === viewingProject.id) || viewingProject;
@@ -608,7 +630,7 @@ export default function App() {
                         badge={issues.filter(i => i.status !== 'done').length}
                     />
                     <NavItem
-                        icon={<MessageSquare size={20} className="text-[var(--accent-primary)]" />}
+                        icon={<MessageSquare size={20} />}
                         label="Communications"
                         active={viewMode === 'communications'}
                         onClick={() => {

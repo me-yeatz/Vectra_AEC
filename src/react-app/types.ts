@@ -156,6 +156,32 @@ export interface CalendarNote {
     updatedAt: string;
 }
 
+export type IssueType = 'rfi' | 'snag' | 'defect' | 'change-request' | 'task' | 'approval-blocker';
+export type IssuePriority = 'low' | 'medium' | 'high' | 'critical';
+export type IssueStatus = 'open' | 'in-progress' | 'blocked' | 'done';
+
+export interface IssueComment {
+    id: string;
+    author: string;
+    content: string;
+    createdAt: string;
+}
+
+export interface Issue {
+    id: string;
+    title: string;
+    description?: string;
+    type: IssueType;
+    priority: IssuePriority;
+    status: IssueStatus;
+    assignee?: string;
+    dueDate?: string; // YYYY-MM-DD
+    projectId?: string;
+    comments: IssueComment[];
+    createdAt: string;
+    updatedAt: string;
+}
+
 export interface CommunicationStats {
     totalMessages: number;
     newMessages: number;

@@ -24,9 +24,10 @@ import {
 
     Sun,
     Moon,
-    Calendar
+    Calendar,
+    Bug
 } from 'lucide-react';
-import { Project, FinancialSummary, ClientMessage, CommunicationStats, AutoResponseSettings, MessageStatus, AppNotification, UserProfile } from './types';
+import { Project, FinancialSummary, ClientMessage, CommunicationStats, AutoResponseSettings, MessageStatus, AppNotification, UserProfile, Issue } from './types';
 
 import { MOCK_PROJECTS } from './data/mockData';
 import { MOCK_MESSAGES, DEFAULT_AUTO_RESPONSE_SETTINGS } from './data/mockCommunicationData';
@@ -41,8 +42,9 @@ import GanttChart from './components/GanttChart';
 import AIChatContainer from './components/AIChatContainer';
 import DatabaseManager from './components/DatabaseManager';
 import CalendarView from './components/CalendarView';
+import IssuesView from './components/IssuesView';
 
-type ViewMode = 'dashboard' | 'projects' | 'submissions' | 'finances' | 'communications' | 'ai-chat' | 'database' | 'profile' | 'calendar';
+type ViewMode = 'dashboard' | 'projects' | 'submissions' | 'finances' | 'communications' | 'ai-chat' | 'database' | 'profile' | 'calendar' | 'issues';
 
 const SUBMISSION_TYPE_NAMES: Record<string, string> = {
     'planning-permission': 'Planning Permission',
@@ -92,6 +94,24 @@ export default function App() {
         }
     }, [projects]);
     const [viewMode, setViewMode] = useState<ViewMode>('dashboard');
+
+    const [issues, setIssues] = useState<Issue[]>(() => {
+        try {
+            const saved = localStorage.getItem('ytz_issues');
+            if (saved) return JSON.parse(saved);
+        } catch (e) {
+            console.error(e);
+        }
+        return [];
+    });
+
+    useEffect(() => {
+        try {
+            localStorage.setItem('ytz_issues', JSON.stringify(issues));
+        } catch (e) {
+            console.error(e);
+        }
+    }, [issues]);
 
     const [theme, setTheme] = useState<'dark' | 'light' | 'theme2'>(() => {
         try {
@@ -578,6 +598,16 @@ export default function App() {
                         }}
                     />
                     <NavItem
+                        icon={<Bug size={20} />}
+                        label="Issues"
+                        active={viewMode === 'issues'}
+                        onClick={() => {
+                            setViewMode('issues');
+                            if (isMobile) setSidebarOpen(false);
+                        }}
+                        badge={issues.filter(i => i.status !== 'done').length}
+                    />
+                    <NavItem
                         icon={<MessageSquare size={20} className="text-[var(--accent-primary)]" />}
                         label="Communications"
                         active={viewMode === 'communications'}
@@ -832,7 +862,7 @@ export default function App() {
                         </section>
 
                         {/* Stats Grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6 mb-12">
                             <StatCard
                                 title="Total Projects"
                                 value={financialSummary.totalProjects.toString()}
@@ -860,6 +890,13 @@ export default function App() {
                                 sub="Total tracked"
                                 icon={<DollarSign size={24} />}
                                 color="#2563eb"
+                            />
+                            <StatCard
+                                title="Open Issues"
+                                value={issues.filter(i => i.status !== 'done').length.toString()}
+                                sub={`${issues.filter(i => i.dueDate && i.dueDate < new Date().toISOString().split('T')[0] && i.status !== 'done').length} overdue`}
+                                icon={<Bug size={24} />}
+                                color="#dc2626"
                             />
                         </div>
 
@@ -1146,6 +1183,13 @@ export default function App() {
                 {viewMode === 'calendar' && (
                     <section className="animate-fade-in">
                         <CalendarView />
+                    </section>
+                )}
+
+                {/* Issues View */}
+                {viewMode === 'issues' && (
+                    <section className="animate-fade-in">
+                        <IssuesView issues={issues} setIssues={setIssues} projects={projects} />
                     </section>
                 )}
 

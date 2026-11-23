@@ -618,7 +618,7 @@ export default function App() {
                         badge={communicationStats?.newMessages || 0}
                     />
                     <NavItem
-                        icon={<Bot size={20} />}
+                        icon={<Bot size={20} className="text-[var(--accent-primary)]" />}
                         label="AI Assistant"
                         active={viewMode === 'ai-chat'}
                         onClick={() => {

@@ -15,7 +15,6 @@ import {
     TrendingUp,
     CheckCircle2,
     Clock,
-    MessageSquare,
     Bot,
     Table,
     Menu,
@@ -628,26 +627,6 @@ export default function App() {
                             setViewMode('calendar');
                             if (isMobile) setSidebarOpen(false);
                         }}
-                    />
-                    <NavItem
-                        icon={<Bug size={20} />}
-                        label="Issues"
-                        active={viewMode === 'issues'}
-                        onClick={() => {
-                            setViewMode('issues');
-                            if (isMobile) setSidebarOpen(false);
-                        }}
-                        badge={issues.filter(i => i.status !== 'done').length}
-                    />
-                    <NavItem
-                        icon={<MessageSquare size={20} />}
-                        label="Communications"
-                        active={viewMode === 'communications'}
-                        onClick={() => {
-                            setViewMode('communications');
-                            if (isMobile) setSidebarOpen(false);
-                        }}
-                        badge={communicationStats?.newMessages || 0}
                     />
                     <NavItem
                         icon={<Bot size={20} className="text-[var(--accent-primary)]" />}
